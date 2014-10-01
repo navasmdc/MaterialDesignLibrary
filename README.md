@@ -2,27 +2,27 @@
 
 # Material Design Android Library
 
-*[How to use](#howtouse)
-*[Components](#components)
-    *[Buttons](#buttons)
+* [How to use](#howtouse)
+* [Components](#components)
+    * [Buttons](#buttons)
         * [Flat Button](#flatbutton)
         * [Rectangle Button](#rectanglebutton)
         * [Float Button](#floatbutton)
         * [Float small button](#floatsmallbutton)
-    *[Switches](#switches)
+    * [Switches](#switches)
         * [CheckBox](#checkbox)
         * [Switch](#switch)
-    *[Progress indicators](#progressindicators)
+    * [Progress indicators](#progressindicators)
         * [Progress bar circular indeterminate](#progressbarcircularindeterminate)
         * [Progress bar indeterminate](#progressbarindeterminate)
         * [Progress bar indeterminate determinate](#progressbarindeterminatedeterminate)
         * [Progress bar determinate](#progressbardeterminate)
         * [Slider](#slider)
         * [Slider with number indicator](#sliderwithnumberindicator)
-*[Widgets](#widgets)
-    *[SnackBar](#snackbar)
-    *[Dialog](#dialog)
-    *[Color selector](#colorselector)
+* [Widgets](#widgets)
+    * [SnackBar](#snackbar)
+    * [Dialog](#dialog)
+    * [Color selector](#colorselector)
 
 ## How to use
 
