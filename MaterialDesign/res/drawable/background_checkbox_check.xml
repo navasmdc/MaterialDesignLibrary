@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item
+        android:id="@+id/shape_bacground">
+        <shape android:shape="rectangle" >
+            <solid android:color="#4CAF50" />
+            <corners android:radius="2dp"/>
+        </shape>
+    </item>
+
+</layer-list>

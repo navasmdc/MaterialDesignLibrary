@@ -1,0 +1,9 @@
+<resources>
+
+    <color name="theme_accent_color">#FF339999</color>
+    <color name="theme_accent_color_light">#44339999</color>
+
+    <style name="AppTheme" parent="android:Theme.Holo.Light.DarkActionBar">
+    </style>
+
+</resources>
