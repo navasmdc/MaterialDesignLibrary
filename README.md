@@ -5,24 +5,24 @@
 * [How to use](#howtouse)
 * [Components](#components)
     * [Buttons](#buttons)
-        * [Flat Button](#flatbutton)
-        * [Rectangle Button](#rectanglebutton)
-        * [Float Button](#floatbutton)
-        * [Float small button](#floatsmallbutton)
+        * [Flat Button](#flat-button)
+        * [Rectangle Button](#rectangle-button)
+        * [Float Button](#float-button)
+        * [Float small button](#float-small-button)
     * [Switches](#switches)
         * [CheckBox](#checkbox)
         * [Switch](#switch)
-    * [Progress indicators](#progressindicators)
-        * [Progress bar circular indeterminate](#progressbarcircularindeterminate)
-        * [Progress bar indeterminate](#progressbarindeterminate)
-        * [Progress bar indeterminate determinate](#progressbarindeterminatedeterminate)
-        * [Progress bar determinate](#progressbardeterminate)
+    * [Progress indicators](#progress-indicators)
+        * [Progress bar circular indeterminate](#progress-bar-circula-rindeterminate)
+        * [Progress bar indeterminate](#progress-bar-indeterminate)
+        * [Progress bar indeterminate determinate](#progress-bar-indeterminate-determinate)
+        * [Progress bar determinate](#progress-bar-determinate)
         * [Slider](#slider)
-        * [Slider with number indicator](#sliderwithnumberindicator)
+        * [Slider with number indicator](#slider-with-number-indicator)
 * [Widgets](#widgets)
     * [SnackBar](#snackbar)
     * [Dialog](#dialog)
-    * [Color selector](#colorselector)
+    * [Color selector](#color-selector)
 
 ## How to use
 
@@ -170,7 +170,7 @@ Some components have custom attributes, if you want use them, you must add this 
                 android:background="#1E88E5" />
 ```
 
-######Progress bar indeterminate
+######Progress bar indeterminate determinate
 ![Progress bar indeterminate determinate](images/progress_bar_indeterminate_determinate.png)
 
 
