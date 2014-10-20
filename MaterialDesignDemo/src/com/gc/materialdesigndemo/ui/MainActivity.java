@@ -1,29 +1,23 @@
 package com.gc.materialdesigndemo.ui;
 
-import com.gc.materialdesign.views.ButtonFlat;
 import com.gc.materialdesign.views.ButtonFloatSmall;
-import com.gc.materialdesign.views.ButtonRectangle;
-import com.gc.materialdesign.views.CheckBox;
-import com.gc.materialdesign.views.ProgressBarDetermininate;
-import com.gc.materialdesign.views.ProgressBarIndeterminateDeterminate;
-import com.gc.materialdesign.views.Switch;
+import com.gc.materialdesign.views.LayoutRipple;
 import com.gc.materialdesign.widgets.ColorSelector;
 import com.gc.materialdesign.widgets.ColorSelector.OnColorSelectedListener;
-import com.gc.materialdesign.widgets.SnackBar;
 import com.gc.materialdesigndemo.R;
-
 import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.view.View;
 import android.view.Window;
 import android.view.View.OnClickListener;
 
 
+@TargetApi(Build.VERSION_CODES.HONEYCOMB)
 public class MainActivity extends Activity implements OnColorSelectedListener{
 	
 	int backgroundColor = Color.parseColor("#1E88E5");
@@ -46,7 +40,12 @@ public class MainActivity extends Activity implements OnColorSelectedListener{
 			}
 		});
         
-        findViewById(R.id.itemButtons).setOnClickListener(new OnClickListener() {
+        LayoutRipple layoutRipple = (LayoutRipple) findViewById(R.id.itemButtons);
+        
+        
+        setOriginRiple(layoutRipple);
+        
+        layoutRipple.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View arg0) {
@@ -55,7 +54,12 @@ public class MainActivity extends Activity implements OnColorSelectedListener{
 				startActivity(intent);
 			}
 		});
-        findViewById(R.id.itemSwitches).setOnClickListener(new OnClickListener() {
+        layoutRipple = (LayoutRipple) findViewById(R.id.itemSwitches);
+        
+        
+        setOriginRiple(layoutRipple);
+        
+        layoutRipple.setOnClickListener(new OnClickListener() {
         	
         	@Override
         	public void onClick(View arg0) {
@@ -64,7 +68,12 @@ public class MainActivity extends Activity implements OnColorSelectedListener{
         		startActivity(intent);
         	}
         });
-        findViewById(R.id.itemProgress).setOnClickListener(new OnClickListener() {
+        layoutRipple = (LayoutRipple) findViewById(R.id.itemProgress);
+        
+        
+        setOriginRiple(layoutRipple);
+        
+        layoutRipple.setOnClickListener(new OnClickListener() {
         	
         	@Override
         	public void onClick(View arg0) {
@@ -73,7 +82,12 @@ public class MainActivity extends Activity implements OnColorSelectedListener{
         		startActivity(intent);
         	}
         });
-        findViewById(R.id.itemWidgets).setOnClickListener(new OnClickListener() {
+        layoutRipple = (LayoutRipple) findViewById(R.id.itemWidgets);
+        
+        
+        setOriginRiple(layoutRipple);
+        
+        layoutRipple.setOnClickListener(new OnClickListener() {
         	
         	@Override
         	public void onClick(View arg0) {
@@ -82,6 +96,25 @@ public class MainActivity extends Activity implements OnColorSelectedListener{
         		startActivity(intent);
         	}
         });
+    }
+    
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+	private void setOriginRiple(final LayoutRipple layoutRipple){
+    	
+    	layoutRipple.post(new Runnable() {
+			
+			@Override
+			public void run() {
+				View v = layoutRipple.getChildAt(0);
+		    	layoutRipple.setxRippleOrigin(v.getX()+v.getWidth()/2);
+		    	layoutRipple.setyRippleOrigin(v.getY()+v.getHeight()/2);
+		    	
+		    	layoutRipple.setRippleColor(Color.parseColor("#1E88E5"));
+		    	
+		    	layoutRipple.setRippleSpeed(30);
+			}
+		});
+    	
     }
 
 	@Override

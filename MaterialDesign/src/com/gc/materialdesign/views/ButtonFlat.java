@@ -9,8 +9,6 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.util.AttributeSet;
-import android.util.Log;
-import android.view.MotionEvent;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -103,6 +101,11 @@ public class ButtonFlat extends Button {
 	// Set color of background
 	public void setBackgroundColor(int color){
 		textButton.setTextColor(color);
+	}
+
+	@Override
+	public TextView getTextView() {
+		return textButton;
 	}
 
 }

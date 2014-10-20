@@ -13,10 +13,8 @@ import android.graphics.Bitmap.Config;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.LayerDrawable;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
-import android.widget.RelativeLayout;
-import android.widget.Toast;
+import android.widget.TextView;
 
 public abstract class Button extends CustomView{
 	
@@ -148,5 +146,6 @@ final static String ANDROIDXML = "http://schemas.android.com/apk/res/android";
 			GradientDrawable shape =  (GradientDrawable) layer.findDrawableByLayerId(R.id.shape_bacground);
 			shape.setColor(backgroundColor);
 		}
-
+		
+		abstract public TextView getTextView();
 }
