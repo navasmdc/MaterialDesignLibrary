@@ -1,26 +1,17 @@
 package com.gc.materialdesign.widgets;
 
-import com.gc.materialdesign.R;
-import com.gc.materialdesign.views.ButtonFlat;
-import com.gc.materialdesign.views.Slider;
-import com.gc.materialdesign.views.Slider.OnValueChangedListener;
-
-import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
-import android.view.animation.Animation;
-import android.view.animation.Animation.AnimationListener;
-import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
-import android.widget.TextView;
+
+import com.gc.materialdesign.R;
+import com.gc.materialdesign.views.Slider;
+import com.gc.materialdesign.views.Slider.OnValueChangedListener;
 
 public class ColorSelector extends android.app.Dialog implements OnValueChangedListener{
 	

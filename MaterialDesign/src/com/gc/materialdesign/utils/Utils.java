@@ -1,7 +1,6 @@
 package com.gc.materialdesign.utils;
 
 import android.content.res.Resources;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 

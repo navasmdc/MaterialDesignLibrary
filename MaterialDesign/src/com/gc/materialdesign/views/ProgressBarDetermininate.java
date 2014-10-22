@@ -11,7 +11,6 @@ import android.graphics.drawable.LayerDrawable;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.RelativeLayout;
-import android.widget.RelativeLayout.LayoutParams;
 
 public class ProgressBarDetermininate extends CustomView {
 	

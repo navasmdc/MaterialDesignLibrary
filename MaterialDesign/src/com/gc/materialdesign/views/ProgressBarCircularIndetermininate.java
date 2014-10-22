@@ -1,9 +1,5 @@
 package com.gc.materialdesign.views;
 
-import com.gc.materialdesign.R;
-import com.gc.materialdesign.utils.Utils;
-
-import android.R.interpolator;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -12,14 +8,9 @@ import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.RectF;
-import android.graphics.drawable.GradientDrawable;
-import android.graphics.drawable.LayerDrawable;
 import android.util.AttributeSet;
-import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.RotateAnimation;
-import android.widget.RelativeLayout;
-import android.widget.RelativeLayout.LayoutParams;
+
+import com.gc.materialdesign.utils.Utils;
 
 public class ProgressBarCircularIndetermininate extends CustomView {
 	
@@ -164,9 +155,6 @@ public class ProgressBarCircularIndetermininate extends CustomView {
 
 	    canvas.drawBitmap(bitmap, 0, 0, new Paint());
 	}
-	
-	
-	
 	
 	
 	// Set color of background
