@@ -1,18 +1,15 @@
 package com.gc.materialdesign.views;
 
-import com.gc.materialdesign.R;
-import com.gc.materialdesign.utils.Utils;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.Bitmap.Config;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PorterDuff.Mode;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
-import android.graphics.Bitmap.Config;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.animation.BounceInterpolator;
@@ -20,7 +17,11 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-@SuppressLint("NewApi")
+import com.gc.materialdesign.R;
+import com.gc.materialdesign.utils.Utils;
+import com.nineoldandroids.animation.ObjectAnimator;
+import com.nineoldandroids.view.ViewHelper;
+
 public class ButtonFloat extends Button{
 	
 	int sizeIcon = 24;
@@ -36,8 +37,14 @@ public class ButtonFloat extends Button{
 		sizeRadius = 28;
 		setDefaultProperties();
 		icon = new ImageView(context);
-		if(drawableIcon != null)
-			icon.setBackground(drawableIcon);
+		if(drawableIcon != null) {
+			try {
+				icon.setBackground(drawableIcon);
+			} catch (NoSuchMethodError e) {
+				icon.setBackgroundDrawable(drawableIcon);
+			}
+		}
+		
 		RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(Utils.dpToPx(sizeIcon, getResources()),Utils.dpToPx(sizeIcon, getResources()));
 		params.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);
 		icon.setLayoutParams(params);
@@ -78,9 +85,12 @@ public class ButtonFloat extends Button{
 				
 				@Override
 				public void run() {
-					float originalY = getY()-Utils.dpToPx(24, getResources());
-					setY(getY()+getHeight()*3);
-					animate().y(originalY).setInterpolator(new BounceInterpolator()).setDuration(1500).start();
+					float originalY = ViewHelper.getY(ButtonFloat.this) - Utils.dpToPx(24, getResources());
+					ViewHelper.setY(ButtonFloat.this, ViewHelper.getY(ButtonFloat.this) + getHeight() * 3);
+					ObjectAnimator animator = ObjectAnimator.ofFloat(ButtonFloat.this, "y", originalY);
+					animator.setInterpolator(new BounceInterpolator());
+					animator.setDuration(1500);
+					animator.start();
 				}
 			});
 		}

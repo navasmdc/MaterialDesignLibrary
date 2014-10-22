@@ -1,27 +1,21 @@
 package com.gc.materialdesign.views;
 
-import java.io.IOException;
-import java.io.InputStream;
-
-import com.gc.materialdesign.R;
-import com.gc.materialdesign.utils.Utils;
-
 import android.content.Context;
-import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
-import android.graphics.RectF;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.LayerDrawable;
-import android.text.AndroidCharacter;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.RelativeLayout;
+
+import com.gc.materialdesign.R;
+import com.gc.materialdesign.utils.Utils;
 
 public class CheckBox extends CustomView{
 	
@@ -202,9 +196,5 @@ public class CheckBox extends CustomView{
 			
 		}
 		
-		
-		
 	}
-	
-	
 }

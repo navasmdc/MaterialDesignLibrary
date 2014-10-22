@@ -1,29 +1,26 @@
 package com.gc.materialdesigndemo.ui;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.graphics.Color;
+import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.Window;
+
 import com.gc.materialdesign.views.ButtonFloatSmall;
 import com.gc.materialdesign.views.LayoutRipple;
 import com.gc.materialdesign.widgets.ColorSelector;
 import com.gc.materialdesign.widgets.ColorSelector.OnColorSelectedListener;
 import com.gc.materialdesigndemo.R;
-import android.annotation.SuppressLint;
-import android.annotation.TargetApi;
-import android.app.Activity;
-import android.content.Intent;
-import android.graphics.Color;
-import android.os.Build;
-import android.os.Bundle;
-import android.view.View;
-import android.view.Window;
-import android.view.View.OnClickListener;
+import com.nineoldandroids.view.ViewHelper;
 
 
-@TargetApi(Build.VERSION_CODES.HONEYCOMB)
 public class MainActivity extends Activity implements OnColorSelectedListener{
 	
 	int backgroundColor = Color.parseColor("#1E88E5");
 	ButtonFloatSmall buttonSelectColor;
 
-    @SuppressLint("NewApi")
 	@Override
     protected void onCreate(Bundle savedInstanceState) {
     	requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -98,7 +95,6 @@ public class MainActivity extends Activity implements OnColorSelectedListener{
         });
     }
     
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
 	private void setOriginRiple(final LayoutRipple layoutRipple){
     	
     	layoutRipple.post(new Runnable() {
@@ -106,12 +102,11 @@ public class MainActivity extends Activity implements OnColorSelectedListener{
 			@Override
 			public void run() {
 				View v = layoutRipple.getChildAt(0);
-		    	layoutRipple.setxRippleOrigin(v.getX()+v.getWidth()/2);
-		    	layoutRipple.setyRippleOrigin(v.getY()+v.getHeight()/2);
-		    	
+		    	layoutRipple.setxRippleOrigin(ViewHelper.getX(v) + v.getWidth() / 2);
+		    	layoutRipple.setyRippleOrigin(ViewHelper.getY(v) + v.getHeight() / 2);
 		    	layoutRipple.setRippleColor(Color.parseColor("#1E88E5"));
 		    	
-		    	layoutRipple.setRippleSpeed(30);
+		    	layoutRipple.setRippleSpeed(50);
 			}
 		});
     	

@@ -1,23 +1,19 @@
 package com.gc.materialdesign.views;
 
-import com.gc.materialdesign.R;
-import com.gc.materialdesign.R.anim;
-
-import android.animation.Animator;
-import android.animation.Animator.AnimatorListener;
 import android.content.Context;
 import android.util.AttributeSet;
-import android.view.ViewPropertyAnimator;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
+
+import com.nineoldandroids.animation.Animator;
+import com.nineoldandroids.animation.Animator.AnimatorListener;
+import com.nineoldandroids.animation.ObjectAnimator;
+import com.nineoldandroids.view.ViewHelper;
 
 public class ProgressBarIndeterminateDeterminate extends ProgressBarDetermininate {
 	
 	boolean firstProgress = true;
 	boolean runAnimation = true;
-	ViewPropertyAnimator animation;
 	
-	
+	ObjectAnimator animator;
 
 	public ProgressBarIndeterminateDeterminate(Context context, AttributeSet attrs) {
 		super(context, attrs);
@@ -28,11 +24,10 @@ public class ProgressBarIndeterminateDeterminate extends ProgressBarDetermininat
 				// Make progress animation
 				
 				setProgress(60);
-				progressView.setX(getWidth()+progressView.getWidth()/2);
-				progressView.setX(getWidth()+progressView.getWidth()/2);
-				animation = progressView.animate();
-				animation.x(-progressView.getWidth()/2).setDuration(1200);
-				animation.setListener(new AnimatorListener() {
+				ViewHelper.setX(progressView, getWidth() + progressView.getWidth() / 2);
+				animator = ObjectAnimator.ofFloat(progressView, "x", -progressView.getWidth() / 2);
+				animator.setDuration(1200);
+				animator.addListener(new AnimatorListener() {
 					int cont = 1;
 					int suma = 1;
 					int duration = 1200;
@@ -41,10 +36,12 @@ public class ProgressBarIndeterminateDeterminate extends ProgressBarDetermininat
 					public void onAnimationEnd(Animator arg0) {
 						// Repeat animation
 						if(runAnimation){
-							progressView.setX(getWidth()+progressView.getWidth()/2);
+							ViewHelper.setX(progressView, getWidth() + progressView.getWidth() / 2);
 							cont += suma;
-							animation = progressView.animate();
-							animation.setListener(this).x(-progressView.getWidth()/2).setDuration(duration/cont).start();
+							animator.setFloatValues(-progressView.getWidth() / 2);
+							animator.setDuration(duration / cont);
+							animator.addListener(this);
+							animator.start();
 							if(cont == 3 || cont == 1) suma *=-1;
 						}
 					}
@@ -56,7 +53,7 @@ public class ProgressBarIndeterminateDeterminate extends ProgressBarDetermininat
 					@Override
 					public void onAnimationCancel(Animator arg0) {}
 				});
-				animation.start();
+				animator.start();
 			}
 		});
 	}
@@ -75,8 +72,8 @@ public class ProgressBarIndeterminateDeterminate extends ProgressBarDetermininat
 	 * Stop indeterminate animation to convert view in determinate progress bar
 	 */
 	private void stopIndeterminate(){
-		animation.cancel();
-		progressView.setX(0);
+		animator.cancel();
+		ViewHelper.setX(progressView, 0);
 		runAnimation = false;
 	}
 
