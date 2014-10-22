@@ -91,7 +91,7 @@ public class Switch extends CustomView {
 			}else{
 				check = false;
 			}
-			ViewHelper.setX(ball, x);
+			ViewHelper.setX(ball,x);
 			ball.changeBackground();
 			if((event.getX()<= getWidth() && event.getX() >= 0) && 
 					(event.getY()<= getHeight() && event.getY() >= 0)){
@@ -130,12 +130,13 @@ public class Switch extends CustomView {
 	    transparentPaint.setAntiAlias(true);
 	    transparentPaint.setColor(getResources().getColor(android.R.color.transparent));
 	    transparentPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.CLEAR));
-	    temp.drawCircle(ViewHelper.getX(ball) + ball.getWidth() / 2, ViewHelper.getY(ball) + ball.getHeight() / 2, ball.getWidth() / 2, transparentPaint);
+	    temp.drawCircle(ViewHelper.getX(ball)+ball.getWidth()/2, ViewHelper.getY(ball)+ball.getHeight()/2, ball.getWidth()/2, transparentPaint);
+
 	    canvas.drawBitmap(bitmap, 0, 0, new Paint());
 	    
 	    if(press){
 			paint.setColor((check)?makePressColor():Color.parseColor("#446D6D6D"));
-			canvas.drawCircle(ViewHelper.getX(ball) + ball.getWidth() / 2, getHeight() / 2, getHeight() / 2, paint);
+			canvas.drawCircle(ViewHelper.getX(ball)+ball.getWidth()/2, getHeight()/2, getHeight()/2, paint);
 		}
 		invalidate();
 		
@@ -160,7 +161,7 @@ public class Switch extends CustomView {
 	// Move ball to first position in view
 	boolean placedBall = false;
 	private void placeBall(){
-		ViewHelper.setX(ball, getHeight() / 2 - ball.getWidth() / 2);
+		ViewHelper.setX(ball,getHeight()/2 - ball.getWidth()/2);
 		ball.xIni = ViewHelper.getX(ball);
 		ball.xFin = getWidth()-getHeight()/2-ball.getWidth()/2;
 		ball.xCen = getWidth() / 2-ball.getWidth()/2;
@@ -203,13 +204,15 @@ public class Switch extends CustomView {
 		
 		public void animateCheck(){
 			changeBackground();
+			ObjectAnimator objectAnimator;
 			if(check){
-				ObjectAnimator animator = ObjectAnimator.ofFloat(this, "x", ball.xFin);
-				animator.setDuration(300).start();
+				objectAnimator = ObjectAnimator.ofFloat(this, "x", ball.xFin);
+				
 			}else{
-				ObjectAnimator animator = ObjectAnimator.ofFloat(this, "x", ball.xIni);
-				animator.setDuration(300).start();
+				objectAnimator = ObjectAnimator.ofFloat(this, "x", ball.xIni);
 			}
+			objectAnimator.setDuration(300);
+			objectAnimator.start();
 		}
 		
 		

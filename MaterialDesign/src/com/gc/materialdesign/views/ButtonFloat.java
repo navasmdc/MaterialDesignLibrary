@@ -1,15 +1,20 @@
 package com.gc.materialdesign.views;
 
+import com.gc.materialdesign.R;
+import com.gc.materialdesign.utils.Utils;
+import com.nineoldandroids.animation.ObjectAnimator;
+import com.nineoldandroids.view.ViewHelper;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.Bitmap.Config;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PorterDuff.Mode;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
+import android.graphics.Bitmap.Config;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.animation.BounceInterpolator;
@@ -17,10 +22,6 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.gc.materialdesign.R;
-import com.gc.materialdesign.utils.Utils;
-import com.nineoldandroids.animation.ObjectAnimator;
-import com.nineoldandroids.view.ViewHelper;
 
 public class ButtonFloat extends Button{
 	
@@ -44,7 +45,6 @@ public class ButtonFloat extends Button{
 				icon.setBackgroundDrawable(drawableIcon);
 			}
 		}
-		
 		RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(Utils.dpToPx(sizeIcon, getResources()),Utils.dpToPx(sizeIcon, getResources()));
 		params.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);
 		icon.setLayoutParams(params);
@@ -85,8 +85,8 @@ public class ButtonFloat extends Button{
 				
 				@Override
 				public void run() {
-					float originalY = ViewHelper.getY(ButtonFloat.this) - Utils.dpToPx(24, getResources());
-					ViewHelper.setY(ButtonFloat.this, ViewHelper.getY(ButtonFloat.this) + getHeight() * 3);
+					float originalY = ViewHelper.getY(ButtonFloat.this)-Utils.dpToPx(24, getResources());
+					ViewHelper.setY(ButtonFloat.this,ViewHelper.getY(ButtonFloat.this)+getHeight()*3);
 					ObjectAnimator animator = ObjectAnimator.ofFloat(ButtonFloat.this, "y", originalY);
 					animator.setInterpolator(new BounceInterpolator());
 					animator.setDuration(1500);
@@ -127,7 +127,11 @@ public class ButtonFloat extends Button{
 
 	public void setDrawableIcon(Drawable drawableIcon) {
 		this.drawableIcon = drawableIcon;
-		icon.setBackground(drawableIcon);
+		try {
+			icon.setBackground(drawableIcon);
+		} catch (NoSuchMethodError e) {
+			icon.setBackgroundDrawable(drawableIcon);
+		}
 	}
 
 	public Bitmap cropCircle(Bitmap bitmap) {

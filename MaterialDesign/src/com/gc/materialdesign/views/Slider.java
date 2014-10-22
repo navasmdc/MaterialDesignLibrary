@@ -1,5 +1,9 @@
 package com.gc.materialdesign.views;
 
+import com.gc.materialdesign.R;
+import com.gc.materialdesign.utils.Utils;
+import com.nineoldandroids.view.ViewHelper;
+
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -18,10 +22,6 @@ import android.view.View;
 import android.view.Window;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
-import com.gc.materialdesign.R;
-import com.gc.materialdesign.utils.Utils;
-import com.nineoldandroids.view.ViewHelper;
 
 public class Slider extends CustomView {
 	
@@ -87,6 +87,8 @@ public class Slider extends CustomView {
 		if(showNumberIndicator){
 			numberIndicator = new NumberIndicator(getContext());
 		}
+		
+					
 	}
 	
 	@Override
@@ -107,6 +109,7 @@ public class Slider extends CustomView {
 		    transparentPaint.setColor(getResources().getColor(android.R.color.transparent));
 		    transparentPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.CLEAR));
 		    temp.drawCircle(ViewHelper.getX(ball)+ball.getWidth()/2, ViewHelper.getY(ball)+ball.getHeight()/2, ball.getWidth()/2, transparentPaint);
+	
 		    canvas.drawBitmap(bitmap, 0, 0, new Paint());
 		}else{
 			Paint paint = new Paint();
@@ -123,7 +126,7 @@ public class Slider extends CustomView {
 	    	Paint paint = new Paint();
 			paint.setColor(backgroundColor);
 			paint.setAntiAlias(true);
-			canvas.drawCircle(ViewHelper.getX(ball) + ball.getWidth()/2, getHeight()/2, getHeight()/3, paint);
+			canvas.drawCircle(ViewHelper.getX(ball)+ball.getWidth()/2, getHeight()/2, getHeight()/3, paint);
 		}
 		invalidate();
 		
@@ -207,7 +210,7 @@ public class Slider extends CustomView {
 	}
 	
 	private void placeBall(){
-		ViewHelper.setX(ball, getHeight()/2 - ball.getWidth() / 2);
+		ViewHelper.setX(ball,getHeight()/2 - ball.getWidth()/2);
 		ball.xIni = ViewHelper.getX(ball);
 		ball.xFin = getWidth()-getHeight()/2-ball.getWidth()/2;
 		ball.xCen = getWidth() / 2-ball.getWidth()/2;
@@ -241,7 +244,7 @@ public class Slider extends CustomView {
 		else{
 			this.value = value;
 			float division = (ball.xFin - ball.xIni) / max;
-			ViewHelper.setX(ball, value*division + getHeight()/2 - ball.getWidth()/2);
+			ViewHelper.setX(ball,value*division + getHeight()/2 - ball.getWidth()/2);
 			ball.changeBackground();
 		}
 			
@@ -398,13 +401,12 @@ public class Slider extends CustomView {
 				y-=Utils.dpToPx(6, getResources());
 				size+=Utils.dpToPx(2, getResources());
 			}			
-			canvas.drawCircle(ViewHelper.getX(ball) + Utils.getRelativeLeft((View)ball.getParent()) + ball.getWidth()/2, y, size, paint);
+			canvas.drawCircle(ViewHelper.getX(ball)+Utils.getRelativeLeft((View)ball.getParent())+ball.getWidth()/2, y, size, paint);
 			if(animate && size >= finalSize)
 				animate = false;
 			if(animate == false){
-				ViewHelper.setX(numberIndicator.numberIndicator, (ViewHelper.getX(ball) + Utils.getRelativeLeft((View)ball.getParent())+ball.getWidth()/2)-size);
-				ViewHelper.setY(numberIndicator.numberIndicator, y-size);
-				
+				ViewHelper.setX(numberIndicator.numberIndicator,(ViewHelper.getX(ball)+Utils.getRelativeLeft((View)ball.getParent())+ball.getWidth()/2)-size);
+				ViewHelper.setY(numberIndicator.numberIndicator,y-size);
 				numberIndicator.numberIndicator.setText(value+"");
 			}
 				

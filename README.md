@@ -277,9 +277,5 @@ colorSelector.show();
 ```
 
 
-##Notice
-This project fork from [MaterialDesignLibrary](https://github.com/navasmdc/MaterialDesignLibrary), keep original code, just make MaterialDesignLibrary support for android 2.2.
-
-
 
 
