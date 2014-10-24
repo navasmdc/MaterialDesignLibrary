@@ -3,20 +3,10 @@ package com.gc.materialdesign.widgets;
 import com.gc.materialdesign.R;
 import com.gc.materialdesign.views.ButtonFlat;
 
-import android.app.Activity;
 import android.content.Context;
-import android.graphics.Color;
-import android.graphics.drawable.GradientDrawable;
-import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
-import android.view.animation.Animation;
-import android.view.animation.Animation.AnimationListener;
-import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 
 public class Dialog extends android.app.Dialog{

@@ -1,23 +1,17 @@
 package com.gc.materialdesign.views;
 
-import java.io.IOException;
-import java.io.InputStream;
-
 import com.gc.materialdesign.R;
 import com.gc.materialdesign.utils.Utils;
 
 import android.content.Context;
-import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
-import android.graphics.RectF;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.LayerDrawable;
-import android.text.AndroidCharacter;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
@@ -193,8 +187,6 @@ public class CheckBox extends CustomView{
 				if(step == -1)
 					changeBackground();
 			}
-			int width = sprite.getWidth();
-			int height = sprite.getHeight();
 			Rect src = new Rect(40*step, 0, (40*step)+40, 40);
 			Rect dst = new Rect(0,0,this.getWidth()-2, this.getHeight());
 			canvas.drawBitmap(sprite, src, dst, null);

@@ -2,6 +2,8 @@ package com.gc.materialdesign.views;
 
 import com.gc.materialdesign.R;
 import com.gc.materialdesign.utils.Utils;
+import com.nineoldandroids.animation.ObjectAnimator;
+import com.nineoldandroids.view.ViewHelper;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -20,7 +22,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-@SuppressLint("NewApi")
+
 public class ButtonFloat extends Button{
 	
 	int sizeIcon = 24;
@@ -36,8 +38,13 @@ public class ButtonFloat extends Button{
 		sizeRadius = 28;
 		setDefaultProperties();
 		icon = new ImageView(context);
-		if(drawableIcon != null)
-			icon.setBackground(drawableIcon);
+		if(drawableIcon != null) {
+			try {
+				icon.setBackground(drawableIcon);
+			} catch (NoSuchMethodError e) {
+				icon.setBackgroundDrawable(drawableIcon);
+			}
+		}
 		RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(Utils.dpToPx(sizeIcon, getResources()),Utils.dpToPx(sizeIcon, getResources()));
 		params.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);
 		icon.setLayoutParams(params);
@@ -78,9 +85,12 @@ public class ButtonFloat extends Button{
 				
 				@Override
 				public void run() {
-					float originalY = getY()-Utils.dpToPx(24, getResources());
-					setY(getY()+getHeight()*3);
-					animate().y(originalY).setInterpolator(new BounceInterpolator()).setDuration(1500).start();
+					float originalY = ViewHelper.getY(ButtonFloat.this)-Utils.dpToPx(24, getResources());
+					ViewHelper.setY(ButtonFloat.this,ViewHelper.getY(ButtonFloat.this)+getHeight()*3);
+					ObjectAnimator animator = ObjectAnimator.ofFloat(ButtonFloat.this, "y", originalY);
+					animator.setInterpolator(new BounceInterpolator());
+					animator.setDuration(1500);
+					animator.start();
 				}
 			});
 		}
@@ -117,7 +127,11 @@ public class ButtonFloat extends Button{
 
 	public void setDrawableIcon(Drawable drawableIcon) {
 		this.drawableIcon = drawableIcon;
-		icon.setBackground(drawableIcon);
+		try {
+			icon.setBackground(drawableIcon);
+		} catch (NoSuchMethodError e) {
+			icon.setBackgroundDrawable(drawableIcon);
+		}
 	}
 
 	public Bitmap cropCircle(Bitmap bitmap) {
