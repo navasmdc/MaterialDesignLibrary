@@ -5,6 +5,8 @@ import com.gc.materialdesign.views.LayoutRipple;
 import com.gc.materialdesign.widgets.ColorSelector;
 import com.gc.materialdesign.widgets.ColorSelector.OnColorSelectedListener;
 import com.gc.materialdesigndemo.R;
+import com.nineoldandroids.view.ViewHelper;
+
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -17,7 +19,6 @@ import android.view.Window;
 import android.view.View.OnClickListener;
 
 
-@TargetApi(Build.VERSION_CODES.HONEYCOMB)
 public class MainActivity extends Activity implements OnColorSelectedListener{
 	
 	int backgroundColor = Color.parseColor("#1E88E5");
@@ -98,7 +99,6 @@ public class MainActivity extends Activity implements OnColorSelectedListener{
         });
     }
     
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
 	private void setOriginRiple(final LayoutRipple layoutRipple){
     	
     	layoutRipple.post(new Runnable() {
@@ -106,8 +106,8 @@ public class MainActivity extends Activity implements OnColorSelectedListener{
 			@Override
 			public void run() {
 				View v = layoutRipple.getChildAt(0);
-		    	layoutRipple.setxRippleOrigin(v.getX()+v.getWidth()/2);
-		    	layoutRipple.setyRippleOrigin(v.getY()+v.getHeight()/2);
+		    	layoutRipple.setxRippleOrigin(ViewHelper.getX(v)+v.getWidth()/2);
+		    	layoutRipple.setyRippleOrigin(ViewHelper.getY(v)+v.getHeight()/2);
 		    	
 		    	layoutRipple.setRippleColor(Color.parseColor("#1E88E5"));
 		    	
