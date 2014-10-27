@@ -19,7 +19,6 @@ import android.widget.RelativeLayout;
 
 public class CheckBox extends CustomView{
 	
-	final static String ANDROIDXML = "http://schemas.android.com/apk/res/android";
 	
 	int backgroundColor = Color.parseColor("#4CAF50");
 	
@@ -27,6 +26,8 @@ public class CheckBox extends CustomView{
 	
 	boolean press = false;
 	boolean check = false;
+	
+	OnCheckListener onCheckListener;
 
 
 	public CheckBox(Context context, AttributeSet attrs) {
@@ -89,6 +90,8 @@ public class CheckBox extends CustomView{
 						(event.getY()<= getHeight() && event.getY() >= 0)){
 					isLastTouch = false;
 					check = !check;
+					if(onCheckListener != null)
+						onCheckListener.onCheck(check);
 					if(check){
 						step = 0;
 					}
@@ -196,6 +199,15 @@ public class CheckBox extends CustomView{
 		
 		
 		
+	}
+	
+	public void setOncheckListener(OnCheckListener onCheckListener){
+		this.onCheckListener = onCheckListener;
+	}
+	
+	
+	public interface OnCheckListener{
+		public void onCheck(boolean check);
 	}
 	
 	

@@ -2,6 +2,7 @@ package com.gc.materialdesign.views;
 
 import com.gc.materialdesign.R;
 import com.gc.materialdesign.utils.Utils;
+import com.gc.materialdesign.views.CheckBox.OnCheckListener;
 import com.nineoldandroids.animation.ObjectAnimator;
 import com.nineoldandroids.view.ViewHelper;
 
@@ -21,14 +22,16 @@ import android.widget.RelativeLayout;
 
 public class Switch extends CustomView {
 	
-	final static String ANDROIDXML = "http://schemas.android.com/apk/res/android";
 	
 	int backgroundColor = Color.parseColor("#4CAF50");
 	
 	Ball ball;
 	
 	boolean check = false;
+	boolean eventCheck = false;
 	boolean press = false;
+	
+	OnCheckListener onCheckListener;
 
 	public Switch(Context context, AttributeSet attrs) {
 		super(context, attrs);
@@ -67,7 +70,7 @@ public class Switch extends CustomView {
 		}
 		
 		check = attrs.getAttributeBooleanValue(MATERIALDESIGNXML,"check", false);
-		
+		eventCheck = check;
 		ball = new Ball(getContext());
 		RelativeLayout.LayoutParams params = new LayoutParams(Utils.dpToPx(20, getResources()),Utils.dpToPx(20, getResources()));
 		params.addRule(RelativeLayout.CENTER_VERTICAL, RelativeLayout.TRUE);
@@ -87,7 +90,6 @@ public class Switch extends CustomView {
 			x = (x > ball.xFin)? ball.xFin : x;
 			if(x > ball.xCen){
 				check = true;
-				
 			}else{
 				check = false;
 			}
@@ -102,10 +104,13 @@ public class Switch extends CustomView {
 		else if (event.getAction() == MotionEvent.ACTION_UP) {
 			press = false;
 			isLastTouch = false;
+			if(eventCheck != check){
+				eventCheck = check;
+				if(onCheckListener != null)
+					onCheckListener.onCheck(check);
+			}
 			if((event.getX()<= getWidth() && event.getX() >= 0) && 
 					(event.getY()<= getHeight() && event.getY() >= 0)){
-//				check = !check;
-//				ball.changeBackground();
 				ball.animateCheck();
 			}
 		}
@@ -217,6 +222,14 @@ public class Switch extends CustomView {
 		
 		
 	
+	}
+	
+	public void setOncheckListener(OnCheckListener onCheckListener){
+		this.onCheckListener = onCheckListener;
+	}
+	
+	public interface OnCheckListener{
+		public void onCheck(boolean check);
 	}
 
 }
