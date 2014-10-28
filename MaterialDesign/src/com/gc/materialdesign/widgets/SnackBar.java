@@ -23,6 +23,10 @@ public class SnackBar extends Dialog{
 	View.OnClickListener onClickListener;
 	Activity activity;
 	View view;
+	
+	// Timer
+	private boolean mIndeterminate = false;
+	private int mTimer = 4 * 1000;
 
 	// With action button
 	public SnackBar(Activity activity, String text, String buttonText, View.OnClickListener onClickListener) {
@@ -79,7 +83,10 @@ public class SnackBar extends Dialog{
 		super.show();
 		view.setVisibility(View.VISIBLE);
 		view.startAnimation(AnimationUtils.loadAnimation(activity, R.anim.snackbar_show_animation));
-		dismissTimer.start();
+		
+		if (!mIndeterminate) {
+		    dismissTimer.start();
+		}
 	}
 	
 	// Dismiss timer 
@@ -88,7 +95,7 @@ public class SnackBar extends Dialog{
 		@Override
 		public void run() {
 			try {
-				Thread.sleep(3500);
+				Thread.sleep(mTimer);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
@@ -126,6 +133,19 @@ public class SnackBar extends Dialog{
 		view.startAnimation(anim);
 	}
 	
+	public void setIndeterminate(boolean indeterminate) {
+        	mIndeterminate = indeterminate;
+	}
 	
+	public boolean isIndeterminate() {
+		return mIndeterminate;
+	}
 
+	public void setDismissTimer(int time) {
+		mTimer = time;
+	}
+	
+	public int getDismissTimer() {
+		return mTimer;
+	}
 }
