@@ -37,7 +37,10 @@ public class Dialog extends android.app.Dialog{
 	    setContentView(R.layout.dialog);
 	    
 	    this.titleTextView = (TextView) findViewById(R.id.title);
+	    setTitle(title);
+	    
 	    this.messageTextView = (TextView) findViewById(R.id.message);
+	    setMessage(message);
 	    
 	    this.buttonAccept = (ButtonFlat) findViewById(R.id.button_accept);
 	    buttonAccept.setOnClickListener(new View.OnClickListener() {
