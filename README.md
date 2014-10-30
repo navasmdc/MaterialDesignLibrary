@@ -1,5 +1,12 @@
 ![Material design library logo](images/logo.png)
 
+
+#Deprecated
+
+
+This project was deprecated, see [origin project](https://github.com/navasmdc/MaterialDesignLibrary) for new feature.
+
+
 # Material Design Android Library
 
 * [How to use](#howtouse)
@@ -277,8 +284,10 @@ colorSelector.show();
 ```
 
 
-##Notice
-This project fork from [MaterialDesignLibrary](https://github.com/navasmdc/MaterialDesignLibrary), keep original code, just make MaterialDesignLibrary support for android 2.2.
+##Notice Deprecated
+~~This project fork from [MaterialDesignLibrary](https://github.com/navasmdc/MaterialDesignLibrary), keep original code, just make MaterialDesignLibrary support for android 2.2.~~
+
+see [origin project](https://github.com/navasmdc/MaterialDesignLibrary) for new feature.
 
 
 
