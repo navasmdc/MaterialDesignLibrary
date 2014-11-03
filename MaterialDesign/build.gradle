@@ -5,17 +5,25 @@ android {
     buildToolsVersion "19.1.0"
 
     defaultConfig {
+        applicationId "com.gc.materialdesign"
+
         minSdkVersion 8
         targetSdkVersion 21
+
+        versionCode 1
+        versionName "0.1.1"
     }
 
-    sourceSets {
-        main {
-            manifest.srcFile 'AndroidManifest.xml'
-            assets.srcDirs = ['assets']
-            java.srcDirs = ['src']
-            res.srcDirs = ['res']
+    buildTypes {
+        debug {
+            debuggable false
+            minifyEnabled false
         }
+    }
+
+    lintOptions {
+        checkReleaseBuilds true
+        abortOnError true
     }
 }
 
