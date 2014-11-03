@@ -3,6 +3,8 @@
 # Material Design Android Library
 
 * [How to use](#howtouse)
+    * [Eclipse](#eclipse)
+    * [Android Studio](#android-studio)
 * [Components](#components)
     * [Buttons](#buttons)
         * [Flat Button](#flat-button)
@@ -26,7 +28,17 @@
 
 ## How to use
 
-If you want use this library, you only have to download MaterialDesign project, import it into your workspace and add the project as a library in your android project settings.
+If you want use this library, you only have to download MaterialDesign folder and add it to your project.
+
+####Eclipse
+
+Import project into your workspace and add the project as a library in your android project settings.
+
+####Android Studio
+
+Create folder called `libraries` in your project root . Copy `MaterialDesign` folder inside `libraries` folder. Select `File > Import Module` and select `libraries/MaterialDesign` folder. Rename module if nesesary, deafult module name is same as directory `:MaterialDesign` click *Finish* and wait for build to finish.
+
+####Notice
 
 Some components have custom attributes, if you want use them, you must add this line in your xml file in the first component:
 
