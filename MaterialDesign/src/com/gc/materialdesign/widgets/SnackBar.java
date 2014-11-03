@@ -5,6 +5,7 @@ import com.gc.materialdesign.views.ButtonFlat;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -23,6 +24,10 @@ public class SnackBar extends Dialog{
 	View.OnClickListener onClickListener;
 	Activity activity;
 	View view;
+	ButtonFlat button;
+	
+	int backgroundSnackBar = Color.parseColor("#333");
+	int backgroundButton = Color.parseColor("#1E88E5");
 	
 	// Timer
 	private boolean mIndeterminate = false;
@@ -51,11 +56,13 @@ public class SnackBar extends Dialog{
 	    setContentView(R.layout.snackbar);
 	    setCanceledOnTouchOutside(false);
 	    ((TextView)findViewById(R.id.text)).setText(text);
-		ButtonFlat button = (ButtonFlat) findViewById(R.id.buttonflat);
+		button = (ButtonFlat) findViewById(R.id.buttonflat);
 		if(text == null || onClickListener == null){
 			button.setVisibility(View.GONE);
 		}else{
 			button.setText(buttonText);
+			
+			button.setBackgroundColor(backgroundButton);
 			
 			button.setOnClickListener(new View.OnClickListener() {
 				
@@ -67,6 +74,7 @@ public class SnackBar extends Dialog{
 			});
 		}
 		view = findViewById(R.id.snackbar);
+		view.setBackgroundColor(backgroundSnackBar);
 	}
 	
 	@Override
@@ -147,5 +155,25 @@ public class SnackBar extends Dialog{
 	
 	public int getDismissTimer() {
 		return mTimer;
+	}
+	
+	/**
+	 * Change background color of SnackBar
+	 * @param color
+	 */
+	public void setBackgroundSnackBar(int color){
+		backgroundSnackBar = color;
+		if(view != null)
+			view.setBackgroundColor(color);
+	}
+	
+	/**
+	 * Chage color of FlatButton in Snackbar
+	 * @param color
+	 */
+	public void setColorButton(int color){
+		backgroundButton = color;
+		if(button != null)
+			button.setBackgroundColor(color);
 	}
 }

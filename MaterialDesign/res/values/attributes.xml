@@ -14,7 +14,7 @@
 <!--        in switche's view indicate state of view -->
        <attr name="check" format="boolean" />
 <!--        in float button indicate icon resource -->
-       <attr name="icon" format="integer" />
+       <attr name="iconFloat" format="integer" />
 <!--        in float button indicate if must start with animation -->
        <attr name="animate" format="boolean" />
    </declare-styleable>

@@ -2,8 +2,7 @@ package com.gc.materialdesign.views;
 
 import com.gc.materialdesign.R;
 import com.gc.materialdesign.utils.Utils;
-import com.nineoldandroids.animation.Animator;
-import com.nineoldandroids.animation.AnimatorListenerAdapter;
+import com.gc.materialdesign.views.CheckBox.OnCheckListener;
 import com.nineoldandroids.animation.ObjectAnimator;
 import com.nineoldandroids.view.ViewHelper;
 
@@ -84,7 +83,6 @@ public class Switch extends CustomView {
 	public boolean onTouchEvent(MotionEvent event) {
 		isLastTouch = true;
 		if (event.getAction() == MotionEvent.ACTION_DOWN) {
-			startRedraw();
 			press = true;
 		}else if(event.getAction() == MotionEvent.ACTION_MOVE) {
 			float x = event.getX();
@@ -114,8 +112,6 @@ public class Switch extends CustomView {
 			if((event.getX()<= getWidth() && event.getX() >= 0) && 
 					(event.getY()<= getHeight() && event.getY() >= 0)){
 				ball.animateCheck();
-			}else{
-				stopRedraw();
 			}
 		}
 		return true;
@@ -147,23 +143,11 @@ public class Switch extends CustomView {
 			paint.setColor((check)?makePressColor():Color.parseColor("#446D6D6D"));
 			canvas.drawCircle(ViewHelper.getX(ball)+ball.getWidth()/2, getHeight()/2, getHeight()/2, paint);
 		}
-		if (canRedraw) {
-			invalidate();
-		}
+		invalidate();
 		
 	}
 	
-	boolean canRedraw = false;
 	
-	private void startRedraw() {
-		canRedraw = true;
-		invalidate();
-	}
-
-	private void stopRedraw() {
-		canRedraw = false;
-		invalidate();
-	}
 	
 	/**
 	 * Make a dark color to press effect
@@ -202,6 +186,10 @@ public class Switch extends CustomView {
 		ball.animateCheck();
 	}
 	
+	public boolean isCheck(){
+		return check;
+	}
+	
 	class Ball extends View{
 		
 		float xIni, xFin, xCen;
@@ -232,7 +220,6 @@ public class Switch extends CustomView {
 			}else{
 				objectAnimator = ObjectAnimator.ofFloat(this, "x", ball.xIni);
 			}
-			objectAnimator.addListener(animatorListener);
 			objectAnimator.setDuration(300);
 			objectAnimator.start();
 		}
@@ -240,12 +227,6 @@ public class Switch extends CustomView {
 		
 	
 	}
-	
-	private AnimatorListenerAdapter animatorListener = new AnimatorListenerAdapter() {
-		public void onAnimationEnd(Animator animation) {
-			stopRedraw();
-		};
-	};
 	
 	public void setOncheckListener(OnCheckListener onCheckListener){
 		this.onCheckListener = onCheckListener;

@@ -148,4 +148,12 @@ final static String ANDROIDXML = "http://schemas.android.com/apk/res/android";
 		}
 		
 		abstract public TextView getTextView();
+		
+		public void setRippleSpeed(float rippleSpeed){
+			this.rippleSpeed = rippleSpeed;
+		}
+		
+		public float getRippleSpeed(){
+			return this.rippleSpeed;
+		}
 }

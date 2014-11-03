@@ -149,6 +149,10 @@ public class CheckBox extends CustomView{
 				checkView.changeBackground();	
 			
 		}
+		
+		public boolean isCheck(){
+			return check;
+		}
 
 	
 	

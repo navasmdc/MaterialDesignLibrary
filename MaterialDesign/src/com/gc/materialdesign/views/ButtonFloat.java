@@ -76,7 +76,7 @@ public class ButtonFloat extends Button{
 				setBackgroundColor(Color.parseColor(background));
 		}
 		// Icon of button
-		int iconResource = attrs.getAttributeResourceValue(MATERIALDESIGNXML,"icon",-1);
+		int iconResource = attrs.getAttributeResourceValue(MATERIALDESIGNXML,"iconFloat",-1);
 		if(iconResource != -1)
 			drawableIcon = getResources().getDrawable(iconResource);
 		boolean animate = attrs.getAttributeBooleanValue(MATERIALDESIGNXML,"animate", false);
