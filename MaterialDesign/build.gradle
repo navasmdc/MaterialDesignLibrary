@@ -1,0 +1,33 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion 21
+    buildToolsVersion "19.1.0"
+
+    defaultConfig {
+        applicationId "com.gc.materialdesign"
+
+        minSdkVersion 8
+        targetSdkVersion 21
+
+        versionCode 1
+        versionName "0.1.1"
+    }
+
+    buildTypes {
+        debug {
+            debuggable false
+            minifyEnabled false
+        }
+    }
+
+    lintOptions {
+        checkReleaseBuilds true
+        abortOnError true
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile 'com.android.support:support-v4:21.0.0'
+}
