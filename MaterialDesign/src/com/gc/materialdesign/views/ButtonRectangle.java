@@ -139,4 +139,8 @@ public class ButtonRectangle extends Button {
 		return textButton;
 	}
 
+	public String getText(){
+        	return textButton.getText().toString();
+ 	}
+
 }

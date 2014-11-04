@@ -108,4 +108,8 @@ public class ButtonFlat extends Button {
 		return textButton;
 	}
 
+	public String getText(){
+        	return textButton.getText().toString();
+ 	}
+
 }
