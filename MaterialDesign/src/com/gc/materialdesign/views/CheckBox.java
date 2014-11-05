@@ -19,7 +19,6 @@ import android.widget.RelativeLayout;
 
 public class CheckBox extends CustomView{
 	
-	
 	int backgroundColor = Color.parseColor("#4CAF50");
 	
 	Check checkView;
@@ -28,7 +27,6 @@ public class CheckBox extends CustomView{
 	boolean check = false;
 	
 	OnCheckListener onCheckListener;
-
 
 	public CheckBox(Context context, AttributeSet attrs) {
 		super(context, attrs);
@@ -154,13 +152,11 @@ public class CheckBox extends CustomView{
 			return check;
 		}
 
-	
-	
-	
 	// Indicate step in check animation
-		int step = 0;
+	int step = 0;
+	
 	// View that contains checkbox	
-	class Check extends View{
+	class Check extends View {
 
 		Bitmap sprite;
 		public Check(Context context) {
@@ -184,11 +180,11 @@ public class CheckBox extends CustomView{
 		@Override
 		protected void onDraw(Canvas canvas) {
 			super.onDraw(canvas);
-			
-			if(check){
+
+			if(check) {
 				if(step < 11)
 					step++;
-			}else{
+			} else {
 				if(step>=0)
 					step--;
 				if(step == -1)
@@ -198,21 +194,18 @@ public class CheckBox extends CustomView{
 			Rect dst = new Rect(0,0,this.getWidth()-2, this.getHeight());
 			canvas.drawBitmap(sprite, src, dst, null);
 			invalidate();
-			
 		}
-		
-		
-		
 	}
 	
 	public void setOncheckListener(OnCheckListener onCheckListener){
 		this.onCheckListener = onCheckListener;
 	}
 	
-	
 	public interface OnCheckListener{
 		public void onCheck(boolean check);
 	}
 	
-	
+	public boolean isChecked() {
+		return check;
+	}
 }
