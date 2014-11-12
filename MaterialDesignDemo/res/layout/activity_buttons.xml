@@ -3,7 +3,11 @@
     xmlns:materialdesign="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FFF"
     >
+    <com.gc.materialdesign.views.ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
 
     <LinearLayout
         android:layout_width="fill_parent"
@@ -107,7 +111,40 @@
                 materialdesign:iconFloat="@drawable/ic_action_new" />
         </RelativeLayout>
         
-        <!-- SMALL FLOAT BUTTON -->
+        <!-- FLOAT BUTTON -->
+        
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="32dp"
+            android:layout_marginLeft="24dp" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="Icon Button" />
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentBottom="true"
+                android:background="#1E88E5" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="72dp" >
+
+            <com.gc.materialdesign.views.ButtonIcon
+                android:id="@+id/buttonIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:background="#1E88E5"
+                materialdesign:iconFloat="@drawable/ic_next" />
+        </RelativeLayout>
+        
+        <!-- FLOAT BUTTON -->
 
         <RelativeLayout
             android:layout_width="fill_parent"
@@ -127,6 +164,7 @@
                 android:background="#1E88E5" />
         </RelativeLayout>
     </LinearLayout>
+    </com.gc.materialdesign.views.ScrollView>
     <com.gc.materialdesign.views.ButtonFloat
                 android:id="@+id/buttonFloat"
                 android:layout_width="wrap_content"
