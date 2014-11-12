@@ -19,6 +19,7 @@ import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.animation.BounceInterpolator;
 import android.widget.ImageView;
+import android.widget.ImageView.ScaleType;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -38,12 +39,15 @@ public class ButtonFloat extends Button{
 		sizeRadius = 28;
 		setDefaultProperties();
 		icon = new ImageView(context);
+		icon.setAdjustViewBounds(true);
+		icon.setScaleType(ScaleType.CENTER_CROP);
 		if(drawableIcon != null) {
-			try {
-				icon.setBackground(drawableIcon);
-			} catch (NoSuchMethodError e) {
-				icon.setBackgroundDrawable(drawableIcon);
-			}
+			icon.setImageDrawable(drawableIcon);
+//			try {
+//				icon.setBackground(drawableIcon);
+//			} catch (NoSuchMethodError e) {
+//				icon.setBackgroundDrawable(drawableIcon);
+//			}
 		}
 		RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(Utils.dpToPx(sizeIcon, getResources()),Utils.dpToPx(sizeIcon, getResources()));
 		params.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);

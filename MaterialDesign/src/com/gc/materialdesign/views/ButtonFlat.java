@@ -100,6 +100,9 @@ public class ButtonFlat extends Button {
 	
 	// Set color of background
 	public void setBackgroundColor(int color){
+		backgroundColor = color;
+		if(isEnabled())
+			beforeBackground = backgroundColor;
 		textButton.setTextColor(color);
 	}
 
@@ -107,7 +110,7 @@ public class ButtonFlat extends Button {
 	public TextView getTextView() {
 		return textButton;
 	}
-
+	
 	public String getText(){
         	return textButton.getText().toString();
  	}

@@ -163,6 +163,8 @@ public class ProgressBarCircularIndetermininate extends CustomView {
 	// Set color of background
 	public void setBackgroundColor(int color){
 		super.setBackgroundColor(getResources().getColor(android.R.color.transparent));
+		if(isEnabled())
+			beforeBackground = backgroundColor;
 		this.backgroundColor = color;
 	}
 

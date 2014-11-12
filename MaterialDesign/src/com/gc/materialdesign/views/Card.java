@@ -59,6 +59,8 @@ public class Card extends CustomView {
 	// Set color of background
 	public void setBackgroundColor(int color){
 		this.backgroundColor = color;
+		if(isEnabled())
+			beforeBackground = backgroundColor;
 		LayerDrawable layer = (LayerDrawable) getBackground();
 		GradientDrawable shape =  (GradientDrawable) layer.findDrawableByLayerId(R.id.shape_bacground);
 		shape.setColor(backgroundColor);

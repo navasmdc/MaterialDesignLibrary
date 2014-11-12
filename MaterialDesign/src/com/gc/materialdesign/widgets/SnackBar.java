@@ -29,6 +29,8 @@ public class SnackBar extends Dialog{
 	int backgroundSnackBar = Color.parseColor("#333");
 	int backgroundButton = Color.parseColor("#1E88E5");
 	
+	OnHideListener onHideListener;
+	
 	// Timer
 	private boolean mIndeterminate = false;
 	private int mTimer = 4 * 1000;
@@ -48,6 +50,7 @@ public class SnackBar extends Dialog{
 		this.activity = activity;
 		this.text = text;
 	}
+	
 	
 	@Override
 	  protected void onCreate(Bundle savedInstanceState) {
@@ -115,6 +118,8 @@ public class SnackBar extends Dialog{
 		
 		@Override
 		public boolean handleMessage(Message msg) {
+			if(onHideListener != null)
+				onHideListener.onHide();
 			dismiss();
 			return false;
 		}
@@ -175,5 +180,18 @@ public class SnackBar extends Dialog{
 		backgroundButton = color;
 		if(button != null)
 			button.setBackgroundColor(color);
+	}
+	
+	/**
+	 * This event start when snackbar dismish without push the button
+	 * @author Navas
+	 *
+	 */
+	public interface OnHideListener{
+		public void onHide();
+	}
+	
+	public void setOnhideListener(OnHideListener onHideListener){
+		this.onHideListener = onHideListener;
 	}
 }
