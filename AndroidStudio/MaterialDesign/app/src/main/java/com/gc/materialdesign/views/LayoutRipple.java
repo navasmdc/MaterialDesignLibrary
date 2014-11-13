@@ -46,6 +46,24 @@ public class LayoutRipple extends CustomView {
 			else
 				setBackgroundColor(this.backgroundColor);
 		}
+		// Set background Color
+		// Color by resource
+		int rippleColor = attrs.getAttributeResourceValue(MATERIALDESIGNXML,
+				"rippleColor", -1);
+		if (rippleColor != -1) {
+			setRippleColor(getResources().getColor(rippleColor));
+		} else {
+			// Color by hexadecimal
+			String background = attrs.getAttributeValue(MATERIALDESIGNXML,
+					"rippleColor");
+			if (background != null)
+				setRippleColor(Color.parseColor(background));
+			else
+				setRippleColor(makePressColor());
+		}
+		
+		rippleSpeed = attrs.getAttributeFloatValue(MATERIALDESIGNXML,
+				"rippleSpeed", 20f);
 	}
 
 	// Set color of background

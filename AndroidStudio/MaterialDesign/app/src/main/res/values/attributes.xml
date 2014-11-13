@@ -17,6 +17,10 @@
        <attr name="iconFloat" format="integer" />
 <!--        in float button indicate if must start with animation -->
        <attr name="animate" format="boolean" />
+<!--        Speed of ripple animation -->
+       <attr name="rippleSpeed" format="float" />
+<!--        in float button indicate if must start with animation -->
+       <attr name="rippleColor" format="color|reference" />
    </declare-styleable>
    
    

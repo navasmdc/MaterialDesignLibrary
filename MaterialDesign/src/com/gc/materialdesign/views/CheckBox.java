@@ -154,6 +154,9 @@ public class CheckBox extends CustomView {
 
 	public void setChecked(boolean check) {
 		this.check = check;
+		setPressed(false);
+		changeBackgroundColor(getResources().getColor(
+				android.R.color.transparent));
 		if (check) {
 			step = 0;
 		}

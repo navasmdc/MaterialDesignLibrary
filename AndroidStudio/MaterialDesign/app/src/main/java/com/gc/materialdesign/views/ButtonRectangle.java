@@ -33,7 +33,6 @@ public class ButtonRectangle extends Button {
 		super.minHeight = 36;
 		super.background = R.drawable.background_button_rectangle;
 		super.setDefaultProperties();
-		rippleSpeed = Utils.dpToPx(3, getResources());
 	}
 	
 	
@@ -97,6 +96,9 @@ public class ButtonRectangle extends Button {
 //					textView.setLayoutParams(params);
 			
 		}
+		
+		rippleSpeed = attrs.getAttributeFloatValue(MATERIALDESIGNXML,
+				"rippleSpeed", Utils.dpToPx(6, getResources()));
 	}
 	
 //	/**
