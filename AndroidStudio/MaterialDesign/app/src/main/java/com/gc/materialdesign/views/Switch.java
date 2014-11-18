@@ -112,8 +112,7 @@ public class Switch extends CustomView {
 					if (onCheckListener != null)
 						onCheckListener.onCheck(check);
 				}
-				if ((event.getX() <= getWidth() && event.getX() >= 0)
-						&& (event.getY() <= getHeight() && event.getY() >= 0)) {
+				if ((event.getX() <= getWidth() && event.getX() >= 0)) {
 					ball.animateCheck();
 				}
 			}
