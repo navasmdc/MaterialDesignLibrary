@@ -152,8 +152,7 @@ public class Slider extends CustomView {
 				if (numberIndicator != null
 						&& numberIndicator.isShowing() == false)
 					numberIndicator.show();
-				if ((event.getX() <= getWidth() && event.getX() >= 0)
-						&& (event.getY() <= getHeight() && event.getY() >= 0)) {
+				if ((event.getX() <= getWidth() && event.getX() >= 0)) {
 					press = true;
 					// calculate value
 					int newValue = 0;
