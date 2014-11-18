@@ -99,8 +99,7 @@ public class Switch extends CustomView {
 				}
 				ViewHelper.setX(ball, x);
 				ball.changeBackground();
-				if ((event.getX() <= getWidth() && event.getX() >= 0)
-						&& (event.getY() <= getHeight() && event.getY() >= 0)) {
+				if ((event.getX() <= getWidth() && event.getX() >= 0)) {
 					isLastTouch = false;
 					press = false;
 				}
