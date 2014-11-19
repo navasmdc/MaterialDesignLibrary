@@ -26,7 +26,7 @@ public class SnackBar extends Dialog{
 	View view;
 	ButtonFlat button;
 	
-	int backgroundSnackBar = Color.parseColor("#333");
+	int backgroundSnackBar = Color.parseColor("#333333");
 	int backgroundButton = Color.parseColor("#1E88E5");
 	
 	OnHideListener onHideListener;
