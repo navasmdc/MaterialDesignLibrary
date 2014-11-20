@@ -66,10 +66,9 @@ public class Slider extends CustomView {
 			setBackgroundColor(getResources().getColor(bacgroundColor));
 		} else {
 			// Color by hexadecimal
-			String background = attrs.getAttributeValue(ANDROIDXML,
-					"background");
-			if (background != null)
-				setBackgroundColor(Color.parseColor(background));
+			int background = attrs.getAttributeIntValue(ANDROIDXML, "background", -1);
+			if (background != -1)
+				setBackgroundColor(background);
 		}
 
 		showNumberIndicator = attrs.getAttributeBooleanValue(MATERIALDESIGNXML,
@@ -126,7 +125,8 @@ public class Slider extends CustomView {
 			canvas.drawLine(getHeight() / 2, getHeight() / 2, getWidth()
 					- getHeight() / 2, getHeight() / 2, paint);
 			paint.setColor(backgroundColor);
-			float division = (ball.xFin - ball.xIni) / max;
+			float division = (ball.xFin - ball.xIni) / (max-min);
+			int value = this.value - min;
 			canvas.drawLine(getHeight() / 2, getHeight() / 2, value * division
 					+ getHeight() / 2, getHeight() / 2, paint);
 
@@ -156,13 +156,13 @@ public class Slider extends CustomView {
 					press = true;
 					// calculate value
 					int newValue = 0;
-					float division = (ball.xFin - ball.xIni) / max;
+					float division = (ball.xFin - ball.xIni) / (max-min);
 					if (event.getX() > ball.xFin) {
 						newValue = max;
 					} else if (event.getX() < ball.xIni) {
 						newValue = min;
 					} else {
-						newValue = (int) ((event.getX() - ball.xIni) / division);
+						newValue = min + (int) ((event.getX() - ball.xIni) / division);
 					}
 					if (value != newValue) {
 						value = newValue;
@@ -199,8 +199,7 @@ public class Slider extends CustomView {
 					numberIndicator.dismiss();
 				isLastTouch = false;
 				press = false;
-				if ((event.getX() <= getWidth() && event.getX() >= 0)
-						&& (event.getY() <= getHeight() && event.getY() >= 0)) {
+				if ((event.getX() <= getWidth() && event.getX() >= 0)) {
 
 				}
 			}

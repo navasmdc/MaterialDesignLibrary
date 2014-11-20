@@ -56,9 +56,10 @@ public class ButtonFlat extends Button {
 			setBackgroundColor(getResources().getColor(bacgroundColor));
 		}else{
 			// Color by hexadecimal
-			String background = attrs.getAttributeValue(ANDROIDXML,"background");
-			if(background != null)
-				setBackgroundColor(Color.parseColor(background));
+			// Color by hexadecimal
+			background = attrs.getAttributeIntValue(ANDROIDXML, "background", -1);
+			if (background != -1)
+				setBackgroundColor(background);
 		}
 	}
 	

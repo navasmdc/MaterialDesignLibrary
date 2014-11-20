@@ -64,17 +64,16 @@ public class Switch extends CustomView {
 			setBackgroundColor(getResources().getColor(bacgroundColor));
 		} else {
 			// Color by hexadecimal
-			String background = attrs.getAttributeValue(ANDROIDXML,
-					"background");
-			if (background != null)
-				setBackgroundColor(Color.parseColor(background));
+			int background = attrs.getAttributeIntValue(ANDROIDXML, "background", -1);
+			if (background != -1)
+				setBackgroundColor(background);
 		}
 
 		check = attrs.getAttributeBooleanValue(MATERIALDESIGNXML, "check",
 				false);
 		eventCheck = check;
 		ball = new Ball(getContext());
-		LayoutParams params = new LayoutParams(Utils.dpToPx(20,
+		RelativeLayout.LayoutParams params = new LayoutParams(Utils.dpToPx(20,
 				getResources()), Utils.dpToPx(20, getResources()));
 		params.addRule(RelativeLayout.CENTER_VERTICAL, RelativeLayout.TRUE);
 		ball.setLayoutParams(params);
@@ -111,8 +110,7 @@ public class Switch extends CustomView {
 					if (onCheckListener != null)
 						onCheckListener.onCheck(check);
 				}
-				if ((event.getX() <= getWidth() && event.getX() >= 0)
-						&& (event.getY() <= getHeight() && event.getY() >= 0)) {
+				if ((event.getX() <= getWidth() && event.getX() >= 0)) {
 					ball.animateCheck();
 				}
 			}

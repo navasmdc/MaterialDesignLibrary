@@ -39,9 +39,9 @@ public class ProgressBarCircularIndetermininate extends CustomView {
 				setBackgroundColor(getResources().getColor(bacgroundColor));
 			}else{
 				// Color by hexadecimal
-				String background = attrs.getAttributeValue(ANDROIDXML,"background");
-				if(background != null)
-					setBackgroundColor(Color.parseColor(background));
+				int background = attrs.getAttributeIntValue(ANDROIDXML, "background", -1);
+				if (background != -1)
+					setBackgroundColor(background);
 				else
 					setBackgroundColor(Color.parseColor("#1E88E5"));
 			}

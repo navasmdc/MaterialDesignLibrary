@@ -33,6 +33,8 @@ public class ButtonFloat extends Button{
 	ImageView icon; // Icon of float button
 	Drawable drawableIcon;
 	
+	
+	
 	public ButtonFloat(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		setBackgroundResource(R.drawable.background_button_float);
@@ -59,10 +61,10 @@ public class ButtonFloat extends Button{
 	protected void setDefaultProperties(){
 		rippleSpeed = Utils.dpToPx(2, getResources());
 		rippleSize = Utils.dpToPx(5, getResources());
-		super.minWidth = sizeRadius*2;
-		super.minHeight = sizeRadius*2;
+		setMinimumWidth(Utils.dpToPx(sizeRadius*2, getResources()));
+		setMinimumHeight(Utils.dpToPx(sizeRadius*2, getResources()));
 		super.background = R.drawable.background_button_float;
-		super.setDefaultProperties();
+//		super.setDefaultProperties();
 	}
 	
 	
@@ -75,9 +77,24 @@ public class ButtonFloat extends Button{
 			setBackgroundColor(getResources().getColor(bacgroundColor));
 		}else{
 			// Color by hexadecimal
-			String background = attrs.getAttributeValue(ANDROIDXML,"background");
-			if(background != null)
-				setBackgroundColor(Color.parseColor(background));
+			background = attrs.getAttributeIntValue(ANDROIDXML, "background", -1);
+			if (background != -1)
+				setBackgroundColor(background);
+		}
+		
+		// Set Ripple Color
+		// Color by resource
+		int rippleColor = attrs.getAttributeResourceValue(MATERIALDESIGNXML,
+				"rippleColor", -1);
+		if (rippleColor != -1) {
+			setRippleColor(getResources().getColor(rippleColor));
+		} else {
+			// Color by hexadecimal
+			int background = attrs.getAttributeIntValue(MATERIALDESIGNXML, "rippleColor", -1);
+			if (background != -1)
+				setRippleColor(background);
+			else
+				setRippleColor(makePressColor());
 		}
 		// Icon of button
 		int iconResource = attrs.getAttributeResourceValue(MATERIALDESIGNXML,"iconFloat",-1);
@@ -160,5 +177,9 @@ public class ButtonFloat extends Button{
 	@Override
 	public TextView getTextView() {
 		return null;
+	}
+	
+	public void setRippleColor(int rippleColor) {
+		this.rippleColor = rippleColor;
 	}
 }

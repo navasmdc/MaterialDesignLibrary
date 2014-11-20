@@ -33,7 +33,7 @@ public class ProgressBarDetermininate extends CustomView {
 		protected void setAttributes(AttributeSet attrs){
 			
 			progressView = new View(getContext());
-			LayoutParams params = new LayoutParams(1,1);
+			RelativeLayout.LayoutParams params = new LayoutParams(1,1);
 			progressView.setLayoutParams(params);
 			progressView.setBackgroundResource(R.drawable.background_progress);
 			addView(progressView);
@@ -45,9 +45,9 @@ public class ProgressBarDetermininate extends CustomView {
 				setBackgroundColor(getResources().getColor(bacgroundColor));
 			}else{
 				// Color by hexadecimal
-				String background = attrs.getAttributeValue(ANDROIDXML,"background");
-				if(background != null)
-					setBackgroundColor(Color.parseColor(background));
+				int background = attrs.getAttributeIntValue(ANDROIDXML, "background", -1);
+				if (background != -1)
+					setBackgroundColor(background);
 				else
 					setBackgroundColor(Color.parseColor("#1E88E5"));
 			}
@@ -62,7 +62,7 @@ public class ProgressBarDetermininate extends CustomView {
 				
 				@Override
 				public void run() {
-					LayoutParams params = (LayoutParams) progressView.getLayoutParams();
+					RelativeLayout.LayoutParams params = (LayoutParams) progressView.getLayoutParams();
 					params.height = getHeight();
 					progressView.setLayoutParams(params);
 				}
@@ -111,7 +111,7 @@ public class ProgressBarDetermininate extends CustomView {
 			int totalWidth = max-min;
 			double progressPercent = (double)progress/(double)totalWidth;
 			int progressWidth =(int) (getWidth()*progressPercent);
-			LayoutParams params = (LayoutParams) progressView.getLayoutParams();
+			RelativeLayout.LayoutParams params = (LayoutParams) progressView.getLayoutParams();
 			params.width = progressWidth;
 			params.height = getHeight();
 			progressView.setLayoutParams(params);

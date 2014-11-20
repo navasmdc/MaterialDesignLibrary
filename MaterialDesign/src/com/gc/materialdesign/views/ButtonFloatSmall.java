@@ -27,7 +27,7 @@ public class ButtonFloatSmall extends ButtonFloat {
 		setMinimumWidth(Utils.dpToPx(sizeRadius*2, getResources()));
 		// Background shape
 		setBackgroundResource(R.drawable.background_button_float);
-		setBackgroundColor(backgroundColor);
+//		setBackgroundColor(backgroundColor);
 	}
 
 }
