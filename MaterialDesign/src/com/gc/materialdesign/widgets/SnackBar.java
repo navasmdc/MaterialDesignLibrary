@@ -1,8 +1,5 @@
 package com.gc.materialdesign.widgets;
 
-import com.gc.materialdesign.R;
-import com.gc.materialdesign.views.ButtonFlat;
-
 import android.app.Activity;
 import android.app.Dialog;
 import android.graphics.Color;
@@ -16,6 +13,9 @@ import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
 import android.view.animation.AnimationUtils;
 import android.widget.TextView;
+
+import com.gc.materialdesign.R;
+import com.gc.materialdesign.views.ButtonFlat;
 
 public class SnackBar extends Dialog{
 	
@@ -145,19 +145,31 @@ public class SnackBar extends Dialog{
 		});
 		view.startAnimation(anim);
 	}
-	
-	public void setIndeterminate(boolean indeterminate) {
+
+	/**
+	 * Set indeterminate or not.
+	 * @param indeterminate
+	 *  @return This instance of {@link com.gc.materialdesign.widgets.SnackBar}.
+	 */
+	public SnackBar setIndeterminate(boolean indeterminate) {
         	mIndeterminate = indeterminate;
+			return this;
 	}
-	
+
 	public boolean isIndeterminate() {
 		return mIndeterminate;
 	}
 
-	public void setDismissTimer(int time) {
+	/**
+	 * Set dismiss timer
+	 * @param time
+	 *  @return This instance of {@link com.gc.materialdesign.widgets.SnackBar}.
+	 */
+	public SnackBar setDismissTimer(int time) {
 		mTimer = time;
+		return this;
 	}
-	
+
 	public int getDismissTimer() {
 		return mTimer;
 	}
@@ -165,21 +177,25 @@ public class SnackBar extends Dialog{
 	/**
 	 * Change background color of SnackBar
 	 * @param color
+	 *  @return This instance of {@link com.gc.materialdesign.widgets.SnackBar}.
 	 */
-	public void setBackgroundSnackBar(int color){
+	public SnackBar setBackgroundSnackBar(int color){
 		backgroundSnackBar = color;
 		if(view != null)
 			view.setBackgroundColor(color);
+		return this;
 	}
 	
 	/**
 	 * Chage color of FlatButton in Snackbar
 	 * @param color
+	 * @return This instance of {@link com.gc.materialdesign.widgets.SnackBar}.
 	 */
-	public void setColorButton(int color){
+	public SnackBar setColorButton(int color){
 		backgroundButton = color;
 		if(button != null)
 			button.setBackgroundColor(color);
+		return this;
 	}
 	
 	/**

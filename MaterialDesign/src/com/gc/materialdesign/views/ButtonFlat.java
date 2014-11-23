@@ -1,8 +1,5 @@
 package com.gc.materialdesign.views;
 
-import com.gc.materialdesign.R;
-import com.gc.materialdesign.utils.Utils;
-
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -11,6 +8,9 @@ import android.graphics.Typeface;
 import android.util.AttributeSet;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.gc.materialdesign.R;
+import com.gc.materialdesign.utils.Utils;
 
 public class ButtonFlat extends Button {
 	
@@ -97,6 +97,14 @@ public class ButtonFlat extends Button {
 	
 	public void setText(String text){
 		textButton.setText(text.toUpperCase());
+	}
+
+	/**
+	 * Set {@link com.gc.materialdesign.views.ButtonRectangle}'s text.
+	 * @param strResId The text resourceId.
+	 */
+	public void setText(int strResId) {
+		textButton.setText(strResId);
 	}
 	
 	// Set color of background
