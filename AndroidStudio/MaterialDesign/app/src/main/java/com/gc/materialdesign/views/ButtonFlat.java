@@ -16,6 +16,8 @@ public class ButtonFlat extends Button {
 	
 	TextView textButton;
 
+	private boolean onClickExecuted = false;
+
 	public ButtonFlat(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		
@@ -68,6 +70,11 @@ public class ButtonFlat extends Button {
 	protected void onDraw(Canvas canvas) {
 		super.onDraw(canvas);
 		if (x != -1) {
+
+			if(!onClickExecuted && onClickListener!=null){
+				onClickListener.onClick(this);
+				onClickExecuted = true;
+			}
 			
 			Paint paint = new Paint();
 			paint.setAntiAlias(true);
@@ -79,8 +86,7 @@ public class ButtonFlat extends Button {
 				x = -1;
 				y = -1;
 				radius = getHeight()/rippleSize;
-				if(onClickListener != null)
-					onClickListener.onClick(this);
+				onClickExecuted = false;
 			}
 		}		
 		invalidate();
