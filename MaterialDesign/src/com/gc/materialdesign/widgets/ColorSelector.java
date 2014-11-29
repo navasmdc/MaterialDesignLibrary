@@ -8,15 +8,23 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
+import android.view.View.OnTouchListener;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.Animation.AnimationListener;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
+import android.widget.RelativeLayout;
 
 public class ColorSelector extends android.app.Dialog implements OnValueChangedListener{
 	
 	int color = Color.BLACK;
+	Context context;
 	View colorView;
+	View view, backView;//background
 	
 	OnColorSelectedListener onColorSelectedListener;
 	Slider red, green, blue;
@@ -24,7 +32,7 @@ public class ColorSelector extends android.app.Dialog implements OnValueChangedL
 
 	public ColorSelector(Context context,Integer color, OnColorSelectedListener onColorSelectedListener) {
 		super(context, android.R.style.Theme_Translucent);
-		
+		this.context = context;
 		this.onColorSelectedListener = onColorSelectedListener;
 		if(color != null)
 			this.color = color;
@@ -36,8 +44,9 @@ public class ColorSelector extends android.app.Dialog implements OnValueChangedL
 					ColorSelector.this.onColorSelectedListener.onColorSelected(ColorSelector.this.color);
 			}
 		});
-		
 	}
+	
+
 	
 	@Override
 	  protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +54,20 @@ public class ColorSelector extends android.app.Dialog implements OnValueChangedL
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.color_selector);
 	    
+	    view = (LinearLayout)findViewById(R.id.contentSelector);
+		backView = (RelativeLayout)findViewById(R.id.rootSelector);
+		backView.setOnTouchListener(new OnTouchListener() {
+			
+			@Override
+			public boolean onTouch(View v, MotionEvent event) {
+				if (event.getX() < view.getLeft() || event.getX() >view.getRight()
+						|| event.getY() > view.getBottom() || event.getY() < view.getTop()) {
+					dismiss();
+				}
+				return false;
+			}
+		});
+
 	    colorView = findViewById(R.id.viewColor);
 	    colorView.setBackgroundColor(color);
 	    // Resize ColorView
@@ -78,6 +101,13 @@ public class ColorSelector extends android.app.Dialog implements OnValueChangedL
 	}
 
 	@Override
+	public void show() {
+		super.show();
+		view.startAnimation(AnimationUtils.loadAnimation(context, R.anim.dialog_main_show_amination));
+		backView.startAnimation(AnimationUtils.loadAnimation(context, R.anim.dialog_root_show_amin));
+	}
+	
+	@Override
 	public void onValueChanged(int value) {
 		color = Color.rgb(red.getValue(), green.getValue(), blue.getValue());
 		colorView.setBackgroundColor(color);
@@ -85,9 +115,39 @@ public class ColorSelector extends android.app.Dialog implements OnValueChangedL
 	
 	
 	// Event that execute when color selector is closed
-		public interface OnColorSelectedListener{
-			public void onColorSelected(int color);
-		}
-	
+	public interface OnColorSelectedListener{
+		public void onColorSelected(int color);
+	}
+		
+	@Override
+	public void dismiss() {
+		Animation anim = AnimationUtils.loadAnimation(context, R.anim.dialog_main_hide_amination);
+		
+		anim.setAnimationListener(new AnimationListener() {
+			
+			@Override
+			public void onAnimationStart(Animation animation) {
+			}
+			
+			@Override
+			public void onAnimationRepeat(Animation animation) {
+			}
+			
+			@Override
+			public void onAnimationEnd(Animation animation) {
+				view.post(new Runnable() {
+					@Override
+					public void run() {
+						ColorSelector.super.dismiss();
+			        }
+			    });
+			}
+		});
+		
+		Animation backAnim = AnimationUtils.loadAnimation(context, R.anim.dialog_root_hide_amin);
+		
+		view.startAnimation(anim);
+		backView.startAnimation(backAnim);
+	}
 
 }

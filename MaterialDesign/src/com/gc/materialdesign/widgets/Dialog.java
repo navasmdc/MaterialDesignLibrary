@@ -1,16 +1,25 @@
 package com.gc.materialdesign.widgets;
 
+import android.content.Context;
+import android.os.Bundle;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.View.OnTouchListener;
+import android.view.Window;
+import android.view.animation.Animation;
+import android.view.animation.Animation.AnimationListener;
+import android.view.animation.AnimationUtils;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+
 import com.gc.materialdesign.R;
 import com.gc.materialdesign.views.ButtonFlat;
 
-import android.content.Context;
-import android.os.Bundle;
-import android.view.View;
-import android.view.Window;
-import android.widget.TextView;
-
 public class Dialog extends android.app.Dialog{
 	
+	Context context;
+	View view;
+	View backView;
 	String message;
 	TextView messageTextView;
 	String title;
@@ -19,13 +28,13 @@ public class Dialog extends android.app.Dialog{
 	ButtonFlat buttonAccept;
 	ButtonFlat buttonCancel;
 	
-	
 	View.OnClickListener onAcceptButtonClickListener;
 	View.OnClickListener onCancelButtonClickListener;
 	
 
 	public Dialog(Context context,String title, String message) {
 		super(context, android.R.style.Theme_Translucent);
+		this.context = context;// init Context
 		this.message = message;
 		this.title = title;
 	}
@@ -36,6 +45,22 @@ public class Dialog extends android.app.Dialog{
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.dialog);
 	    
+		view = (RelativeLayout)findViewById(R.id.contentDialog);
+		backView = (RelativeLayout)findViewById(R.id.dialog_rootView);
+		backView.setOnTouchListener(new OnTouchListener() {
+			
+			@Override
+			public boolean onTouch(View v, MotionEvent event) {
+				if (event.getX() < view.getLeft() 
+						|| event.getX() >view.getRight()
+						|| event.getY() > view.getBottom() 
+						|| event.getY() < view.getTop()) {
+					dismiss();
+				}
+				return false;
+			}
+		});
+		
 	    this.titleTextView = (TextView) findViewById(R.id.title);
 	    setTitle(title);
 	    
@@ -44,7 +69,6 @@ public class Dialog extends android.app.Dialog{
 	    
 	    this.buttonAccept = (ButtonFlat) findViewById(R.id.button_accept);
 	    buttonAccept.setOnClickListener(new View.OnClickListener() {
-			
 			@Override
 			public void onClick(View v) {
 				dismiss();
@@ -54,14 +78,23 @@ public class Dialog extends android.app.Dialog{
 		});
 	    this.buttonCancel = (ButtonFlat) findViewById(R.id.button_cancel);
     	buttonCancel.setOnClickListener(new View.OnClickListener() {
-				
-				@Override
-				public void onClick(View v) {
-					dismiss();
-					if(onCancelButtonClickListener != null)
-				    	onCancelButtonClickListener.onClick(v);
-				}
-			});
+    		
+			@Override
+			public void onClick(View v) {
+				dismiss();	
+				if(onCancelButtonClickListener != null)
+			    	onCancelButtonClickListener.onClick(v);
+			}
+		});
+	}
+	
+	@Override
+	public void show() {
+		// TODO 自动生成的方法存根
+		super.show();
+		// set dialog enter animations
+		view.startAnimation(AnimationUtils.loadAnimation(context, R.anim.dialog_main_show_amination));
+		backView.startAnimation(AnimationUtils.loadAnimation(context, R.anim.dialog_root_show_amin));
 	}
 	
 	// GETERS & SETTERS
@@ -135,7 +168,35 @@ public class Dialog extends android.app.Dialog{
 			buttonCancel.setOnClickListener(onAcceptButtonClickListener);
 	}
 	
-	
+	@Override
+	public void dismiss() {
+		Animation anim = AnimationUtils.loadAnimation(context, R.anim.dialog_main_hide_amination);
+		anim.setAnimationListener(new AnimationListener() {
+			
+			@Override
+			public void onAnimationStart(Animation animation) {
+			}
+			
+			@Override
+			public void onAnimationRepeat(Animation animation) {
+			}
+			
+			@Override
+			public void onAnimationEnd(Animation animation) {
+				view.post(new Runnable() {
+					@Override
+					public void run() {
+			        	Dialog.super.dismiss();
+			        }
+			    });
+				
+			}
+		});
+		Animation backAnim = AnimationUtils.loadAnimation(context, R.anim.dialog_root_hide_amin);
+		
+		view.startAnimation(anim);
+		backView.startAnimation(backAnim);
+	}
 	
 	
 
