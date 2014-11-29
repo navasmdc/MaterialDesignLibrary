@@ -6,6 +6,7 @@
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:minHeight="56dp"
         android:layout_alignParentBottom="true" >
 
         <RelativeLayout
@@ -26,15 +27,16 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="24dp"
-                android:text="action" />
+                android:text="ACTION" />
 
-            <TextView
+             <TextView
                 android:id="@+id/text"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_toLeftOf="@id/buttonflat"
                 android:textColor="#FFF" />
+
         </RelativeLayout>
     </RelativeLayout>
 
