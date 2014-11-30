@@ -11,7 +11,6 @@ import android.graphics.drawable.LayerDrawable;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.RelativeLayout;
-import android.widget.RelativeLayout.LayoutParams;
 
 public class ProgressBarDetermininate extends CustomView {
 	
@@ -35,7 +34,9 @@ public class ProgressBarDetermininate extends CustomView {
 			progressView = new View(getContext());
 			RelativeLayout.LayoutParams params = new LayoutParams(1,1);
 			progressView.setLayoutParams(params);
-			progressView.setBackgroundResource(R.drawable.background_progress);
+			if(!isInEditMode()) {
+				progressView.setBackgroundResource(R.drawable.background_progress);
+			}
 			addView(progressView);
 			
 			//Set background Color
@@ -47,7 +48,7 @@ public class ProgressBarDetermininate extends CustomView {
 				// Color by hexadecimal
 				int background = attrs.getAttributeIntValue(ANDROIDXML, "background", -1);
 				if (background != -1)
-					setBackgroundColor(background);
+					 setBackgroundColor(background);
 				else
 					setBackgroundColor(Color.parseColor("#1E88E5"));
 			}
@@ -119,18 +120,21 @@ public class ProgressBarDetermininate extends CustomView {
 		}
 	}
 	
-	public int getProgress(){
+	public int getProgress() {
 		return progress;
 	}
 	
 	// Set color of background
 	public void setBackgroundColor(int color){
 		this.backgroundColor = color;
-		if(isEnabled())
-			beforeBackground = backgroundColor;
-		LayerDrawable layer = (LayerDrawable) progressView.getBackground();
-		GradientDrawable shape =  (GradientDrawable) layer.findDrawableByLayerId(R.id.shape_bacground);
-		shape.setColor(color);
+		if (!isInEditMode()) {
+			if(isEnabled()) {
+				beforeBackground = backgroundColor;
+			}
+			LayerDrawable layer = (LayerDrawable) progressView.getBackground();
+			GradientDrawable shape =  (GradientDrawable) layer.findDrawableByLayerId(R.id.shape_bacground);
+			shape.setColor(color);
+		}
 		super.setBackgroundColor(makePressColor());
 	}
 

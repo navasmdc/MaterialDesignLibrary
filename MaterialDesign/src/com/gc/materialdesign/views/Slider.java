@@ -24,13 +24,11 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 public class Slider extends CustomView {
-
+	
 	// Event when slider change value
 	public interface OnValueChangedListener {
 		public void onValueChanged(int value);
 	}
-
-	int backgroundColor = Color.parseColor("#4CAF50");
 
 	Ball ball;
 	NumberIndicator numberIndicator;
@@ -46,75 +44,65 @@ public class Slider extends CustomView {
 
 	public Slider(Context context, AttributeSet attrs) {
 		super(context, attrs);
+		minWidth = 80;// size of view
+		minHeight = 48;
+		backgroundColor = Color.parseColor("#4CAF50");
 		setAttributes(attrs);
 	}
 
 	// Set atributtes of XML to View
 	protected void setAttributes(AttributeSet attrs) {
-
-		setBackgroundResource(R.drawable.background_transparent);
-
-		// Set size of view
-		setMinimumHeight(Utils.dpToPx(48, getResources()));
-		setMinimumWidth(Utils.dpToPx(80, getResources()));
-
-		// Set background Color
-		// Color by resource
-		int bacgroundColor = attrs.getAttributeResourceValue(ANDROIDXML,
-				"background", -1);
-		if (bacgroundColor != -1) {
-			setBackgroundColor(getResources().getColor(bacgroundColor));
-		} else {
-			// Color by hexadecimal
-			int background = attrs.getAttributeIntValue(ANDROIDXML, "background", -1);
-			if (background != -1)
-				setBackgroundColor(background);
+		if (!isInEditMode()) {
+			setBackgroundResource(R.drawable.background_transparent);
 		}
+		setBackgroundAttributes(attrs);
 
-		showNumberIndicator = attrs.getAttributeBooleanValue(MATERIALDESIGNXML,
-				"showNumberIndicator", false);
+		showNumberIndicator = attrs.getAttributeBooleanValue(MATERIALDESIGNXML,"showNumberIndicator", false);
 		min = attrs.getAttributeIntValue(MATERIALDESIGNXML, "min", 0);
-		max = attrs.getAttributeIntValue(MATERIALDESIGNXML, "max", 0);
+		max = attrs.getAttributeIntValue(MATERIALDESIGNXML, "max", 100);// max > min
 		value = attrs.getAttributeIntValue(MATERIALDESIGNXML, "value", min);
 
+		float size = 20;
+		String thumbSize = attrs.getAttributeValue(MATERIALDESIGNXML, "thumbSize");
+		if (thumbSize != null) {
+			size = Utils.dipOrDpToFloat(thumbSize);
+		}
+
 		ball = new Ball(getContext());
-		RelativeLayout.LayoutParams params = new LayoutParams(Utils.dpToPx(20,
-				getResources()), Utils.dpToPx(20, getResources()));
+		RelativeLayout.LayoutParams params = new LayoutParams(
+				Utils.dpToPx(size, getResources()), Utils.dpToPx(size, getResources()));
 		params.addRule(RelativeLayout.CENTER_VERTICAL, RelativeLayout.TRUE);
 		ball.setLayoutParams(params);
 		addView(ball);
 
 		// Set if slider content number indicator
-		// TODO
 		if (showNumberIndicator) {
-			numberIndicator = new NumberIndicator(getContext());
+			if (!isInEditMode()) {
+				numberIndicator = new NumberIndicator(getContext());
+			}
 		}
-
 	}
 
 	@Override
 	protected void onDraw(Canvas canvas) {
 		super.onDraw(canvas);
-		if (!placedBall)
+		if (!placedBall) {
 			placeBall();
-
+		}
 		if (value == min) {
 			// Crop line to transparent effect
-			Bitmap bitmap = Bitmap.createBitmap(canvas.getWidth(),
-					canvas.getHeight(), Bitmap.Config.ARGB_8888);
+			Bitmap bitmap = Bitmap.createBitmap(canvas.getWidth(), canvas.getHeight(), 
+					Bitmap.Config.ARGB_8888);
 			Canvas temp = new Canvas(bitmap);
 			Paint paint = new Paint();
 			paint.setColor(Color.parseColor("#B0B0B0"));
 			paint.setStrokeWidth(Utils.dpToPx(2, getResources()));
-			temp.drawLine(getHeight() / 2, getHeight() / 2, getWidth()
-					- getHeight() / 2, getHeight() / 2, paint);
+			temp.drawLine(getHeight() / 2, getHeight() / 2, getWidth() - getHeight() / 2, getHeight() / 2, paint);
 			Paint transparentPaint = new Paint();
-			transparentPaint.setColor(getResources().getColor(
-					android.R.color.transparent));
-			transparentPaint.setXfermode(new PorterDuffXfermode(
-					PorterDuff.Mode.CLEAR));
+			transparentPaint.setColor(getResources().getColor(android.R.color.transparent));
+			transparentPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.CLEAR));
 			temp.drawCircle(ViewHelper.getX(ball) + ball.getWidth() / 2,
-					ViewHelper.getY(ball) + ball.getHeight() / 2,
+					ViewHelper.getY(ball) + ball.getHeight() / 2, 
 					ball.getWidth() / 2, transparentPaint);
 
 			canvas.drawBitmap(bitmap, 0, 0, new Paint());
@@ -122,41 +110,36 @@ public class Slider extends CustomView {
 			Paint paint = new Paint();
 			paint.setColor(Color.parseColor("#B0B0B0"));
 			paint.setStrokeWidth(Utils.dpToPx(2, getResources()));
-			canvas.drawLine(getHeight() / 2, getHeight() / 2, getWidth()
-					- getHeight() / 2, getHeight() / 2, paint);
+			canvas.drawLine(getHeight() / 2, getHeight() / 2, getWidth() - getHeight() / 2, getHeight() / 2, paint);
 			paint.setColor(backgroundColor);
-			float division = (ball.xFin - ball.xIni) / (max-min);
+			float division = (ball.xFin - ball.xIni) / (max - min);
 			int value = this.value - min;
-			canvas.drawLine(getHeight() / 2, getHeight() / 2, value * division
-					+ getHeight() / 2, getHeight() / 2, paint);
-
+			canvas.drawLine(getHeight() / 2, getHeight() / 2, value * division + getHeight() / 2, getHeight() / 2, paint);
+			// init ball's X
+			ViewHelper.setX(ball, value * division + getHeight() / 2 - ball.getWidth() / 2);
+			ball.changeBackground();
 		}
-
 		if (press && !showNumberIndicator) {
 			Paint paint = new Paint();
 			paint.setColor(backgroundColor);
 			paint.setAntiAlias(true);
-			canvas.drawCircle(ViewHelper.getX(ball) + ball.getWidth() / 2,
-					getHeight() / 2, getHeight() / 3, paint);
+			canvas.drawCircle(ViewHelper.getX(ball) + ball.getWidth() / 2, getHeight() / 2, getHeight() / 3, paint);
 		}
 		invalidate();
-
 	}
 
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
 		isLastTouch = true;
 		if (isEnabled()) {
-			if (event.getAction() == MotionEvent.ACTION_DOWN
-					|| event.getAction() == MotionEvent.ACTION_MOVE) {
-				if (numberIndicator != null
-						&& numberIndicator.isShowing() == false)
+			if (event.getAction() == MotionEvent.ACTION_DOWN || event.getAction() == MotionEvent.ACTION_MOVE) {
+				if (numberIndicator != null && numberIndicator.isShowing() == false)
 					numberIndicator.show();
 				if ((event.getX() <= getWidth() && event.getX() >= 0)) {
 					press = true;
 					// calculate value
 					int newValue = 0;
-					float division = (ball.xFin - ball.xIni) / (max-min);
+					float division = (ball.xFin - ball.xIni) / (max - min);
 					if (event.getX() > ball.xFin) {
 						newValue = max;
 					} else if (event.getX() < ball.xIni) {
@@ -180,8 +163,8 @@ public class Slider extends CustomView {
 					if (numberIndicator != null) {
 						// move number indicator
 						numberIndicator.indicator.x = x;
-						numberIndicator.indicator.finalY = Utils
-								.getRelativeTop(this) - getHeight() / 2;
+						numberIndicator.indicator.finalY = Utils.getRelativeTop(this) 
+								- getHeight() / 2;
 						numberIndicator.indicator.finalSize = getHeight() / 2;
 						numberIndicator.numberIndicator.setText("");
 					}
@@ -207,21 +190,6 @@ public class Slider extends CustomView {
 		return true;
 	}
 
-	/**
-	 * Make a dark color to press effect
-	 * 
-	 * @return
-	 */
-	protected int makePressColor() {
-		int r = (this.backgroundColor >> 16) & 0xFF;
-		int g = (this.backgroundColor >> 8) & 0xFF;
-		int b = (this.backgroundColor >> 0) & 0xFF;
-		r = (r - 30 < 0) ? 0 : r - 30;
-		g = (g - 30 < 0) ? 0 : g - 30;
-		b = (b - 30 < 0) ? 0 : b - 30;
-		return Color.argb(70, r, g, b);
-	}
-
 	private void placeBall() {
 		ViewHelper.setX(ball, getHeight() / 2 - ball.getWidth() / 2);
 		ball.xIni = ViewHelper.getX(ball);
@@ -245,6 +213,11 @@ public class Slider extends CustomView {
 		return value;
 	}
 
+	/**
+	 * @param value
+	 * @param inRunnable
+	 *            如果为true表示在runnable中跟新进度，否则在主线程中更新
+	 */
 	public void setValue(final int value) {
 		if (placedBall == false)
 			post(new Runnable() {
@@ -286,15 +259,19 @@ public class Slider extends CustomView {
 
 	public void setShowNumberIndicator(boolean showNumberIndicator) {
 		this.showNumberIndicator = showNumberIndicator;
-		numberIndicator = (showNumberIndicator) ? new NumberIndicator(
-				getContext()) : null;
-	}
+		if (!isInEditMode()) {
+			numberIndicator = (showNumberIndicator) ? new NumberIndicator(
+					getContext()) : null;
+		}
 
+	}
+	
 	@Override
 	public void setBackgroundColor(int color) {
 		backgroundColor = color;
-		if (isEnabled())
+		if (isEnabled()) {
 			beforeBackground = backgroundColor;
+		}
 	}
 
 	boolean placedBall = false;
@@ -305,18 +282,24 @@ public class Slider extends CustomView {
 
 		public Ball(Context context) {
 			super(context);
-			setBackgroundResource(R.drawable.background_switch_ball_uncheck);
+			if (!isInEditMode()) {
+				setBackgroundResource(R.drawable.background_switch_ball_uncheck);
+			} else {
+				setBackgroundResource(android.R.drawable.radiobutton_off_background);
+			}
 		}
 
 		public void changeBackground() {
-			if (value != min) {
-				setBackgroundResource(R.drawable.background_checkbox);
-				LayerDrawable layer = (LayerDrawable) getBackground();
-				GradientDrawable shape = (GradientDrawable) layer
-						.findDrawableByLayerId(R.id.shape_bacground);
-				shape.setColor(backgroundColor);
-			} else {
-				setBackgroundResource(R.drawable.background_switch_ball_uncheck);
+			if (!isInEditMode()) {
+				if (value != min) {
+					setBackgroundResource(R.drawable.background_checkbox);
+					LayerDrawable layer = (LayerDrawable) getBackground();
+					GradientDrawable shape = (GradientDrawable) layer
+							.findDrawableByLayerId(R.id.shape_bacground);
+					shape.setColor(backgroundColor);
+				} else {
+					setBackgroundResource(R.drawable.background_switch_ball_uncheck);
+				}
 			}
 		}
 
@@ -340,8 +323,7 @@ public class Slider extends CustomView {
 			setContentView(R.layout.number_indicator_spinner);
 			setCanceledOnTouchOutside(false);
 
-			RelativeLayout content = (RelativeLayout) this
-					.findViewById(R.id.number_indicator_spinner_content);
+			RelativeLayout content = (RelativeLayout) this.findViewById(R.id.number_indicator_spinner_content);
 			indicator = new Indicator(this.getContext());
 			content.addView(indicator);
 
@@ -351,8 +333,8 @@ public class Slider extends CustomView {
 			content.addView(numberIndicator);
 
 			indicator.setLayoutParams(new RelativeLayout.LayoutParams(
-					RelativeLayout.LayoutParams.FILL_PARENT,
-					RelativeLayout.LayoutParams.FILL_PARENT));
+					RelativeLayout.LayoutParams.MATCH_PARENT,
+					RelativeLayout.LayoutParams.MATCH_PARENT));
 		}
 
 		@Override
@@ -414,18 +396,14 @@ public class Slider extends CustomView {
 				size += Utils.dpToPx(2, getResources());
 			}
 			canvas.drawCircle(
-					ViewHelper.getX(ball)
-							+ Utils.getRelativeLeft((View) ball.getParent())
+					ViewHelper.getX(ball) + Utils.getRelativeLeft((View) ball.getParent())
 							+ ball.getWidth() / 2, y, size, paint);
 			if (animate && size >= finalSize)
 				animate = false;
 			if (animate == false) {
-				ViewHelper
-						.setX(numberIndicator.numberIndicator,
-								(ViewHelper.getX(ball)
-										+ Utils.getRelativeLeft((View) ball
-												.getParent()) + ball.getWidth() / 2)
-										- size);
+				ViewHelper.setX(numberIndicator.numberIndicator, 
+						(ViewHelper.getX(ball) + 
+								Utils.getRelativeLeft((View) ball.getParent()) + ball.getWidth() / 2) - size);
 				ViewHelper.setY(numberIndicator.numberIndicator, y - size);
 				numberIndicator.numberIndicator.setText(value + "");
 			}
