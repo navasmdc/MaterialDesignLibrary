@@ -1,12 +1,8 @@
 package com.gc.materialdesign.views;
 
-import com.gc.materialdesign.utils.Utils;
-
-import android.R;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.graphics.Rect;
 import android.graphics.drawable.ColorDrawable;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
@@ -15,9 +11,15 @@ public class ButtonIcon extends ButtonFloat {
 
 	public ButtonIcon(Context context, AttributeSet attrs) {
 		super(context, attrs);
+	}
+	
+	@Override
+	protected void onInitDefaultValues() {
+		minHeight = 36;
+		minWidth = 88;
+		rippleSpeed = 2;
+		rippleSize = 2;
 		setBackground(new ColorDrawable(getResources().getColor(android.R.color.transparent)));
-		rippleSpeed = Utils.dpToPx(2, getResources());
-		rippleSize = Utils.dpToPx(5, getResources());
 	}
 	
 	@Override
@@ -43,14 +45,13 @@ public class ButtonIcon extends ButtonFloat {
 				x = -1;
 				y = -1;
 				radius = getHeight()/rippleSize;
-				if(onClickListener != null)
+				if(clickAfterRipple == true && onClickListener != null)
 					onClickListener.onClick(this);
 			}
 		}
 		invalidate();
 	}
 	
-	@Override
 	protected int makePressColor() {
 		return backgroundColor;
 	}

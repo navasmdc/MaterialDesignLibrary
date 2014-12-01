@@ -20,7 +20,6 @@ public class ProgressBarIndeterminate extends ProgressBarDetermininate {
 			@Override
 			public void run() {
 				// Make progress animation
-				
 				setProgress(60);
 				Animation anim = AnimationUtils.loadAnimation(getContext(), R.anim.progress_indeterminate_animation);
 				progressView.startAnimation(anim);

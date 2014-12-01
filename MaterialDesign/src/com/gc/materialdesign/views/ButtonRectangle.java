@@ -12,115 +12,92 @@ import android.util.AttributeSet;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+/**
+ * @tips  :矩形按钮
+ * @date  :2014-11-1
+ */
 public class ButtonRectangle extends Button {
 	
-	TextView textButton;
-	
-	int paddingTop,paddingBottom, paddingLeft, paddingRight;
-	
+	protected TextView textButton;
+	protected int defaultTextColor = Color.WHITE;
 	
 	public ButtonRectangle(Context context, AttributeSet attrs) {
-		super(context, attrs);
-		setDefaultProperties();
-	}
-	@Override
-	protected void setDefaultProperties(){
-//		paddingBottom = Utils.dpToPx(16, getResources());
-//		paddingLeft = Utils.dpToPx(16, getResources());
-//		paddingRight = Utils.dpToPx(16, getResources());
-//		paddingTop = Utils.dpToPx(16, getResources());
-		super.minWidth = 80;
-		super.minHeight = 36;
-		super.background = R.drawable.background_button_rectangle;
-		super.setDefaultProperties();
+		super(context, attrs);//先运行setDefaultProperties，然后运行setAttributes
 	}
 	
+	@Override
+	protected void onInitDefaultValues(){
+		backgroundResId = R.drawable.background_button_rectangle;
+		super.onInitDefaultValues();
+		//涟漪的速度，这里的5.5可以调整
+		rippleSpeed = 5.5f;
+		minWidth = 80;
+		minHeight = 36;
+	}
 	
 	// Set atributtes of XML to View
-	protected void setAttributes(AttributeSet attrs){
-		
-		//Set background Color
-		// Color by resource
-		int bacgroundColor = attrs.getAttributeResourceValue(ANDROIDXML,"background",-1);
-		if(bacgroundColor != -1){
-			setBackgroundColor(getResources().getColor(bacgroundColor));
-		}else{
-			// Color by hexadecimal
-			// Color by hexadecimal
-			background = attrs.getAttributeIntValue(ANDROIDXML, "background", -1);
-			if (background != -1)
-				setBackgroundColor(background);
-		}
-		
-		// Set Padding
-		String value = attrs.getAttributeValue(ANDROIDXML,"padding");
-//		if(value != null){
-//			float padding = Float.parseFloat(value.replace("dip", ""));
-//			paddingBottom = Utils.dpToPx(padding, getResources());
-//			paddingLeft = Utils.dpToPx(padding, getResources());
-//			paddingRight = Utils.dpToPx(padding, getResources());
-//			paddingTop = Utils.dpToPx(padding, getResources());
-//		}else{
-//			value = attrs.getAttributeValue(ANDROIDXML,"paddingLeft");
-//			paddingLeft = (value == null) ? paddingLeft : (int) Float.parseFloat(value.replace("dip", ""));
-//			value = attrs.getAttributeValue(ANDROIDXML,"paddingTop");
-//			paddingTop = (value == null) ? paddingTop : (int) Float.parseFloat(value.replace("dip", ""));
-//			value = attrs.getAttributeValue(ANDROIDXML,"paddingRight");
-//			paddingRight = (value == null) ? paddingRight : (int) Float.parseFloat(value.replace("dip", ""));
-//			value = attrs.getAttributeValue(ANDROIDXML,"paddingBottom");
-//			paddingBottom = (value == null) ? paddingBottom : (int) Float.parseFloat(value.replace("dip", ""));
-//		}
-		
-		
-		// Set text button
+	@Override
+	protected void onInitAttributes(AttributeSet attrs){
+		super.onInitAttributes(attrs);
 		String text = null;
+		/**
+		 * 设置按钮上的文字内容
+		 */
 		int textResource = attrs.getAttributeResourceValue(ANDROIDXML,"text",-1);
 		if(textResource != -1){
 			text = getResources().getString(textResource);
 		}else{
+			//如果没有文字资源，也就是@String/xx，那么就设置文字
 			text = attrs.getAttributeValue(ANDROIDXML,"text");
 		}
+		
+		/**
+		 * 当文字不为空的时候，TextView设置文字，否则不设置文字
+		 */
 		if(text != null){
 			textButton = new TextView(getContext());
 			textButton.setText(text);
-			textButton.setTextColor(Color.WHITE);
+			textButton.setTextColor(defaultTextColor);//默认的文字颜色
 			textButton.setTypeface(null, Typeface.BOLD);
-			RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT);
+			//textButton.setPadding(12, 12, 12, 12);//内边距
+			RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
+					LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT);
 			params.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);
 			params.setMargins(Utils.dpToPx(5, getResources()), Utils.dpToPx(5, getResources()), Utils.dpToPx(5, getResources()), Utils.dpToPx(5, getResources()));
-			textButton.setLayoutParams(params);			
+			textButton.setLayoutParams(params);
+			//设置好各种属性后，添加穿件好的控件到view中
 			addView(textButton);
-//					FrameLayout.LayoutParams params = (LayoutParams) textView.getLayoutParams();
-//					params.width = getWidth();
-//					params.gravity = Gravity.CENTER_HORIZONTAL;
-////					params.setMargins(paddingLeft, paddingTop, paddingRight, paddingRight);
-//					textView.setLayoutParams(params);
-			
 		}
 		
-		rippleSpeed = attrs.getAttributeFloatValue(MATERIALDESIGNXML,
-				"rippleSpeed", Utils.dpToPx(6, getResources()));
+		/**
+		 * 设置textSize
+		 */
+		String textSize = attrs.getAttributeValue(ANDROIDXML,"textSize");
+		if (text != null && textSize != null) {
+			textSize = textSize.substring(0, textSize.length() - 2);//12sp->12
+			textButton.setTextSize(Float.parseFloat(textSize));
+		}
+		
+		/**
+		 * 设置textColor
+		 */
+		int textColor = attrs.getAttributeResourceValue(ANDROIDXML,"textColor",-1);
+		if(text != null && textColor != -1){
+			textButton.setTextColor(getResources().getColor(textColor));
+		}
+		else if(text != null ){
+			// 16进制的color
+			String color = attrs.getAttributeValue(ANDROIDXML,"textColor");
+			if(color != null && !isInEditMode()) {
+				textButton.setTextColor(Color.parseColor(color));
+			}else if(isInEditMode()){
+				textButton.setTextColor(Color.WHITE);//默认的文字颜色
+			}
+		}
 	}
 	
-//	/**
-//	 * Center text in button
-//	 */
-//	boolean txtCenter = false;
-//	private void centrarTexto(){
-//		if((textButton.getWidth()+paddingLeft+paddingRight)>Utils.dpToPx(80, getResources()))
-//			setMinimumWidth(textButton.getWidth()+paddingLeft+paddingRight);
-//		setMinimumHeight(textButton.getHeight()+paddingBottom+paddingTop);
-//		textButton.setX(getWidth()/2-textButton.getWidth()/2 - paddingTop + paddingBottom);
-//		textButton.setY(getHeight()/2-textButton.getHeight()/2 - paddingLeft + paddingRight);
-//		txtCenter = true;
-//	}
-	
-	Integer height;
-	Integer width;
 	@Override
 	protected void onDraw(Canvas canvas) {
-//		if(!txtCenter)
-//		centrarTexto();
 		super.onDraw(canvas);
 		if (x != -1) {
 			Rect src = new Rect(0, 0, getWidth()-Utils.dpToPx(6, getResources()), getHeight()-Utils.dpToPx(7, getResources()));
@@ -130,20 +107,24 @@ public class ButtonRectangle extends Button {
 		invalidate();
 	}
 	
+	// GET AND SET
+	
 	public void setText(String text){
-			textButton.setText(text);
+		textButton.setText(text);
 	}
 	
+	// Set color of text
 	public void setTextColor(int color){
 		textButton.setTextColor(color);
 	}
+	
+	public void setTextSize(float size) {
+		textButton.setTextSize(size);
+	}
+
 	@Override
 	public TextView getTextView() {
 		return textButton;
 	}
-
-	public String getText(){
-        	return textButton.getText().toString();
- 	}
 
 }

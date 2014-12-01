@@ -12,44 +12,26 @@ import android.graphics.PorterDuffXfermode;
 import android.graphics.RectF;
 import android.util.AttributeSet;
 
-public class ProgressBarCircularIndetermininate extends CustomView {
-	
-	
-	final static String ANDROIDXML = "http://schemas.android.com/apk/res/android";
-	
-	int backgroundColor = Color.parseColor("#1E88E5");
-	
+public class ProgressBarCircularIndetermininate extends CustomView {	
 
 	public ProgressBarCircularIndetermininate(Context context, AttributeSet attrs) {
 		super(context, attrs);
+		setDefaultValues();
 		setAttributes(attrs);
-		
+	}
+	
+	private void setDefaultValues() {
+		minWidth = 32;
+		minHeight = 3;
+		backgroundColor = Color.parseColor("#1E88E5");
 	}
 	
 	// Set atributtes of XML to View
-		protected void setAttributes(AttributeSet attrs){
-			
-			setMinimumHeight(Utils.dpToPx(32, getResources()));
-			setMinimumWidth(Utils.dpToPx(32, getResources()));
-			
-			//Set background Color
-			// Color by resource
-			int bacgroundColor = attrs.getAttributeResourceValue(ANDROIDXML,"background",-1);
-			if(bacgroundColor != -1){
-				setBackgroundColor(getResources().getColor(bacgroundColor));
-			}else{
-				// Color by hexadecimal
-				int background = attrs.getAttributeIntValue(ANDROIDXML, "background", -1);
-				if (background != -1)
-					setBackgroundColor(background);
-				else
-					setBackgroundColor(Color.parseColor("#1E88E5"));
-			}
-			
-			setMinimumHeight(Utils.dpToPx(3, getResources()));
-			
-						
-		}
+	protected void setAttributes(AttributeSet attrs){
+		setViewSize();
+		setBackgroundColor(Color.parseColor("#1E88E5"));
+		setBackgroundAttributes(attrs);
+	}
 	
 	/**
 	 * Make a dark color to ripple effect
@@ -74,13 +56,12 @@ public class ProgressBarCircularIndetermininate extends CustomView {
 		if(cont > 0)
 			drawSecondAnimation(canvas);
 		invalidate();
-		
 	}
 	
-	float radius1 = 0;
-	float radius2 = 0;
-	int cont = 0;
-	boolean firstAnimationOver = false;
+	private float radius1 = 0;
+	private float radius2 = 0;
+	private int cont = 0;
+	private boolean firstAnimationOver = false;
 	/**
 	 * Draw first animation of view
 	 * @param canvas
@@ -104,7 +85,7 @@ public class ProgressBarCircularIndetermininate extends CustomView {
 		    transparentPaint.setColor(getResources().getColor(android.R.color.transparent));
 		    transparentPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.CLEAR));
 		    if(cont >= 50){
-		    	radius2 = (radius2 >= getWidth()/2)? (float)getWidth()/2 : radius2+1;
+		    	radius2 = (radius2 >= getWidth()/2)? (float)getWidth()/2 : radius2 + 1;
 		    }else{
 		    	radius2 = (radius2 >= getWidth()/2-Utils.dpToPx(4, getResources()))? (float)getWidth()/2-Utils.dpToPx(4, getResources()) : radius2+1;
 		    }
@@ -117,10 +98,10 @@ public class ProgressBarCircularIndetermininate extends CustomView {
 		}
 	}
 	
-	int arcD = 1;
-	int arcO = 0;
-	float rotateAngle = 0;
-	int limite = 0;
+	private int arcD = 1;
+	private int arcO = 0;
+	private float rotateAngle = 0;
+	private int limite = 0;
 	/**
 	 * Draw second animation of view
 	 * @param canvas

@@ -29,7 +29,7 @@ public class Slider extends CustomView {
 	public interface OnValueChangedListener {
 		public void onValueChanged(int value);
 	}
-
+	
 	Ball ball;
 	NumberIndicator numberIndicator;
 
@@ -44,19 +44,24 @@ public class Slider extends CustomView {
 
 	public Slider(Context context, AttributeSet attrs) {
 		super(context, attrs);
-		minWidth = 80;// size of view
-		minHeight = 48;
-		backgroundColor = Color.parseColor("#4CAF50");
+		setDefaultValues();
 		setAttributes(attrs);
 	}
 
+	private void setDefaultValues() {
+		minWidth = 80;// size of view
+		minHeight = 48;
+		backgroundColor = Color.parseColor("#4CAF50");
+	}
+	
 	// Set atributtes of XML to View
-	protected void setAttributes(AttributeSet attrs) {
+	private void setAttributes(AttributeSet attrs) {
+		setViewSize();
+		setBackgroundAttributes(attrs);
+		
 		if (!isInEditMode()) {
 			setBackgroundResource(R.drawable.background_transparent);
 		}
-		setBackgroundAttributes(attrs);
-
 		showNumberIndicator = attrs.getAttributeBooleanValue(MATERIALDESIGNXML,"showNumberIndicator", false);
 		min = attrs.getAttributeIntValue(MATERIALDESIGNXML, "min", 0);
 		max = attrs.getAttributeIntValue(MATERIALDESIGNXML, "max", 100);// max > min
@@ -263,7 +268,6 @@ public class Slider extends CustomView {
 			numberIndicator = (showNumberIndicator) ? new NumberIndicator(
 					getContext()) : null;
 		}
-
 	}
 	
 	@Override
@@ -274,11 +278,11 @@ public class Slider extends CustomView {
 		}
 	}
 
-	boolean placedBall = false;
+	private boolean placedBall = false;
 
-	class Ball extends View {
+	private class Ball extends View {
 
-		float xIni, xFin, xCen;
+		private float xIni, xFin, xCen;
 
 		public Ball(Context context) {
 			super(context);
@@ -307,10 +311,10 @@ public class Slider extends CustomView {
 
 	// Slider Number Indicator
 
-	class NumberIndicator extends Dialog {
+	private class NumberIndicator extends Dialog {
 
-		Indicator indicator;
-		TextView numberIndicator;
+		private Indicator indicator;
+		private TextView numberIndicator;
 
 		public NumberIndicator(Context context) {
 			super(context, android.R.style.Theme_Translucent);
@@ -351,27 +355,26 @@ public class Slider extends CustomView {
 
 	}
 
-	class Indicator extends RelativeLayout {
+	private class Indicator extends RelativeLayout {
 
 		// Position of number indicator
-		float x = 0;
-		float y = 0;
+		private float x = 0;
+		private float y = 0;
 		// Size of number indicator
-		float size = 0;
+		private float size = 0;
 
 		// Final y position after animation
-		float finalY = 0;
+		private float finalY = 0;
 		// Final size after animation
-		float finalSize = 0;
+		private float finalSize = 0;
 
-		boolean animate = true;
+		private boolean animate = true;
 
-		boolean numberIndicatorResize = false;
+		private boolean numberIndicatorResize = false;
 
 		public Indicator(Context context) {
 			super(context);
-			setBackgroundColor(getResources().getColor(
-					android.R.color.transparent));
+			setBackgroundColor(getResources().getColor(android.R.color.transparent));
 		}
 
 		@Override
@@ -379,8 +382,8 @@ public class Slider extends CustomView {
 			super.onDraw(canvas);
 
 			if (numberIndicatorResize == false) {
-				RelativeLayout.LayoutParams params = (LayoutParams) numberIndicator.numberIndicator
-						.getLayoutParams();
+				RelativeLayout.LayoutParams params = (LayoutParams) numberIndicator.
+						numberIndicator.getLayoutParams();
 				params.height = (int) finalSize * 2;
 				params.width = (int) finalSize * 2;
 				numberIndicator.numberIndicator.setLayoutParams(params);
@@ -402,12 +405,11 @@ public class Slider extends CustomView {
 				animate = false;
 			if (animate == false) {
 				ViewHelper.setX(numberIndicator.numberIndicator, 
-						(ViewHelper.getX(ball) + 
-								Utils.getRelativeLeft((View) ball.getParent()) + ball.getWidth() / 2) - size);
+						(ViewHelper.getX(ball) + Utils.getRelativeLeft((View) ball.getParent()) 
+								+ ball.getWidth() / 2) - size);
 				ViewHelper.setY(numberIndicator.numberIndicator, y - size);
 				numberIndicator.numberIndicator.setText(value + "");
 			}
-
 			invalidate();
 		}
 

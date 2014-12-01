@@ -42,6 +42,7 @@ public class CheckBox extends CustomView {
 		} else {
 			setBackgroundResource(android.R.drawable.checkbox_on_background);
 		}
+		setViewSize();
 		setBackgroundAttributes(attrs);
 
 		boolean check = attrs.getAttributeBooleanValue(MATERIALDESIGNXML, "check", false);

@@ -21,38 +21,42 @@ import android.widget.RelativeLayout;
 
 public class Switch extends CustomView {
 
-	Ball ball;
+	private Ball ball;
 
-	boolean check = false;
-	boolean eventCheck = false;
-	boolean press = false;
+	private boolean check = false;
+	private boolean eventCheck = false;
+	private boolean press = false;
 
-	OnCheckListener onCheckListener;
+	private OnCheckListener onCheckListener;
 
 	public Switch(Context context, AttributeSet attrs) {
 		super(context, attrs);
+		setDefaultValues();
+		setAttributes(attrs);
+	}
+	
+	private void setDefaultValues() {
 		minWidth = 80;// size of view
 		minHeight = 48;
 		backgroundColor = Color.parseColor("#4CAF50");
-		setAttributes(attrs);
+	}
+	
+	// Set atributtes of XML to View
+	protected void setAttributes(AttributeSet attrs) {
+		setViewSize();
+		setBackgroundAttributes(attrs);
+		if (!isInEditMode()) {
+			setBackgroundResource(R.drawable.background_transparent);
+		}
+		check = attrs.getAttributeBooleanValue(MATERIALDESIGNXML, "check", false);
+		eventCheck = check;
 		setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
 				setChecked(check ? false : true);
 			}
 		});
-	}
-
-	// Set atributtes of XML to View
-	protected void setAttributes(AttributeSet attrs) {
-		if (!isInEditMode()) {
-			setBackgroundResource(R.drawable.background_transparent);
-		}
-		setBackgroundAttributes(attrs);
 		
-		check = attrs.getAttributeBooleanValue(MATERIALDESIGNXML, "check", false);
-		eventCheck = check;
-
 		float size = 20;
 		String thumbSize = attrs.getAttributeValue(MATERIALDESIGNXML, "thumbSize");
 		if (thumbSize != null) {
@@ -117,28 +121,24 @@ public class Switch extends CustomView {
 		paint.setAntiAlias(true);
 		paint.setColor((check) ? backgroundColor : Color.parseColor("#B0B0B0"));
 		paint.setStrokeWidth(Utils.dpToPx(2, getResources()));
-		temp.drawLine(getHeight() / 2, getHeight() / 2, getWidth() - getHeight() / 2, 
-				getHeight() / 2, paint);
+		temp.drawLine(getHeight() / 2, getHeight() / 2, getWidth() - getHeight() / 2, getHeight() / 2, paint);
 		Paint transparentPaint = new Paint();
 		transparentPaint.setAntiAlias(true);
 		transparentPaint.setColor(getResources().getColor(android.R.color.transparent));
-		transparentPaint.setXfermode(new PorterDuffXfermode(
-				PorterDuff.Mode.CLEAR));
+		transparentPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.CLEAR));
 		temp.drawCircle(ViewHelper.getX(ball) + ball.getWidth() / 2,
 				ViewHelper.getY(ball) + ball.getHeight() / 2, ball.getWidth() / 2, transparentPaint);
 		canvas.drawBitmap(bitmap, 0, 0, new Paint());
 
 		if (press) {
-			paint.setColor((check) ? makePressColor(70) : Color
-					.parseColor("#446D6D6D"));
-			canvas.drawCircle(ViewHelper.getX(ball) + ball.getWidth() / 2, getHeight() / 2, 
-					getHeight() / 2, paint);
+			paint.setColor((check) ? makePressColor(70) : Color.parseColor("#446D6D6D"));
+			canvas.drawCircle(ViewHelper.getX(ball) + ball.getWidth() / 2, getHeight() / 2, getHeight() / 2, paint);
 		}
 		invalidate();
 	}
 
 	// Move ball to first position in view
-	boolean placedBall = false;
+	private boolean placedBall = false;
 
 	private void placeBall() {
 		ViewHelper.setX(ball, getHeight() / 2 - ball.getWidth() / 2);
@@ -176,9 +176,9 @@ public class Switch extends CustomView {
 		return check;
 	}
 	
-	class Ball extends View {
+	private class Ball extends View {
 
-		float xIni, xFin, xCen;
+		private float xIni, xFin, xCen;
 
 		public Ball(Context context) {
 			super(context);

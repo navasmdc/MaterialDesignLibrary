@@ -16,45 +16,47 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.widget.TextView;
 
-public abstract class Button extends CustomView {
+public abstract class Button extends RippleView {
 
-	final static String ANDROIDXML = "http://schemas.android.com/apk/res/android";
+	protected int backgroundResId;// view形状的资源
 
-	// Complete in child class
-	int minWidth;
-	int minHeight;
-	int background;
-	float rippleSpeed = 10f;
-	int rippleSize = 3;
-	Integer rippleColor;
-	OnClickListener onClickListener;
-	int backgroundColor = Color.parseColor("#1E88E5");
+	protected OnClickListener onClickListener;
 
 	public Button(Context context, AttributeSet attrs) {
 		super(context, attrs);
-		setDefaultProperties();
-		setAttributes(attrs);
-		beforeBackground = backgroundColor;
-		if(rippleColor==null)
-		rippleColor = makePressColor();
+		onInitDefaultValues();
+		onInitAttributes(attrs);
 	}
-
-	protected void setDefaultProperties() {
-		// Min size
-		setMinimumHeight(Utils.dpToPx(minHeight, getResources()));
-		setMinimumWidth(Utils.dpToPx(minWidth, getResources()));
-		// Background shape
-		setBackgroundResource(background);
+	
+	protected void onInitDefaultValues() {
+		backgroundColor = Color.parseColor("#1E88E5");// 默认的背景色，蓝色
+		//backgroundColor = Color.parseColor("#FF88E5");// 默认的背景色，蓝色
+		if (!isInEditMode()) {
+			/**
+			 * 默认的资源，这里因为没有初始化，所以需要在子类中初始化这个资源id。
+			 * 所以子类必须在设置好资源后，调用super语句
+			 */
+			setBackgroundResource(backgroundResId);
+		}
+		// 如果是扁平按钮就不用设置背景了，因为扁平按钮背景是透明的，如果是传统或者是圆形按钮就需要设置
 		setBackgroundColor(backgroundColor);
 	}
 
 	// Set atributtes of XML to View
-	abstract protected void setAttributes(AttributeSet attrs);
+	protected void onInitAttributes(AttributeSet attrs) {
+		setViewSize();
+		setBackgroundAttributes(attrs);
+		setRippleAttributes(attrs);
+		beforeBackground = backgroundColor;
+		if(rippleColor == null) {
+			rippleColor = makePressColor(255);
+		}
+	}
 
 	// ### RIPPLE EFFECT ###
-
-	float x = -1, y = -1;
-	float radius = -1;
+	protected float x = -1;
+	protected float y = -1;
+	protected float radius = -1;
 
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
@@ -68,8 +70,8 @@ public abstract class Button extends CustomView {
 				radius = getHeight() / rippleSize;
 				x = event.getX();
 				y = event.getY();
-				if (!((event.getX() <= getWidth() && event.getX() >= 0) && (event
-						.getY() <= getHeight() && event.getY() >= 0))) {
+				if (!((event.getX() <= getWidth() && event.getX() >= 0) && 
+						(event.getY() <= getHeight() && event.getY() >= 0))) {
 					isLastTouch = false;
 					x = -1;
 					y = -1;
@@ -83,14 +85,16 @@ public abstract class Button extends CustomView {
 					x = -1;
 					y = -1;
 				}
+				if (clickAfterRipple == false && onClickListener != null) {
+					onClickListener.onClick(this);
+				}
 			}
 		}
 		return true;
 	}
 
 	@Override
-	protected void onFocusChanged(boolean gainFocus, int direction,
-			Rect previouslyFocusedRect) {
+	protected void onFocusChanged(boolean gainFocus, int direction, Rect previouslyFocusedRect) {
 		if (!gainFocus) {
 			x = -1;
 			y = -1;
@@ -105,39 +109,27 @@ public abstract class Button extends CustomView {
 
 	public Bitmap makeCircle() {
 		Bitmap output = Bitmap.createBitmap(
-				getWidth() - Utils.dpToPx(6, getResources()), getHeight()
-						- Utils.dpToPx(7, getResources()), Config.ARGB_8888);
+				getWidth() - Utils.dpToPx(6, getResources()), 
+				getHeight() - Utils.dpToPx(7, getResources()), Config.ARGB_8888);
 		Canvas canvas = new Canvas(output);
 		canvas.drawARGB(0, 0, 0, 0);
 		Paint paint = new Paint();
 		paint.setAntiAlias(true);
 		paint.setColor(rippleColor);
 		canvas.drawCircle(x, y, radius, paint);
-		if (radius > getHeight() / rippleSize)
+		if (radius > getHeight() / rippleSize) {
 			radius += rippleSpeed;
+		}
 		if (radius >= getWidth()) {
 			x = -1;
 			y = -1;
 			radius = getHeight() / rippleSize;
-			if (onClickListener != null)
+			// 如果在这里设置监听器的话，就是动画结束后才执行点击事件 
+			if (clickAfterRipple == true && onClickListener != null) {
 				onClickListener.onClick(this);
+			}
 		}
 		return output;
-	}
-
-	/**
-	 * Make a dark color to ripple effect
-	 * 
-	 * @return
-	 */
-	protected int makePressColor() {
-		int r = (this.backgroundColor >> 16) & 0xFF;
-		int g = (this.backgroundColor >> 8) & 0xFF;
-		int b = (this.backgroundColor >> 0) & 0xFF;
-		r = (r - 30 < 0) ? 0 : r - 30;
-		g = (g - 30 < 0) ? 0 : g - 30;
-		b = (b - 30 < 0) ? 0 : b - 30;
-		return Color.rgb(r, g, b);
 	}
 
 	@Override
@@ -147,27 +139,37 @@ public abstract class Button extends CustomView {
 
 	// Set color of background
 	public void setBackgroundColor(int color) {
-		this.backgroundColor = color;
+		backgroundColor = color;
 		if (isEnabled())
 			beforeBackground = backgroundColor;
 		try {
 			LayerDrawable layer = (LayerDrawable) getBackground();
+			// 每个按钮的框架都是由drawable中的xml文件制定的，xml文件中都有一个item的id叫：shape_bacground
 			GradientDrawable shape = (GradientDrawable) layer
 					.findDrawableByLayerId(R.id.shape_bacground);
+			/**
+			 * 给这个图片设置背景色，因为图片的主体是透明的所以可以直接显示背景色
+			 * 效果就是一个透明但有阴影的框架下有了背景色，这样的方式可以方便的设置不同颜色的按钮，让按钮看起来还是浑然一体
+			 */
 			shape.setColor(backgroundColor);
-			rippleColor = makePressColor();
+			rippleColor = super.makePressColor(255);
 		} catch (Exception ex) {
 			// Without bacground
 		}
 	}
 
 	abstract public TextView getTextView();
-
-	public void setRippleSpeed(float rippleSpeed) {
-		this.rippleSpeed = rippleSpeed;
-	}
-
-	public float getRippleSpeed() {
-		return this.rippleSpeed;
+	
+	/**
+	 * @return 涟漪上的暗色
+	 * 如果自定义了颜色，就返回自定义的颜色。如果没有，那么就生成颜色
+	 */
+	@Override
+	protected int makePressColor(int alpha){
+		if (rippleColor != null) {
+			return rippleColor;	
+		}else {
+			return super.makePressColor(alpha);
+		}
 	}
 }

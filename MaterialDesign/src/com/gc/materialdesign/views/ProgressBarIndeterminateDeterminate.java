@@ -13,8 +13,6 @@ public class ProgressBarIndeterminateDeterminate extends ProgressBarDetermininat
 	boolean firstProgress = true;
 	boolean runAnimation = true;
 	ObjectAnimator animation;
-	
-	
 
 	public ProgressBarIndeterminateDeterminate(Context context, AttributeSet attrs) {
 		super(context, attrs);

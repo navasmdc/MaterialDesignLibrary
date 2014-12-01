@@ -12,16 +12,18 @@ import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 
-public class LayoutRipple extends CustomView {
+public class LayoutRipple extends RippleView {
 
 	OnClickListener onClickListener;
 
 	Float xRippleOrigin;
 	Float yRippleOrigin;
-	float borderRadius = 0;// radius
+	float rippleBorderRadius = 0;// radius
 	
 	public LayoutRipple(Context context, AttributeSet attrs) {
 		super(context, attrs);
+		minWidth = 20;
+		minHeight = 20;
 		backgroundColor = 0x00ffffff;
 		rippleSpeed = 20f;// default speed. layout is large,so need fast
 		setAttributes(attrs);
@@ -29,23 +31,12 @@ public class LayoutRipple extends CustomView {
 	
 	// Set atributtes of XML to View
 	protected void setAttributes(AttributeSet attrs){
-		// Set background Color
-		// Color by resource
-		int bacgroundColor = attrs.getAttributeResourceValue(ANDROIDXML, "background", -1);
-		if (bacgroundColor != -1) {
-			setBackgroundColor(getResources().getColor(bacgroundColor));
-		} else {
-			int background = attrs.getAttributeIntValue(ANDROIDXML, "background", -1);// Color by hexadecimal
-			if (background != -1) {
-				setBackgroundColor(background);
-			} else {
-				setBackgroundColor(backgroundColor);
-			}
-		}
+		setBackgroundColor(backgroundColor);
+		setBackgroundAttributes(attrs);
 		setRippleAttributes(attrs);
 		//设定涟漪最外层的边界弧度，是圆角矩形，如果不设置，则是普通矩形
 		// layout border radius
-		borderRadius = attrs.getAttributeFloatValue(MATERIALDESIGNXML, "borderRadius", 0);
+		rippleBorderRadius = attrs.getAttributeFloatValue(MATERIALDESIGNXML, "rippleBorderRadius", 0);
 	}
 	
 	// ### RIPPLE EFFECT ###
@@ -65,8 +56,8 @@ public class LayoutRipple extends CustomView {
 				radius = getHeight() / rippleSize;
 				x = event.getX();
 				y = event.getY();
-				if (!((event.getX() <= getWidth() && event.getX() >= 0) && (event
-						.getY() <= getHeight() && event.getY() >= 0))) {
+				if (!((event.getX() <= getWidth() && event.getX() >= 0) && 
+						(event.getY() <= getHeight() && event.getY() >= 0))) {
 					isLastTouch = false;
 					x = -1;
 					y = -1;
@@ -155,7 +146,7 @@ public class LayoutRipple extends CustomView {
 	    canvas.drawARGB(0, 0, 0, 0);
 	    paint.setColor(color);
 	    RectF rectF = new RectF(0, 0, bitmap.getWidth(), bitmap.getHeight());
-	    canvas.drawRoundRect(rectF, borderRadius, borderRadius, paint);
+	    canvas.drawRoundRect(rectF, rippleBorderRadius, rippleBorderRadius, paint);
 
 	    paint.setXfermode(new PorterDuffXfermode(Mode.SRC_IN));
 	    canvas.drawBitmap(bitmap, rect, rect, paint);
@@ -180,8 +171,8 @@ public class LayoutRipple extends CustomView {
 	 * set the layoutRipple border radius
 	 * @param size
 	 */
-	public void setBorderRadius(float size) {
-		borderRadius = size;
+	public void setRippleBorderRadius(float size) {
+		rippleBorderRadius = size;
 	}
 	
 	// Set color of background
