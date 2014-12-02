@@ -30,7 +30,6 @@ public abstract class Button extends RippleView {
 	
 	protected void onInitDefaultValues() {
 		backgroundColor = Color.parseColor("#1E88E5");// 默认的背景色，蓝色
-		//backgroundColor = Color.parseColor("#FF88E5");// 默认的背景色，蓝色
 		if (!isInEditMode()) {
 			/**
 			 * 默认的资源，这里因为没有初始化，所以需要在子类中初始化这个资源id。
@@ -138,6 +137,7 @@ public abstract class Button extends RippleView {
 	}
 
 	// Set color of background
+	@Override
 	public void setBackgroundColor(int color) {
 		backgroundColor = color;
 		if (isEnabled())
@@ -145,8 +145,7 @@ public abstract class Button extends RippleView {
 		try {
 			LayerDrawable layer = (LayerDrawable) getBackground();
 			// 每个按钮的框架都是由drawable中的xml文件制定的，xml文件中都有一个item的id叫：shape_bacground
-			GradientDrawable shape = (GradientDrawable) layer
-					.findDrawableByLayerId(R.id.shape_bacground);
+			GradientDrawable shape = (GradientDrawable) layer.findDrawableByLayerId(R.id.shape_bacground);
 			/**
 			 * 给这个图片设置背景色，因为图片的主体是透明的所以可以直接显示背景色
 			 * 效果就是一个透明但有阴影的框架下有了背景色，这样的方式可以方便的设置不同颜色的按钮，让按钮看起来还是浑然一体

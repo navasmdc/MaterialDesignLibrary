@@ -27,7 +27,7 @@ import android.widget.TextView;
  */
 public class ButtonFloat extends Button {
 
-	protected int sizeIcon;// 内部图片大小
+	protected int iconSize;// 内部图片大小
 	protected int sizeRadius;// 图标半径
 
 	ImageView icon; // 按钮中的ImageView 
@@ -41,12 +41,12 @@ public class ButtonFloat extends Button {
 	protected void onInitDefaultValues() {
 		backgroundResId = R.drawable.background_button_float;
 		super.onInitDefaultValues();
-		sizeIcon = 24;
+		iconSize = 24;
 		sizeRadius = 28;
 		rippleSpeed = 3;
 		rippleSize = 5;
-		minWidth = sizeRadius * 2;
-		minHeight = sizeRadius * 2;
+		minWidth = sizeRadius * 2;// 56dp
+		minHeight = sizeRadius * 2;// 56dp
 	}
 
 	// 将xml文件中的属性设置到view中
@@ -81,20 +81,20 @@ public class ButtonFloat extends Button {
 			icon.setBackgroundDrawable(iconDrawable);
 		}
 		// 设置按钮中图标的大小
-		String iconSize = attrs.getAttributeValue(MATERIALDESIGNXML, "drawableIconSize");
-		if (iconSize != null) {
-			sizeIcon = (int) Utils.dipOrDpToFloat(iconSize);
+		String size = attrs.getAttributeValue(MATERIALDESIGNXML, "iconSize");
+		if (size != null) {
+			iconSize = (int) Utils.dipOrDpToFloat(size);
 		}
 		setIconParams();
+		addView(icon);
 	}
 
 	private void setIconParams() {
 		// TODO 自动生成的方法存根
 		RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
-				Utils.dpToPx(sizeIcon, getResources()), Utils.dpToPx(sizeIcon, getResources()));
+				Utils.dpToPx(iconSize, getResources()), Utils.dpToPx(iconSize, getResources()));
 		params.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);
 		icon.setLayoutParams(params);
-		addView(icon);
 	}
 
 	@Override
@@ -132,13 +132,26 @@ public class ButtonFloat extends Button {
 
 	// GET AND SET
 	
+	public void isAnimate(boolean isAnimate) {
+		if (isAnimate) {
+			post(new Runnable() {
+				@Override
+				public void run() {
+					float originalY = ViewHelper.getY(ButtonFloat.this) - Utils.dpToPx(24, getResources());
+					ViewHelper.setY(ButtonFloat.this, 
+							ViewHelper.getY(ButtonFloat.this) + getHeight() * 3);
+					ObjectAnimator animator = ObjectAnimator.ofFloat(ButtonFloat.this, "y", originalY);
+					animator.setInterpolator(new BounceInterpolator());
+					animator.setDuration(1500);// 动画持续时间
+					animator.start();
+				}
+			});
+		}
+	}
+	
 	public ImageView getIcon() {
 		return icon;
 	}
-	
-	 public void setIcon(ImageView icon) {
-		 this.icon = icon;
-	 }
 	
 	public Drawable getIconDrawable() {
 		return iconDrawable;
@@ -154,18 +167,16 @@ public class ButtonFloat extends Button {
 	 * 
 	 * @param size
 	 */
-	public void setDrawableIconSize(int size) {
-		sizeIcon = size;
-		removeView(icon);// 先移除里面的imageview，然后再add新的ImageView
-		// TODO：更新代码，进行重新绘制
+	public void setIconSize(int size) {
+		iconSize = size;
 		setIconParams();
 	}
 
 	/**
 	 * @return 按钮中心图片的大小
 	 */
-	public int getDrawableIconSize() {
-		return sizeIcon;
+	public int getIconSize() {
+		return iconSize;
 	}
 
 	@Override

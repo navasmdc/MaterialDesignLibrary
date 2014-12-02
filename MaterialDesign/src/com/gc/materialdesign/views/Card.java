@@ -14,21 +14,21 @@ public class Card extends CustomView {
 	TextView textButton;
 	
 	int paddingTop,paddingBottom, paddingLeft, paddingRight;
-	int backgroundColor = Color.parseColor("#FFFFFF");
 	
 	public Card(Context context, AttributeSet attrs) {
 		super(context, attrs);
+		backgroundColor = Color.parseColor("#FFFFFF");
 		setAttributes(attrs);
 	}
 	
 	
 	// Set atributtes of XML to View
 	protected void setAttributes(AttributeSet attrs){
-		setBackgroundColor(this.backgroundColor);
-		setBackgroundAttributes(attrs);
 		if(!isInEditMode()) {
 			setBackgroundResource(R.drawable.background_button_rectangle);
 		}
+		setBackgroundColor(this.backgroundColor);
+		setBackgroundAttributes(attrs);
 	}
 	
 	// Set color of background

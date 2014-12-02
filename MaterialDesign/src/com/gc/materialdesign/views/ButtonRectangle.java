@@ -19,16 +19,18 @@ import android.widget.TextView;
 public class ButtonRectangle extends Button {
 	
 	protected TextView textButton;
-	protected int defaultTextColor = Color.WHITE;
+	protected int defaultTextColor;
 	
 	public ButtonRectangle(Context context, AttributeSet attrs) {
-		super(context, attrs);//先运行setDefaultProperties，然后运行setAttributes
+		super(context, attrs);
 	}
 	
 	@Override
 	protected void onInitDefaultValues(){
+		textButton = new TextView(getContext());
 		backgroundResId = R.drawable.background_button_rectangle;
 		super.onInitDefaultValues();
+		defaultTextColor = Color.WHITE;
 		//涟漪的速度，这里的5.5可以调整
 		rippleSpeed = 5.5f;
 		minWidth = 80;
@@ -39,6 +41,9 @@ public class ButtonRectangle extends Button {
 	@Override
 	protected void onInitAttributes(AttributeSet attrs){
 		super.onInitAttributes(attrs);
+		if (isInEditMode()) {
+			textButton = new TextView(getContext());
+		}
 		String text = null;
 		/**
 		 * 设置按钮上的文字内容
@@ -55,18 +60,7 @@ public class ButtonRectangle extends Button {
 		 * 当文字不为空的时候，TextView设置文字，否则不设置文字
 		 */
 		if(text != null){
-			textButton = new TextView(getContext());
 			textButton.setText(text);
-			textButton.setTextColor(defaultTextColor);//默认的文字颜色
-			textButton.setTypeface(null, Typeface.BOLD);
-			//textButton.setPadding(12, 12, 12, 12);//内边距
-			RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
-					LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT);
-			params.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);
-			params.setMargins(Utils.dpToPx(5, getResources()), Utils.dpToPx(5, getResources()), Utils.dpToPx(5, getResources()), Utils.dpToPx(5, getResources()));
-			textButton.setLayoutParams(params);
-			//设置好各种属性后，添加穿件好的控件到view中
-			addView(textButton);
 		}
 		
 		/**
@@ -90,10 +84,20 @@ public class ButtonRectangle extends Button {
 			String color = attrs.getAttributeValue(ANDROIDXML,"textColor");
 			if(color != null && !isInEditMode()) {
 				textButton.setTextColor(Color.parseColor(color));
-			}else if(isInEditMode()){
-				textButton.setTextColor(Color.WHITE);//默认的文字颜色
+			}else {
+				textButton.setTextColor(defaultTextColor);
 			}
 		}
+		
+		textButton.setTypeface(null, Typeface.BOLD);
+		//textButton.setPadding(5, 5, 5, 5);//内边距
+		RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
+				LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT);
+		params.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);
+		params.setMargins(Utils.dpToPx(5, getResources()), Utils.dpToPx(5, getResources()), Utils.dpToPx(5, getResources()), Utils.dpToPx(5, getResources()));
+		textButton.setLayoutParams(params);
+		//设置好各种属性后，添加穿件好的控件到view中
+		addView(textButton);
 	}
 	
 	@Override
@@ -109,7 +113,7 @@ public class ButtonRectangle extends Button {
 	
 	// GET AND SET
 	
-	public void setText(String text){
+	public void setText(final String text){
 		textButton.setText(text);
 	}
 	

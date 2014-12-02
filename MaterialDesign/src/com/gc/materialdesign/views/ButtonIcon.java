@@ -15,11 +15,11 @@ public class ButtonIcon extends ButtonFloat {
 	
 	@Override
 	protected void onInitDefaultValues() {
-		minHeight = 36;
-		minWidth = 88;
+		super.onInitDefaultValues();
 		rippleSpeed = 2;
-		rippleSize = 2;
-		setBackground(new ColorDrawable(getResources().getColor(android.R.color.transparent)));
+		rippleSize = 5;
+		// Background shape
+		setBackgroundDrawable(new ColorDrawable(getResources().getColor(android.R.color.transparent)));
 	}
 	
 	@Override
@@ -37,7 +37,7 @@ public class ButtonIcon extends ButtonFloat {
 		if (x != -1) {
 			Paint paint = new Paint();
 			paint.setAntiAlias(true);
-			paint.setColor(makePressColor());
+			paint.setColor(backgroundColor);
 			canvas.drawCircle(x, y, radius, paint);
 			if(radius > getHeight()/rippleSize)
 				radius += rippleSpeed;
@@ -50,10 +50,6 @@ public class ButtonIcon extends ButtonFloat {
 			}
 		}
 		invalidate();
-	}
-	
-	protected int makePressColor() {
-		return backgroundColor;
 	}
 
 }

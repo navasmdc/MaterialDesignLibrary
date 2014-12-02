@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
+import android.widget.TextView;
 
 import com.gc.materialdesign.R;
 
@@ -16,6 +17,7 @@ public class ButtonFlat extends ButtonRectangle {
 	
 	@Override
 	protected void onInitDefaultValues(){
+		textButton = new TextView(getContext());
 		minHeight = 36;
 		minWidth = 88;
 		rippleSpeed = 6f;
@@ -51,7 +53,7 @@ public class ButtonFlat extends ButtonRectangle {
 	@Override
 	@Deprecated
 	public void setBackgroundColor(int color) {
-		//无效方法
+		textButton.setTextColor(color);
 	}
 	
 	

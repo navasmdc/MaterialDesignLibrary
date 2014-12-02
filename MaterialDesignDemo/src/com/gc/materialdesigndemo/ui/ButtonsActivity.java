@@ -34,6 +34,7 @@ public class ButtonsActivity extends Activity {
         findViewById(R.id.buttonflat).setBackgroundColor(color);
         findViewById(R.id.button).setBackgroundColor(color);
         findViewById(R.id.buttonFloatSmall).setBackgroundColor(color);
+        findViewById(R.id.buttonIcon).setBackgroundColor(color);
         findViewById(R.id.buttonFloat).setBackgroundColor(color);
     }  
     

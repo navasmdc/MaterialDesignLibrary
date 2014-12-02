@@ -40,7 +40,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:background="#1E88E5"
-                materialdesign:check="true" />
+                materialdesign:checked="true" />
         </RelativeLayout>
         <!-- SWITCH -->
 
@@ -72,7 +72,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:background="#1E88E5"
-                materialdesign:check="true" />
+                materialdesign:checked="true" />
         </RelativeLayout>
         <!-- RADIO BUTTON -->
 

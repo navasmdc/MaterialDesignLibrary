@@ -56,7 +56,7 @@ public class Slider extends CustomView {
 	
 	// Set atributtes of XML to View
 	private void setAttributes(AttributeSet attrs) {
-		setViewSize();
+		setViewSize();// set min size 
 		setBackgroundAttributes(attrs);
 		
 		if (!isInEditMode()) {
@@ -74,10 +74,7 @@ public class Slider extends CustomView {
 		}
 
 		ball = new Ball(getContext());
-		RelativeLayout.LayoutParams params = new LayoutParams(
-				Utils.dpToPx(size, getResources()), Utils.dpToPx(size, getResources()));
-		params.addRule(RelativeLayout.CENTER_VERTICAL, RelativeLayout.TRUE);
-		ball.setLayoutParams(params);
+		setBallParams(size);
 		addView(ball);
 
 		// Set if slider content number indicator
@@ -86,6 +83,13 @@ public class Slider extends CustomView {
 				numberIndicator = new NumberIndicator(getContext());
 			}
 		}
+	}
+	
+	private void setBallParams(float size) {
+		RelativeLayout.LayoutParams params = new LayoutParams(
+				Utils.dpToPx(size, getResources()), Utils.dpToPx(size, getResources()));
+		params.addRule(RelativeLayout.CENTER_VERTICAL, RelativeLayout.TRUE);
+		ball.setLayoutParams(params);
 	}
 
 	@Override
@@ -213,6 +217,10 @@ public class Slider extends CustomView {
 			OnValueChangedListener onValueChangedListener) {
 		this.onValueChangedListener = onValueChangedListener;
 	}
+	
+	public void setThumbSize(float size) {
+		setBallParams(size);
+	}
 
 	public int getValue() {
 		return value;
@@ -220,28 +228,35 @@ public class Slider extends CustomView {
 
 	/**
 	 * @param value
-	 * @param inRunnable
-	 *            如果为true表示在runnable中跟新进度，否则在主线程中更新
+	 * @param inRunnable 如果为true表示在runnable中跟新进度，否则在主线程中更新
 	 */
-	public void setValue(final int value) {
-		if (placedBall == false)
+	public void setValue(int value,boolean inRunnable) {
+		if (value <= min) {
+			value = min;
+		}
+		if (value >= max) {
+			value = max;
+		}
+		setValueInRunnable(value,inRunnable);
+	}
+	
+	
+	private void setValueInRunnable(final int value,final boolean inRunnable) {
+		if(placedBall == false && inRunnable == true)
 			post(new Runnable() {
-
 				@Override
 				public void run() {
-					setValue(value);
+					setValue(value,inRunnable);
 				}
 			});
-		else {
+		else{
 			this.value = value;
 			float division = (ball.xFin - ball.xIni) / max;
-			ViewHelper.setX(ball,
-					value * division + getHeight() / 2 - ball.getWidth() / 2);
+			ViewHelper.setX(ball,value*division + getHeight()/2 - ball.getWidth()/2);
 			ball.changeBackground();
 		}
-
 	}
-
+	
 	public int getMax() {
 		return max;
 	}
@@ -262,7 +277,7 @@ public class Slider extends CustomView {
 		return showNumberIndicator;
 	}
 
-	public void setShowNumberIndicator(boolean showNumberIndicator) {
+	public void showNumberIndicator(boolean showNumberIndicator) {
 		this.showNumberIndicator = showNumberIndicator;
 		if (!isInEditMode()) {
 			numberIndicator = (showNumberIndicator) ? new NumberIndicator(

@@ -42,12 +42,10 @@ public class ProgressBarIndeterminate extends ProgressBarDetermininate {
 						if(cont == 3 || cont == 1) suma *=-1;
 						
 					}
-					
 					public void onAnimationStart(Animator arg0) {}
 					public void onAnimationRepeat(Animator arg0) {}
 					public void onAnimationCancel(Animator arg0) {}
 				});
-						
 				anim2.start();
 			}
 		});

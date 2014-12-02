@@ -22,7 +22,7 @@ public class ProgressBarCircularIndetermininate extends CustomView {
 	
 	private void setDefaultValues() {
 		minWidth = 32;
-		minHeight = 3;
+		minHeight = 32;
 		backgroundColor = Color.parseColor("#1E88E5");
 	}
 	

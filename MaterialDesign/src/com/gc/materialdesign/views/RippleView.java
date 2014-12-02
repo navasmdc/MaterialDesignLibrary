@@ -4,7 +4,11 @@ import android.content.Context;
 import android.util.AttributeSet;
 
 public abstract class RippleView extends CustomView{
-
+	
+	int rippleSize = 3;//手指按在控件上，产生的圆形涟漪的大小
+	Integer rippleColor = null;//the color of ripple
+	float rippleSpeed = 10f;//the speed of ripple translate
+	
 	public RippleView(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		// TODO 自动生成的构造函数存根
@@ -26,11 +30,16 @@ public abstract class RippleView extends CustomView{
 				rippleColor = rColor;
 			}
 		}
+		
 		/**
 		 * 初始化涟漪扩展的速度 
 		 * init Ripple speed
 		 */
 		rippleSpeed = attrs.getAttributeFloatValue(MATERIALDESIGNXML, "rippleSpeed", rippleSpeed);
+		
+		/**
+		 * 设定涟漪的相应时间
+		 */
 		clickAfterRipple = attrs.getAttributeBooleanValue(MATERIALDESIGNXML, "clickAfterRipple", clickAfterRipple);
 	}
 	

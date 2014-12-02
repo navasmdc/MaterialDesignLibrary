@@ -59,18 +59,6 @@ public class ProgressBarDetermininate extends CustomView {
 		});
 	}
 
-	/**
-	 * Make a dark color to ripple effect
-	 * 
-	 * @return
-	 */
-	protected int makePressColor() {
-		int r = (this.backgroundColor >> 16) & 0xFF;
-		int g = (this.backgroundColor >> 8) & 0xFF;
-		int b = (this.backgroundColor >> 0) & 0xFF;
-		return Color.argb(128, r, g, b);
-	}
-
 	// SETTERS
 
 	@Override
@@ -117,7 +105,7 @@ public class ProgressBarDetermininate extends CustomView {
 
 	// Set color of background
 	public void setBackgroundColor(int color) {
-		this.backgroundColor = color;
+		backgroundColor = color;
 		if (!isInEditMode()) {
 			if (isEnabled()) {
 				beforeBackground = backgroundColor;
@@ -126,7 +114,7 @@ public class ProgressBarDetermininate extends CustomView {
 			GradientDrawable shape = (GradientDrawable) layer.findDrawableByLayerId(R.id.shape_bacground);
 			shape.setColor(color);
 		}
-		super.setBackgroundColor(makePressColor());
+		super.setBackgroundColor(makePressColor(128));
 	}
 
 }

@@ -18,10 +18,6 @@ public class CustomView extends RelativeLayout{
 	int backgroundColor;
 	int beforeBackground;
 	
-	int rippleSize = 3;//手指按在控件上，产生的圆形涟漪的大小
-	Integer rippleColor = null;//the color of ripple
-	float rippleSpeed = 10f;//the speed of ripple translate
-	
 	// Indicate if user touched this view the last time
 	public boolean isLastTouch = false;
 	protected boolean clickAfterRipple = true;//view is click until the ripple is end
@@ -53,7 +49,6 @@ public class CustomView extends RelativeLayout{
 				setBackgroundColor(background);
 			}
 		}
-		
 	}
 	
 	/**
@@ -61,9 +56,9 @@ public class CustomView extends RelativeLayout{
 	 * @return
 	 */
 	protected int makePressColor(int alpha) {
-		int r = (this.backgroundColor >> 16) & 0xFF;
-		int g = (this.backgroundColor >> 8) & 0xFF;
-		int b = (this.backgroundColor >> 0) & 0xFF;
+		int r = (backgroundColor >> 16) & 0xFF;
+		int g = (backgroundColor >> 8) & 0xFF;
+		int b = (backgroundColor >> 0) & 0xFF;
 		r = (r - 30 < 0) ? 0 : r - 30;
 		g = (g - 30 < 0) ? 0 : g - 30;
 		b = (b - 30 < 0) ? 0 : b - 30;
