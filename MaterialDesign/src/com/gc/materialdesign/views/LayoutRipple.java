@@ -3,190 +3,88 @@ package com.gc.materialdesign.views;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
+import android.graphics.PorterDuff.Mode;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
+import android.graphics.RectF;
 import android.util.AttributeSet;
-import android.view.MotionEvent;
 
-public class LayoutRipple extends CustomView {
+public class LayoutRipple extends RippleView {
 
-	int background;
-	float rippleSpeed = 10f;
-	int rippleSize = 3;
-
-	OnClickListener onClickListener;
-	int backgroundColor = Color.parseColor("#FFFFFF");
-
-	Integer rippleColor;
-	Float xRippleOrigin;
-	Float yRippleOrigin;
-
+	private Float xRippleOrigin;
+	private Float yRippleOrigin;
+	float rippleBorderRadius = 0;// radius
+	
 	public LayoutRipple(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		setAttributes(attrs);
 	}
-
-	// Set atributtes of XML to View
+	
+	@Override
+	protected void onInitDefaultValues() {
+		minWidth = 20;
+		minHeight = 20;
+		backgroundColor = 0x00ffffff;
+		rippleSpeed = 20f;// default speed
+	}
+	
+	@Override
 	protected void setAttributes(AttributeSet attrs) {
-
-		// Set background Color
-		// Color by resource
-		int bacgroundColor = attrs.getAttributeResourceValue(ANDROIDXML,
-				"background", -1);
-		if (bacgroundColor != -1) {
-			setBackgroundColor(getResources().getColor(bacgroundColor));
-		} else {
-			// Color by hexadecimal
-			background = attrs.getAttributeIntValue(ANDROIDXML, "background", -1);
-			if (background != -1)
-				setBackgroundColor(background);
-			else
-				setBackgroundColor(this.backgroundColor);
-		}
-		// Set Ripple Color
-		// Color by resource
-		int rippleColor = attrs.getAttributeResourceValue(MATERIALDESIGNXML,
-				"rippleColor", -1);
-		if (rippleColor != -1) {
-			setRippleColor(getResources().getColor(rippleColor));
-		} else {
-			// Color by hexadecimal
-			int background = attrs.getAttributeIntValue(MATERIALDESIGNXML, "rippleColor", -1);
-			if (background != -1)
-				setRippleColor(background);
-			else
-				setRippleColor(makePressColor());
-		}
-		
-		rippleSpeed = attrs.getAttributeFloatValue(MATERIALDESIGNXML,
-				"rippleSpeed", 20f);
+		super.setAttributes(attrs);
+		//设定涟漪最外层的边界弧度，是圆角矩形，如果不设置，则是普通矩形
+		rippleBorderRadius = attrs.getAttributeFloatValue(MATERIALDESIGNXML, "rippleBorderRadius", 0);
 	}
-
-	// Set color of background
-	public void setBackgroundColor(int color) {
-		this.backgroundColor = color;
-		if (isEnabled())
-			beforeBackground = backgroundColor;
-		super.setBackgroundColor(color);
-	}
-
-	public void setRippleSpeed(int rippleSpeed) {
-		this.rippleSpeed = rippleSpeed;
-	}
-
+	
 	// ### RIPPLE EFFECT ###
-
-	float x = -1, y = -1;
-	float radius = -1;
-
-	@Override
-	public boolean onTouchEvent(MotionEvent event) {
-		if (isEnabled()) {
-			isLastTouch = true;
-			if (event.getAction() == MotionEvent.ACTION_DOWN) {
-				radius = getHeight() / rippleSize;
-				x = event.getX();
-				y = event.getY();
-			} else if (event.getAction() == MotionEvent.ACTION_MOVE) {
-				radius = getHeight() / rippleSize;
-				x = event.getX();
-				y = event.getY();
-				if (!((event.getX() <= getWidth() && event.getX() >= 0) && (event
-						.getY() <= getHeight() && event.getY() >= 0))) {
-					isLastTouch = false;
-					x = -1;
-					y = -1;
-				}
-			} else if (event.getAction() == MotionEvent.ACTION_UP) {
-				if ((event.getX() <= getWidth() && event.getX() >= 0)
-						&& (event.getY() <= getHeight() && event.getY() >= 0)) {
-					radius++;
-				} else {
-					isLastTouch = false;
-					x = -1;
-					y = -1;
-				}
-			}
-		}
-		return true;
-	}
-
-	@Override
-	protected void onFocusChanged(boolean gainFocus, int direction,
-			Rect previouslyFocusedRect) {
-		if (!gainFocus) {
-			x = -1;
-			y = -1;
-		}
-	}
-
-	@Override
-	public boolean onInterceptTouchEvent(MotionEvent ev) {
-		// super.onInterceptTouchEvent(ev);
-		return true;
-	}
-
+	
 	public Bitmap makeCircle() {
-		Bitmap output = Bitmap.createBitmap(getWidth(), getHeight(),
-				Config.ARGB_8888);
-		Canvas canvas = new Canvas(output);
-		canvas.drawARGB(0, 0, 0, 0);
-		Paint paint = new Paint();
-		paint.setAntiAlias(true);
-		if (rippleColor == null)
-			rippleColor = makePressColor();
-		paint.setColor(rippleColor);
+		Bitmap output = Bitmap.createBitmap(getWidth(), getHeight(), Config.ARGB_8888);
 		x = (xRippleOrigin == null) ? x : xRippleOrigin;
 		y = (yRippleOrigin == null) ? y : yRippleOrigin;
-		canvas.drawCircle(x, y, radius, paint);
-		if (radius > getHeight() / rippleSize)
-			radius += rippleSpeed;
-		if (radius >= getWidth()) {
-			x = -1;
-			y = -1;
-			radius = getHeight() / rippleSize;
-			if (onClickListener != null)
-				onClickListener.onClick(this);
-		}
-		return output;
+		return makeCircleFromBitmap(output);
 	}
-
+	
+	@Override
 	protected void onDraw(Canvas canvas) {
 		super.onDraw(canvas);
 		if (x != -1) {
 			Rect src = new Rect(0, 0, getWidth(), getHeight());
 			Rect dst = new Rect(0, 0, getWidth(), getHeight());
-			canvas.drawBitmap(makeCircle(), src, dst, null);
+			canvas.drawBitmap(cropRoundRect(makeCircle()), src, dst, null);
 		}
 		invalidate();
 	}
-
+	
 	/**
-	 * Make a dark color to ripple effect
-	 * 
-	 * @return
+	 * @param bitmap
+	 * @return 设置涟漪的边界，涟漪在这个区域里面可见。这里可以设置四角的弧度数
 	 */
-	protected int makePressColor() {
-		int r = (this.backgroundColor >> 16) & 0xFF;
-		int g = (this.backgroundColor >> 8) & 0xFF;
-		int b = (this.backgroundColor >> 0) & 0xFF;
-		r = (r - 30 < 0) ? 0 : r - 30;
-		g = (g - 30 < 0) ? 0 : g - 30;
-		b = (b - 30 < 0) ? 0 : b - 30;
-		return Color.rgb(r, g, b);
+	public Bitmap cropRoundRect(Bitmap bitmap) {
+	    Bitmap output = Bitmap.createBitmap(bitmap.getWidth(),
+	    bitmap.getHeight(), Config.ARGB_8888);
+	    Canvas canvas = new Canvas(output);
+
+	    final int color = 0xff424242;
+	    final Paint paint = new Paint();
+	    final Rect rect = new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight());
+
+	    paint.setAntiAlias(true);
+	    canvas.drawARGB(0, 0, 0, 0);
+	    paint.setColor(color);
+	    RectF rectF = new RectF(0, 0, bitmap.getWidth(), bitmap.getHeight());
+	    canvas.drawRoundRect(rectF, rippleBorderRadius, rippleBorderRadius, paint);
+
+	    paint.setXfermode(new PorterDuffXfermode(Mode.SRC_IN));
+	    canvas.drawBitmap(bitmap, rect, rect, paint);
+	    return output;
 	}
 
-	@Override
-	public void setOnClickListener(OnClickListener l) {
-		onClickListener = l;
-	}
-
-	public void setRippleColor(int rippleColor) {
-		this.rippleColor = rippleColor;
-	}
-
+	
+	
+	// SETTERS
+	
 	public void setxRippleOrigin(Float xRippleOrigin) {
 		this.xRippleOrigin = xRippleOrigin;
 	}
@@ -194,5 +92,25 @@ public class LayoutRipple extends CustomView {
 	public void setyRippleOrigin(Float yRippleOrigin) {
 		this.yRippleOrigin = yRippleOrigin;
 	}
-
+	
+	/**
+	 * set the layoutRipple border radius
+	 * @param size
+	 */
+	public void setRippleBorderRadius(float size) {
+		rippleBorderRadius = size;
+	}
+	
+	// Set color of background
+	public void setBackgroundColor(int color){
+		backgroundColor = color;
+		/**
+		 * 当重新设定背景色后，要检查涟漪颜色。如果已经设定了涟漪颜色，那么就用之前的。如果没设定就重新生成
+		 */
+		if (!settedRippleColor) {
+			rippleColor = makePressColor(255);
+		}
+		super.setBackgroundColor(color);
+	}
+	
 }

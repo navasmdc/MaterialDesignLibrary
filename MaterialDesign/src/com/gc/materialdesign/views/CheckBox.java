@@ -1,8 +1,5 @@
 package com.gc.materialdesign.views;
 
-import com.gc.materialdesign.R;
-import com.gc.materialdesign.utils.Utils;
-
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -17,91 +14,85 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.RelativeLayout;
 
+import com.gc.materialdesign.R;
+import com.gc.materialdesign.utils.Utils;
+
 public class CheckBox extends CustomView {
 
-	int backgroundColor = Color.parseColor("#4CAF50");
+	private Check checkView;
 
-	Check checkView;
+	private boolean idPressed = false;
+	private boolean isChecked = false;
 
-	boolean press = false;
-	boolean check = false;
-
-	OnCheckListener onCheckListener;
+	private OnCheckListener onCheckListener;
 
 	public CheckBox(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		setAttributes(attrs);
 	}
 
-	// Set atributtes of XML to View
+	@Override
+	protected void onInitDefaultValues() {
+		minWidth = 48;
+		minHeight = 48;
+		backgroundColor = Color.parseColor("#4CAF50");// default color
+		backgroundResId = R.drawable.background_checkbox;
+	}
+	
+	@Override
 	protected void setAttributes(AttributeSet attrs) {
-
-		setBackgroundResource(R.drawable.background_checkbox);
-
-		// Set size of view
-		setMinimumHeight(Utils.dpToPx(48, getResources()));
-		setMinimumWidth(Utils.dpToPx(48, getResources()));
-
-		// Set background Color
-		// Color by resource
-		int bacgroundColor = attrs.getAttributeResourceValue(ANDROIDXML,
-				"background", -1);
-		if (bacgroundColor != -1) {
-			setBackgroundColor(getResources().getColor(bacgroundColor));
-		} else {
-			// Color by hexadecimal
-			// Color by hexadecimal
-			int background = attrs.getAttributeIntValue(ANDROIDXML, "background", -1);
-			if (background != -1)
-				setBackgroundColor(background);
-		}
-
-		boolean check = attrs.getAttributeBooleanValue(MATERIALDESIGNXML,
-				"check", false);
-		if (check) {
+		super.setAttributes(attrs);
+		boolean isChecked = attrs.getAttributeBooleanValue(MATERIALDESIGNXML, "checked", false);
+		if (isChecked) {
 			post(new Runnable() {
 
 				@Override
 				public void run() {
 					setChecked(true);
 					setPressed(false);
-					changeBackgroundColor(getResources().getColor(
-							android.R.color.transparent));
+					changeBackgroundColor(getResources().getColor(android.R.color.transparent));
 				}
 			});
 		}
 
+		float size = 20;
+		String checkBoxSize = attrs.getAttributeValue(MATERIALDESIGNXML, "checkBoxSize");
+		if (checkBoxSize != null) {
+			size = Utils.dipOrDpToFloat(checkBoxSize);
+		}
 		checkView = new Check(getContext());
-		RelativeLayout.LayoutParams params = new LayoutParams(Utils.dpToPx(20,
-				getResources()), Utils.dpToPx(20, getResources()));
-		params.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);
-		checkView.setLayoutParams(params);
+		setCheckBoxParams(size);
 		addView(checkView);
-
 	}
 
+	private void setCheckBoxParams(float size) {
+		RelativeLayout.LayoutParams params = new LayoutParams(
+				Utils.dpToPx(size, getResources()), Utils.dpToPx(size, getResources()));
+		params.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);
+		checkView.setLayoutParams(params);
+	}
+	
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
 		if (isEnabled()) {
 			isLastTouch = true;
 			if (event.getAction() == MotionEvent.ACTION_DOWN) {
-				changeBackgroundColor((check) ? makePressColor() : Color
-						.parseColor("#446D6D6D"));
+				changeBackgroundColor((isChecked) ? makePressColor(70) : Color.parseColor("#446D6D6D"));
 			} else if (event.getAction() == MotionEvent.ACTION_UP) {
-				changeBackgroundColor(getResources().getColor(
-						android.R.color.transparent));
-				press = false;
+				changeBackgroundColor(getResources().getColor(android.R.color.transparent));
+				idPressed = false;
 				if ((event.getX() <= getWidth() && event.getX() >= 0)
 						&& (event.getY() <= getHeight() && event.getY() >= 0)) {
 					isLastTouch = false;
-					check = !check;
+					isChecked = !isChecked;
 					if (onCheckListener != null)
-						onCheckListener.onCheck(check);
-					if (check) {
+						onCheckListener.onCheck(isChecked);
+					if (isChecked) {
 						step = 0;
 					}
-					if (check)
+					if (isChecked) {
 						checkView.changeBackground();
+					}
 				}
 			}
 		}
@@ -111,88 +102,41 @@ public class CheckBox extends CustomView {
 	@Override
 	protected void onDraw(Canvas canvas) {
 		super.onDraw(canvas);
-		if (press) {
+		if (idPressed) {
 			Paint paint = new Paint();
 			paint.setAntiAlias(true);
-			paint.setColor((check) ? makePressColor() : Color
-					.parseColor("#446D6D6D"));
-			canvas.drawCircle(getWidth() / 2, getHeight() / 2, getWidth() / 2,
-					paint);
+			paint.setColor((isChecked) ? makePressColor(70) : Color.parseColor("#446D6D6D"));
+			canvas.drawCircle(getWidth() / 2, getHeight() / 2, getWidth() / 2, paint);
 		}
 		invalidate();
 	}
-
-	private void changeBackgroundColor(int color) {
-		LayerDrawable layer = (LayerDrawable) getBackground();
-		GradientDrawable shape = (GradientDrawable) layer
-				.findDrawableByLayerId(R.id.shape_bacground);
-		shape.setColor(color);
-	}
-
-	/**
-	 * Make a dark color to press effect
-	 * 
-	 * @return
-	 */
-	protected int makePressColor() {
-		int r = (this.backgroundColor >> 16) & 0xFF;
-		int g = (this.backgroundColor >> 8) & 0xFF;
-		int b = (this.backgroundColor >> 0) & 0xFF;
-		r = (r - 30 < 0) ? 0 : r - 30;
-		g = (g - 30 < 0) ? 0 : g - 30;
-		b = (b - 30 < 0) ? 0 : b - 30;
-		return Color.argb(70, r, g, b);
-	}
-
-	@Override
-	public void setBackgroundColor(int color) {
-		backgroundColor = color;
-		if (isEnabled())
-			beforeBackground = backgroundColor;
-		changeBackgroundColor(color);
-	}
-
-	public void setChecked(boolean check) {
-		this.check = check;
-		setPressed(false);
-		changeBackgroundColor(getResources().getColor(
-				android.R.color.transparent));
-		if (check) {
-			step = 0;
-		}
-		if (check)
-			checkView.changeBackground();
-
-	}
-
-	public boolean isCheck() {
-		return check;
-	}
-
+	
 	// Indicate step in check animation
-	int step = 0;
+	private int step = 0;
 
 	// View that contains checkbox
-	class Check extends View {
+	private class Check extends View {
 
-		Bitmap sprite;
+		private Bitmap sprite;
 
 		public Check(Context context) {
 			super(context);
-			setBackgroundResource(R.drawable.background_checkbox_uncheck);
-			sprite = BitmapFactory.decodeResource(context.getResources(),
-					R.drawable.sprite_check);
+			if (!isInEditMode()) {
+				setBackgroundResource(R.drawable.background_checkbox_uncheck);
+			}
+			sprite = BitmapFactory.decodeResource(context.getResources(), R.drawable.sprite_check);
 		}
 
 		public void changeBackground() {
-			if (check) {
+			if (isChecked) {
 				setBackgroundResource(R.drawable.background_checkbox_check);
 				LayerDrawable layer = (LayerDrawable) getBackground();
-				GradientDrawable shape = (GradientDrawable) layer
-						.findDrawableByLayerId(R.id.shape_bacground);
+				GradientDrawable shape = (GradientDrawable) layer.findDrawableByLayerId(R.id.shape_bacground);
 				shape.setColor(backgroundColor);
 			} else {
-				setBackgroundResource(R.drawable.background_checkbox_uncheck);
+				if (!isInEditMode()) {
+					setBackgroundResource(R.drawable.background_checkbox_uncheck);
+				}
 			}
 		}
 
@@ -200,7 +144,7 @@ public class CheckBox extends CustomView {
 		protected void onDraw(Canvas canvas) {
 			super.onDraw(canvas);
 
-			if (check) {
+			if (isChecked) {
 				if (step < 11)
 					step++;
 			} else {
@@ -211,11 +155,51 @@ public class CheckBox extends CustomView {
 			}
 			Rect src = new Rect(40 * step, 0, (40 * step) + 40, 40);
 			Rect dst = new Rect(0, 0, this.getWidth() - 2, this.getHeight());
-			canvas.drawBitmap(sprite, src, dst, null);
+			if (!isInEditMode()) {
+				canvas.drawBitmap(sprite, src, dst, null);
+			}
 			invalidate();
 
 		}
 
+	}
+
+	private void changeBackgroundColor(int color) {
+		if (!isInEditMode()) {
+			LayerDrawable layer = (LayerDrawable) getBackground();
+			GradientDrawable shape = (GradientDrawable) layer.findDrawableByLayerId(R.id.shape_bacground);
+			shape.setColor(color);
+		}
+	}
+	
+	@Override
+	public void setBackgroundColor(int color) {
+		backgroundColor = color;
+		if (isEnabled()) {
+			 beforeBackground = backgroundColor;
+		}
+		changeBackgroundColor(getResources().getColor(android.R.color.transparent));
+//		changeBackgroundColor(color);
+	}
+
+	public void setChecked(boolean checked) {
+		this.isChecked = checked;
+		setPressed(false);
+		changeBackgroundColor(getResources().getColor(android.R.color.transparent));
+		if (checked) {
+			step = 0;
+		}
+		if (checked) {
+			checkView.changeBackground();
+		}
+	}
+
+	public boolean isChecked() {
+		return isChecked;
+	}
+	
+	public void setCheckBoxSize(float size) {
+		setCheckBoxParams(size);
 	}
 
 	public void setOncheckListener(OnCheckListener onCheckListener) {
@@ -223,7 +207,7 @@ public class CheckBox extends CustomView {
 	}
 
 	public interface OnCheckListener {
-		public void onCheck(boolean check);
+		public void onCheck(boolean isChecked);
 	}
 
 }

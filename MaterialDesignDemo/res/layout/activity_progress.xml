@@ -33,7 +33,7 @@
             android:layout_width="fill_parent"
             android:layout_height="48dp" >
 
-            <com.gc.materialdesign.views.ProgressBarCircularIndetermininate
+            <com.gc.materialdesign.views.ProgressBarCircularIndeterminate
                 android:id="@+id/progressBarCircularIndetermininate"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
@@ -127,7 +127,7 @@
             android:layout_width="fill_parent"
             android:layout_height="48dp" >
 
-            <com.gc.materialdesign.views.ProgressBarDetermininate
+            <com.gc.materialdesign.views.ProgressBarDeterminate
                 android:id="@+id/progressDeterminate"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
