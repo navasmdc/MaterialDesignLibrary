@@ -26,7 +26,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
          */
-        public static final int animate=0x7f01000c;
+        public static final int animate=0x7f01000d;
         /** <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
 Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
 in (inches), mm (millimeters).
@@ -36,7 +36,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
          */
-        public static final int checkBoxSize=0x7f010008;
+        public static final int checkBoxSize=0x7f010009;
         /**  in switche's view indicate state of view 
          <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
 <p>This may also be a reference to a resource (in the form
@@ -45,7 +45,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
          */
-        public static final int checked=0x7f010007;
+        public static final int checked=0x7f010008;
         /** <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
 <p>This may also be a reference to a resource (in the form
 "<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
@@ -53,7 +53,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
          */
-        public static final int clickAfterRipple=0x7f01000e;
+        public static final int clickAfterRipple=0x7f01000f;
         /**  in float button indicate icon resource 
          <p>Must be an integer value, such as "<code>100</code>".
 <p>This may also be a reference to a resource (in the form
@@ -62,7 +62,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
          */
-        public static final int iconFloat=0x7f01000a;
+        public static final int iconDrawable=0x7f01000b;
         /**  in float button indicate icon resource 
          <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
 Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
@@ -73,7 +73,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
          */
-        public static final int iconSize=0x7f01000b;
+        public static final int iconSize=0x7f01000c;
         /**  in progress view indicate max value of progress 
          <p>Must be an integer value, such as "<code>100</code>".
 <p>This may also be a reference to a resource (in the form
@@ -101,6 +101,16 @@ theme attribute (in the form
 containing a value of this type.
          */
         public static final int progress=0x7f010006;
+        /** <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int ringWidth=0x7f010007;
         /** <p>Must be a floating point value, such as "<code>1.2</code>".
 <p>This may also be a reference to a resource (in the form
 "<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
@@ -108,7 +118,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
          */
-        public static final int rippleBorderRadius=0x7f01000d;
+        public static final int rippleBorderRadius=0x7f01000e;
         /**  in float button indicate if must start with animation 
          <p>May be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
@@ -143,7 +153,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
          */
-        public static final int thumbSize=0x7f010009;
+        public static final int thumbSize=0x7f01000a;
         /**  in progress view indicate value of progress 
          <p>Must be an integer value, such as "<code>100</code>".
 <p>This may also be a reference to a resource (in the form
@@ -280,11 +290,12 @@ containing a value of this type.
            <tr><td><code>{@link #CustomAttributes_checkBoxSize com.gc.materialdesigndemo:checkBoxSize}</code></td><td></td></tr>
            <tr><td><code>{@link #CustomAttributes_checked com.gc.materialdesigndemo:checked}</code></td><td> in switche's view indicate state of view </td></tr>
            <tr><td><code>{@link #CustomAttributes_clickAfterRipple com.gc.materialdesigndemo:clickAfterRipple}</code></td><td></td></tr>
-           <tr><td><code>{@link #CustomAttributes_iconFloat com.gc.materialdesigndemo:iconFloat}</code></td><td> in float button indicate icon resource </td></tr>
+           <tr><td><code>{@link #CustomAttributes_iconDrawable com.gc.materialdesigndemo:iconDrawable}</code></td><td> in float button indicate icon resource </td></tr>
            <tr><td><code>{@link #CustomAttributes_iconSize com.gc.materialdesigndemo:iconSize}</code></td><td> in float button indicate icon resource </td></tr>
            <tr><td><code>{@link #CustomAttributes_max com.gc.materialdesigndemo:max}</code></td><td> in progress view indicate max value of progress </td></tr>
            <tr><td><code>{@link #CustomAttributes_min com.gc.materialdesigndemo:min}</code></td><td> in progress view indicate min value of progress </td></tr>
            <tr><td><code>{@link #CustomAttributes_progress com.gc.materialdesigndemo:progress}</code></td><td> in progress view indicate value of progress </td></tr>
+           <tr><td><code>{@link #CustomAttributes_ringWidth com.gc.materialdesigndemo:ringWidth}</code></td><td></td></tr>
            <tr><td><code>{@link #CustomAttributes_rippleBorderRadius com.gc.materialdesigndemo:rippleBorderRadius}</code></td><td></td></tr>
            <tr><td><code>{@link #CustomAttributes_rippleColor com.gc.materialdesigndemo:rippleColor}</code></td><td> in float button indicate if must start with animation </td></tr>
            <tr><td><code>{@link #CustomAttributes_rippleSpeed com.gc.materialdesigndemo:rippleSpeed}</code></td><td> Speed of ripple animation </td></tr>
@@ -296,11 +307,12 @@ containing a value of this type.
            @see #CustomAttributes_checkBoxSize
            @see #CustomAttributes_checked
            @see #CustomAttributes_clickAfterRipple
-           @see #CustomAttributes_iconFloat
+           @see #CustomAttributes_iconDrawable
            @see #CustomAttributes_iconSize
            @see #CustomAttributes_max
            @see #CustomAttributes_min
            @see #CustomAttributes_progress
+           @see #CustomAttributes_ringWidth
            @see #CustomAttributes_rippleBorderRadius
            @see #CustomAttributes_rippleColor
            @see #CustomAttributes_rippleSpeed
@@ -312,7 +324,7 @@ containing a value of this type.
             0x7f010000, 0x7f010001, 0x7f010002, 0x7f010003,
             0x7f010004, 0x7f010005, 0x7f010006, 0x7f010007,
             0x7f010008, 0x7f010009, 0x7f01000a, 0x7f01000b,
-            0x7f01000c, 0x7f01000d, 0x7f01000e
+            0x7f01000c, 0x7f01000d, 0x7f01000e, 0x7f01000f
         };
         /**
           <p>
@@ -329,7 +341,7 @@ containing a value of this type.
           <p>This is a private symbol.
           @attr name com.gc.materialdesigndemo:animate
         */
-        public static final int CustomAttributes_animate = 12;
+        public static final int CustomAttributes_animate = 13;
         /**
           <p>This symbol is the offset where the {@link com.gc.materialdesigndemo.R.attr#checkBoxSize}
           attribute's value can be found in the {@link #CustomAttributes} array.
@@ -345,7 +357,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name com.gc.materialdesigndemo:checkBoxSize
         */
-        public static final int CustomAttributes_checkBoxSize = 8;
+        public static final int CustomAttributes_checkBoxSize = 9;
         /**
           <p>
           @attr description
@@ -361,7 +373,7 @@ containing a value of this type.
           <p>This is a private symbol.
           @attr name com.gc.materialdesigndemo:checked
         */
-        public static final int CustomAttributes_checked = 7;
+        public static final int CustomAttributes_checked = 8;
         /**
           <p>This symbol is the offset where the {@link com.gc.materialdesigndemo.R.attr#clickAfterRipple}
           attribute's value can be found in the {@link #CustomAttributes} array.
@@ -375,7 +387,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name com.gc.materialdesigndemo:clickAfterRipple
         */
-        public static final int CustomAttributes_clickAfterRipple = 14;
+        public static final int CustomAttributes_clickAfterRipple = 15;
         /**
           <p>
           @attr description
@@ -389,9 +401,9 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name com.gc.materialdesigndemo:iconFloat
+          @attr name com.gc.materialdesigndemo:iconDrawable
         */
-        public static final int CustomAttributes_iconFloat = 10;
+        public static final int CustomAttributes_iconDrawable = 11;
         /**
           <p>
           @attr description
@@ -409,7 +421,7 @@ containing a value of this type.
           <p>This is a private symbol.
           @attr name com.gc.materialdesigndemo:iconSize
         */
-        public static final int CustomAttributes_iconSize = 11;
+        public static final int CustomAttributes_iconSize = 12;
         /**
           <p>
           @attr description
@@ -459,6 +471,22 @@ containing a value of this type.
         */
         public static final int CustomAttributes_progress = 6;
         /**
+          <p>This symbol is the offset where the {@link com.gc.materialdesigndemo.R.attr#ringWidth}
+          attribute's value can be found in the {@link #CustomAttributes} array.
+
+
+          <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.gc.materialdesigndemo:ringWidth
+        */
+        public static final int CustomAttributes_ringWidth = 7;
+        /**
           <p>This symbol is the offset where the {@link com.gc.materialdesigndemo.R.attr#rippleBorderRadius}
           attribute's value can be found in the {@link #CustomAttributes} array.
 
@@ -471,7 +499,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name com.gc.materialdesigndemo:rippleBorderRadius
         */
-        public static final int CustomAttributes_rippleBorderRadius = 13;
+        public static final int CustomAttributes_rippleBorderRadius = 14;
         /**
           <p>
           @attr description
@@ -533,7 +561,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name com.gc.materialdesigndemo:thumbSize
         */
-        public static final int CustomAttributes_thumbSize = 9;
+        public static final int CustomAttributes_thumbSize = 10;
         /**
           <p>
           @attr description

@@ -12,6 +12,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
+import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
@@ -40,28 +41,24 @@ public class Slider extends CustomView {
 	int max = 100;
 	int min = 0;
 
-	OnValueChangedListener onValueChangedListener;
+	private OnValueChangedListener onValueChangedListener;
 
 	public Slider(Context context, AttributeSet attrs) {
 		super(context, attrs);
-		setDefaultValues();
 		setAttributes(attrs);
 	}
 
-	private void setDefaultValues() {
+	@Override
+	protected void onInitDefaultValues() {
 		minWidth = 80;// size of view
 		minHeight = 48;
 		backgroundColor = Color.parseColor("#4CAF50");
+		backgroundResId = R.drawable.background_transparent;
 	}
 	
-	// Set atributtes of XML to View
-	private void setAttributes(AttributeSet attrs) {
-		setViewSize();// set min size 
-		setBackgroundAttributes(attrs);
-		
-		if (!isInEditMode()) {
-			setBackgroundResource(R.drawable.background_transparent);
-		}
+	@Override
+	protected void setAttributes(AttributeSet attrs) {
+		super.setAttributes(attrs);
 		showNumberIndicator = attrs.getAttributeBooleanValue(MATERIALDESIGNXML,"showNumberIndicator", false);
 		min = attrs.getAttributeIntValue(MATERIALDESIGNXML, "min", 0);
 		max = attrs.getAttributeIntValue(MATERIALDESIGNXML, "max", 100);// max > min
@@ -100,8 +97,7 @@ public class Slider extends CustomView {
 		}
 		if (value == min) {
 			// Crop line to transparent effect
-			Bitmap bitmap = Bitmap.createBitmap(canvas.getWidth(), canvas.getHeight(), 
-					Bitmap.Config.ARGB_8888);
+			Bitmap bitmap = Bitmap.createBitmap(canvas.getWidth(), canvas.getHeight(), Bitmap.Config.ARGB_8888);
 			Canvas temp = new Canvas(bitmap);
 			Paint paint = new Paint();
 			paint.setColor(Color.parseColor("#B0B0B0"));
@@ -129,6 +125,12 @@ public class Slider extends CustomView {
 			ball.changeBackground();
 		}
 		if (press && !showNumberIndicator) {
+			/**
+			 * 如果按住，在不显示指示器的状态下，会将ball大小扩大来给用户反馈。
+			 * 最后一个参数：getHeight() / x，表示的是按下去后显示的圆球的半径
+			 * 如果x=2，那么按下后圆球的直径就是这个view的高
+			 * 如果x=3，按下后显示圆球的半径就是这个view高的三分之一
+			 */
 			Paint paint = new Paint();
 			paint.setColor(backgroundColor);
 			paint.setAntiAlias(true);
@@ -226,6 +228,9 @@ public class Slider extends CustomView {
 		return value;
 	}
 
+	public void setValue(int value) {
+		setValue(value, false);
+	}
 	/**
 	 * @param value
 	 * @param inRunnable 如果为true表示在runnable中跟新进度，否则在主线程中更新
@@ -280,8 +285,7 @@ public class Slider extends CustomView {
 	public void showNumberIndicator(boolean showNumberIndicator) {
 		this.showNumberIndicator = showNumberIndicator;
 		if (!isInEditMode()) {
-			numberIndicator = (showNumberIndicator) ? new NumberIndicator(
-					getContext()) : null;
+			numberIndicator = (showNumberIndicator) ? new NumberIndicator(getContext()) : null;
 		}
 	}
 	
@@ -420,8 +424,7 @@ public class Slider extends CustomView {
 				animate = false;
 			if (animate == false) {
 				ViewHelper.setX(numberIndicator.numberIndicator, 
-						(ViewHelper.getX(ball) + Utils.getRelativeLeft((View) ball.getParent()) 
-								+ ball.getWidth() / 2) - size);
+						(ViewHelper.getX(ball) + Utils.getRelativeLeft((View) ball.getParent()) + ball.getWidth() / 2) - size);
 				ViewHelper.setY(numberIndicator.numberIndicator, y - size);
 				numberIndicator.numberIndicator.setText(value + "");
 			}

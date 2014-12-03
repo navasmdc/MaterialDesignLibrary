@@ -19,31 +19,29 @@ import com.gc.materialdesign.utils.Utils;
 
 public class CheckBox extends CustomView {
 
-	Check checkView;
+	private Check checkView;
 
-	boolean press = false;
-	boolean isChecked = false;
+	private boolean idPressed = false;
+	private boolean isChecked = false;
 
-	OnCheckListener onCheckListener;
+	private OnCheckListener onCheckListener;
 
 	public CheckBox(Context context, AttributeSet attrs) {
 		super(context, attrs);
-		backgroundColor = Color.parseColor("#4CAF50");// default color
-		minWidth = 48;
-		minHeight = 48;
 		setAttributes(attrs);
 	}
 
-	// Set atributtes of XML to View
+	@Override
+	protected void onInitDefaultValues() {
+		minWidth = 48;
+		minHeight = 48;
+		backgroundColor = Color.parseColor("#4CAF50");// default color
+		backgroundResId = R.drawable.background_checkbox;
+	}
+	
+	@Override
 	protected void setAttributes(AttributeSet attrs) {
-		if (!isInEditMode()) {
-			setBackgroundResource(R.drawable.background_checkbox);
-		} else {
-			setBackgroundResource(android.R.drawable.checkbox_on_background);
-		}
-		setViewSize();// set min size
-		setBackgroundAttributes(attrs);
-
+		super.setAttributes(attrs);
 		boolean isChecked = attrs.getAttributeBooleanValue(MATERIALDESIGNXML, "checked", false);
 		if (isChecked) {
 			post(new Runnable() {
@@ -82,7 +80,7 @@ public class CheckBox extends CustomView {
 				changeBackgroundColor((isChecked) ? makePressColor(70) : Color.parseColor("#446D6D6D"));
 			} else if (event.getAction() == MotionEvent.ACTION_UP) {
 				changeBackgroundColor(getResources().getColor(android.R.color.transparent));
-				press = false;
+				idPressed = false;
 				if ((event.getX() <= getWidth() && event.getX() >= 0)
 						&& (event.getY() <= getHeight() && event.getY() >= 0)) {
 					isLastTouch = false;
@@ -104,7 +102,7 @@ public class CheckBox extends CustomView {
 	@Override
 	protected void onDraw(Canvas canvas) {
 		super.onDraw(canvas);
-		if (press) {
+		if (idPressed) {
 			Paint paint = new Paint();
 			paint.setAntiAlias(true);
 			paint.setColor((isChecked) ? makePressColor(70) : Color.parseColor("#446D6D6D"));
@@ -114,7 +112,7 @@ public class CheckBox extends CustomView {
 	}
 	
 	// Indicate step in check animation
-	int step = 0;
+	private int step = 0;
 
 	// View that contains checkbox
 	private class Check extends View {

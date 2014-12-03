@@ -17,18 +17,19 @@
         <attr name="value" format="integer" />
         <!-- in progress view indicate value of progress -->
         <attr name="progress" format="integer" />
+        <attr name="ringWidth" format="dimension"/>
         <!-- in switche's view indicate state of view -->
         <attr name="checked" format="boolean" />
         <attr name="checkBoxSize" format="dimension" />
         <attr name="thumbSize" format="dimension" />
         <!-- in float button indicate icon resource -->
-        <attr name="iconFloat" format="integer" />
+       <attr name="iconDrawable" format="integer" />
         <!-- in float button indicate icon resource -->
         <attr name="iconSize" format="dimension" />
         <!-- in float button indicate if must start with animation -->
         <attr name="animate" format="boolean" />
         <attr name="rippleBorderRadius" format="float" />
-        <attr name="clickAfterRipple" format="boolean" />
+        <attr name="clickAfterRipple" format="boolean"/>
     </declare-styleable>
 
 </resources>

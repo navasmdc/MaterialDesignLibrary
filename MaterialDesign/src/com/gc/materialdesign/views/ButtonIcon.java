@@ -18,6 +18,7 @@ public class ButtonIcon extends ButtonFloat {
 		super.onInitDefaultValues();
 		rippleSpeed = 2;
 		rippleSize = 5;
+		backgroundResId = -1;
 		// Background shape
 		setBackgroundDrawable(new ColorDrawable(getResources().getColor(android.R.color.transparent)));
 	}

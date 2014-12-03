@@ -7,31 +7,37 @@ import android.widget.RelativeLayout;
 
 import com.gc.materialdesign.utils.Utils;
 
-public class CustomView extends RelativeLayout{
+public abstract class CustomView extends RelativeLayout{
 	
-	final static String MATERIALDESIGNXML = "http://schemas.android.com/apk/res-auto";
-	final static String ANDROIDXML = "http://schemas.android.com/apk/res/android";
+	protected final static String MATERIALDESIGNXML = "http://schemas.android.com/apk/res-auto";
+	protected final static String ANDROIDXML = "http://schemas.android.com/apk/res/android";
 	
-	int minWidth;
-	int minHeight;
+	protected int minWidth;
+	protected int minHeight;
 	
-	int backgroundColor;
-	int beforeBackground;
+	protected int backgroundColor;
+	protected int beforeBackground;
+	protected int backgroundResId = -1;// view背景的形状资源
 	
 	// Indicate if user touched this view the last time
 	public boolean isLastTouch = false;
-	protected boolean clickAfterRipple = true;//view is click until the ripple is end
 	
 	public CustomView(Context context, AttributeSet attrs) {
 		super(context, attrs);
+		onInitDefaultValues();
+		//onInitAttributes(attrs);
 	}
 	
-	/**
-	 * set the min size of the view
-	 */
-	protected void setViewSize() {
+	protected abstract void onInitDefaultValues();
+	
+	// Set atributtes of XML to View
+	protected void setAttributes(AttributeSet attrs) {
 		setMinimumHeight(Utils.dpToPx(minHeight, getResources()));
 		setMinimumWidth(Utils.dpToPx(minWidth, getResources()));
+		if (backgroundResId != -1 && !isInEditMode()) {
+			setBackgroundResource(backgroundResId);
+		}
+		setBackgroundAttributes(attrs);
 	}
 	
 	/**
@@ -47,9 +53,12 @@ public class CustomView extends RelativeLayout{
 			int background = attrs.getAttributeIntValue(ANDROIDXML, "background", -1);
 			if(background != -1 && !isInEditMode()) {
 				setBackgroundColor(background);
+			}else {
+				setBackgroundColor(backgroundColor);// 如果没有设置，就用这个颜色
 			}
 		}
 	}
+	
 	
 	/**
 	 * Make a dark color to press effect

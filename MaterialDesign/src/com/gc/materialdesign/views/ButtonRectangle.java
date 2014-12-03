@@ -27,21 +27,20 @@ public class ButtonRectangle extends Button {
 	
 	@Override
 	protected void onInitDefaultValues(){
-		textButton = new TextView(getContext());
-		backgroundResId = R.drawable.background_button_rectangle;
 		super.onInitDefaultValues();
+		textButton = new TextView(getContext());
 		defaultTextColor = Color.WHITE;
-		//涟漪的速度，这里的5.5可以调整
 		rippleSpeed = 5.5f;
 		minWidth = 80;
 		minHeight = 36;
+		backgroundResId = R.drawable.background_button_rectangle;
 	}
 	
-	// Set atributtes of XML to View
 	@Override
-	protected void onInitAttributes(AttributeSet attrs){
+	protected void onInitAttributes(AttributeSet attrs) {
 		super.onInitAttributes(attrs);
 		if (isInEditMode()) {
+			// 为了在编译器中预览时不报空指针，在这里产生一个textView对象。实际中不会产生的。
 			textButton = new TextView(getContext());
 		}
 		String text = null;
@@ -88,15 +87,13 @@ public class ButtonRectangle extends Button {
 				textButton.setTextColor(defaultTextColor);
 			}
 		}
-		
 		textButton.setTypeface(null, Typeface.BOLD);
-		//textButton.setPadding(5, 5, 5, 5);//内边距
+		//textButton.setPadding(5, 5, 5, 5);
 		RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
-				LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT);
+				LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 		params.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);
 		params.setMargins(Utils.dpToPx(5, getResources()), Utils.dpToPx(5, getResources()), Utils.dpToPx(5, getResources()), Utils.dpToPx(5, getResources()));
 		textButton.setLayoutParams(params);
-		//设置好各种属性后，添加穿件好的控件到view中
 		addView(textButton);
 	}
 	

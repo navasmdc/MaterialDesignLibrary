@@ -11,24 +11,22 @@ import android.widget.TextView;
 
 public class Card extends CustomView {
 	
-	TextView textButton;
+	private TextView textButton;
 	
-	int paddingTop,paddingBottom, paddingLeft, paddingRight;
+	private int paddingTop,paddingBottom, paddingLeft, paddingRight;
 	
 	public Card(Context context, AttributeSet attrs) {
 		super(context, attrs);
-		backgroundColor = Color.parseColor("#FFFFFF");
 		setAttributes(attrs);
 	}
 	
-	
-	// Set atributtes of XML to View
-	protected void setAttributes(AttributeSet attrs){
-		if(!isInEditMode()) {
-			setBackgroundResource(R.drawable.background_button_rectangle);
-		}
-		setBackgroundColor(this.backgroundColor);
-		setBackgroundAttributes(attrs);
+	@Override
+	protected void onInitDefaultValues() {
+		// TODO 自动生成的方法存根
+		minWidth = 20;
+		minHeight = 20;
+		backgroundColor = Color.parseColor("#FFFFFF");
+		backgroundResId = R.drawable.background_button_rectangle;
 	}
 	
 	// Set color of background
@@ -37,9 +35,9 @@ public class Card extends CustomView {
 		if(isEnabled()) {
 			beforeBackground = backgroundColor;
 		}
-		LayerDrawable layer = (LayerDrawable) getBackground();
 		GradientDrawable shape = null;
 		if (!isInEditMode()) {
+			LayerDrawable layer = (LayerDrawable) getBackground();
 			shape =  (GradientDrawable) layer.findDrawableByLayerId(R.id.shape_bacground);
 			shape.setColor(backgroundColor);
 		}

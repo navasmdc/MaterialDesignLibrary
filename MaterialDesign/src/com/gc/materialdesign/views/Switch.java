@@ -31,19 +31,20 @@ public class Switch extends CustomView {
 
 	public Switch(Context context, AttributeSet attrs) {
 		super(context, attrs);
-		backgroundColor = Color.parseColor("#4CAF50");// default color
-		minWidth = 80;// size of view
-		minHeight = 48;
 		setAttributes(attrs);
 	}
 	
-	// Set atributtes of XML to View
+	@Override
+	protected void onInitDefaultValues() {
+		minWidth = 80;// size of view
+		minHeight = 48;
+		backgroundColor = Color.parseColor("#4CAF50");// default color
+		backgroundResId = R.drawable.background_transparent;
+	}
+	
+	@Override
 	protected void setAttributes(AttributeSet attrs) {
-		setViewSize();
-		setBackgroundAttributes(attrs);
-		if (!isInEditMode()) {
-			setBackgroundResource(R.drawable.background_transparent);
-		}
+		super.setAttributes(attrs);
 		iSchecked = attrs.getAttributeBooleanValue(MATERIALDESIGNXML, "checked", false);
 		eventCheck = iSchecked;
 		setOnClickListener(new OnClickListener() {

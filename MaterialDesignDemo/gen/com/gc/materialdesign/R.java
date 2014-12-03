@@ -17,20 +17,21 @@ public final class R {
 		public static final int snackbar_show_animation = 0x7f040006;
 	}
 	public static final class attr {
-		public static final int animate = 0x7f01000c;
-		public static final int checkBoxSize = 0x7f010008;
-		public static final int checked = 0x7f010007;
-		public static final int clickAfterRipple = 0x7f01000e;
-		public static final int iconFloat = 0x7f01000a;
-		public static final int iconSize = 0x7f01000b;
+		public static final int animate = 0x7f01000d;
+		public static final int checkBoxSize = 0x7f010009;
+		public static final int checked = 0x7f010008;
+		public static final int clickAfterRipple = 0x7f01000f;
+		public static final int iconDrawable = 0x7f01000b;
+		public static final int iconSize = 0x7f01000c;
 		public static final int max = 0x7f010003;
 		public static final int min = 0x7f010004;
 		public static final int progress = 0x7f010006;
-		public static final int rippleBorderRadius = 0x7f01000d;
+		public static final int ringWidth = 0x7f010007;
+		public static final int rippleBorderRadius = 0x7f01000e;
 		public static final int rippleColor = 0x7f010001;
 		public static final int rippleSpeed = 0x7f010000;
 		public static final int showNumberIndicator = 0x7f010002;
-		public static final int thumbSize = 0x7f010009;
+		public static final int thumbSize = 0x7f01000a;
 		public static final int value = 0x7f010005;
 	}
 	public static final class color {
@@ -87,21 +88,22 @@ public final class R {
 		public static final int app_name = 0x7f060000;
 	}
 	public static final class styleable {
-		public static final int[] CustomAttributes = { 0x7f010000, 0x7f010001, 0x7f010002, 0x7f010003, 0x7f010004, 0x7f010005, 0x7f010006, 0x7f010007, 0x7f010008, 0x7f010009, 0x7f01000a, 0x7f01000b, 0x7f01000c, 0x7f01000d, 0x7f01000e };
-		public static final int CustomAttributes_animate = 12;
-		public static final int CustomAttributes_checkBoxSize = 8;
-		public static final int CustomAttributes_checked = 7;
-		public static final int CustomAttributes_clickAfterRipple = 14;
-		public static final int CustomAttributes_iconFloat = 10;
-		public static final int CustomAttributes_iconSize = 11;
+		public static final int[] CustomAttributes = { 0x7f010000, 0x7f010001, 0x7f010002, 0x7f010003, 0x7f010004, 0x7f010005, 0x7f010006, 0x7f010007, 0x7f010008, 0x7f010009, 0x7f01000a, 0x7f01000b, 0x7f01000c, 0x7f01000d, 0x7f01000e, 0x7f01000f };
+		public static final int CustomAttributes_animate = 13;
+		public static final int CustomAttributes_checkBoxSize = 9;
+		public static final int CustomAttributes_checked = 8;
+		public static final int CustomAttributes_clickAfterRipple = 15;
+		public static final int CustomAttributes_iconDrawable = 11;
+		public static final int CustomAttributes_iconSize = 12;
 		public static final int CustomAttributes_max = 3;
 		public static final int CustomAttributes_min = 4;
 		public static final int CustomAttributes_progress = 6;
-		public static final int CustomAttributes_rippleBorderRadius = 13;
+		public static final int CustomAttributes_ringWidth = 7;
+		public static final int CustomAttributes_rippleBorderRadius = 14;
 		public static final int CustomAttributes_rippleColor = 1;
 		public static final int CustomAttributes_rippleSpeed = 0;
 		public static final int CustomAttributes_showNumberIndicator = 2;
-		public static final int CustomAttributes_thumbSize = 9;
+		public static final int CustomAttributes_thumbSize = 10;
 		public static final int CustomAttributes_value = 5;
 	}
 }

@@ -12,7 +12,7 @@ import com.gc.materialdesign.R;
 public class ButtonFlat extends ButtonRectangle {
 	
 	public ButtonFlat(Context context, AttributeSet attrs) {
-		super(context, attrs);//先运行setDefaultProperties，然后运行setAttributes
+		super(context, attrs);
 	}
 	
 	@Override
@@ -24,7 +24,7 @@ public class ButtonFlat extends ButtonRectangle {
 		defaultTextColor =  Color.parseColor("#1E88E5");
 		backgroundResId = R.drawable.background_transparent;
 		rippleColor = Color.parseColor("#88DDDDDD");
-		setBackgroundResource(R.drawable.background_transparent);
+		//setBackgroundResource(R.drawable.background_transparent);
 	}
 	
 	@Override
@@ -34,7 +34,11 @@ public class ButtonFlat extends ButtonRectangle {
 			
 			Paint paint = new Paint();
 			paint.setAntiAlias(true);
-			paint.setColor(rippleColor);
+			if (rippleColor == null) {
+				paint.setColor(Color.parseColor("#88DDDDDD"));
+			}else {
+				paint.setColor(rippleColor);
+			}
 			canvas.drawCircle(x, y, radius, paint);
 			if(radius > getHeight()/rippleSize)
 				radius += rippleSpeed;
@@ -51,9 +55,12 @@ public class ButtonFlat extends ButtonRectangle {
 	}
 	
 	@Override
-	@Deprecated
 	public void setBackgroundColor(int color) {
-		textButton.setTextColor(color);
+		super.setBackgroundColor(color);
+		if (!settedRippleColor) {
+			rippleColor = Color.parseColor("#88DDDDDD");
+		}
+		//textButton.setTextColor(color);
 	}
 	
 	

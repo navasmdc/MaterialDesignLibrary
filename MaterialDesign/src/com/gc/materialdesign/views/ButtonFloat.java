@@ -39,22 +39,22 @@ public class ButtonFloat extends Button {
 
 	@Override
 	protected void onInitDefaultValues() {
-		backgroundResId = R.drawable.background_button_float;
 		super.onInitDefaultValues();
+		icon = new ImageView(getContext());
 		iconSize = 24;
 		sizeRadius = 28;
 		rippleSpeed = 3;
 		rippleSize = 5;
 		minWidth = sizeRadius * 2;// 56dp
 		minHeight = sizeRadius * 2;// 56dp
+		backgroundResId = R.drawable.background_button_float;
 	}
 
-	// 将xml文件中的属性设置到view中
 	@Override
 	protected void onInitAttributes(AttributeSet attrs) {
 		super.onInitAttributes(attrs);
 		// 设置按钮中的图标
-		int iconResource = attrs.getAttributeResourceValue(MATERIALDESIGNXML,"iconFloat",-1);
+		int iconResource = attrs.getAttributeResourceValue(MATERIALDESIGNXML,"iconDrawable",-1);
 		if (iconResource != -1) {
 			iconDrawable = getResources().getDrawable(iconResource);
 		}
@@ -62,21 +62,9 @@ public class ButtonFloat extends Button {
 		// animation
 		boolean animate = attrs.getAttributeBooleanValue(MATERIALDESIGNXML, "animate", false);
 		if (animate) {
-			post(new Runnable() {
-				@Override
-				public void run() {
-					float originalY = ViewHelper.getY(ButtonFloat.this) - Utils.dpToPx(24, getResources());
-					ViewHelper.setY(ButtonFloat.this, 
-							ViewHelper.getY(ButtonFloat.this) + getHeight() * 3);
-					ObjectAnimator animator = ObjectAnimator.ofFloat(ButtonFloat.this, "y", originalY);
-					animator.setInterpolator(new BounceInterpolator());
-					animator.setDuration(1500);// 动画持续时间
-					animator.start();
-				}
-			});
+			playAnimation();
 		}
-
-		icon = new ImageView(getContext());
+		
 		if (iconDrawable != null) {
 			icon.setBackgroundDrawable(iconDrawable);
 		}
@@ -95,6 +83,24 @@ public class ButtonFloat extends Button {
 				Utils.dpToPx(iconSize, getResources()), Utils.dpToPx(iconSize, getResources()));
 		params.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);
 		icon.setLayoutParams(params);
+	}
+	
+	/**
+	 * float的动画 
+	 */
+	private void playAnimation() {
+		post(new Runnable() {
+			@Override
+			public void run() {
+				float originalY = ViewHelper.getY(ButtonFloat.this) - Utils.dpToPx(24, getResources());
+				ViewHelper.setY(ButtonFloat.this, 
+						ViewHelper.getY(ButtonFloat.this) + getHeight() * 3);
+				ObjectAnimator animator = ObjectAnimator.ofFloat(ButtonFloat.this, "y", originalY);
+				animator.setInterpolator(new BounceInterpolator());
+				animator.setDuration(1500);// 动画持续时间
+				animator.start();
+			}
+		});
 	}
 
 	@Override
@@ -134,18 +140,7 @@ public class ButtonFloat extends Button {
 	
 	public void isAnimate(boolean isAnimate) {
 		if (isAnimate) {
-			post(new Runnable() {
-				@Override
-				public void run() {
-					float originalY = ViewHelper.getY(ButtonFloat.this) - Utils.dpToPx(24, getResources());
-					ViewHelper.setY(ButtonFloat.this, 
-							ViewHelper.getY(ButtonFloat.this) + getHeight() * 3);
-					ObjectAnimator animator = ObjectAnimator.ofFloat(ButtonFloat.this, "y", originalY);
-					animator.setInterpolator(new BounceInterpolator());
-					animator.setDuration(1500);// 动画持续时间
-					animator.start();
-				}
-			});
+			playAnimation();
 		}
 	}
 	
@@ -163,8 +158,8 @@ public class ButtonFloat extends Button {
 	}
 
 	/**
-	 * 设置button中图片的大小，默认是居中显示的。 如果图片大小超过了按钮的大小，那么按钮会根据图片进行放大，直到能包含内部图片为止
-	 * 
+	 * 设置button中图片的大小，默认是居中显示的。 
+	 * 如果图片大小超过了按钮的大小，那么按钮会根据图片进行放大，直到能包含内部图片为止
 	 * @param size
 	 */
 	public void setIconSize(int size) {
