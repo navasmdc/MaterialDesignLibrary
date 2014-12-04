@@ -57,7 +57,7 @@ public abstract class RippleView extends CustomView{
 		rippleSpeed = attrs.getAttributeFloatValue(MATERIALDESIGNXML, "rippleSpeed", rippleSpeed);
 		
 		/**
-		 * 设定涟漪的相应时间
+		 * 设定涟漪的响应时间
 		 */
 		clickAfterRipple = attrs.getAttributeBooleanValue(MATERIALDESIGNXML, "clickAfterRipple", clickAfterRipple);
 	}
@@ -125,7 +125,7 @@ public abstract class RippleView extends CustomView{
 			x = -1;
 			y = -1;
 			radius = getHeight() / rippleSize;
-			if(clickAfterRipple == true && onClickListener != null)
+			if(isEnabled() && clickAfterRipple == true && onClickListener != null)
 				onClickListener.onClick(this);
 		}
 		return output;
@@ -176,7 +176,7 @@ public abstract class RippleView extends CustomView{
 	}
 	
 	/**
-	 * 设置什么时候响应点击事件，是手指按上去就相应，还是等涟漪扩散完再响应
+	 * 设置什么时候响应点击事件，是手指按上去就响应，还是等涟漪扩散完再响应
 	 * @param clickAfterRipple
 	 */
 	public void setClickAfterRipple(boolean clickAfterRipple) {

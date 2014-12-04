@@ -21,7 +21,7 @@ public abstract class Button extends RippleView {
 	
 	@Override
 	protected void onInitDefaultValues() {
-		backgroundColor = Color.parseColor("#1E88E5");// 默认的背景色，蓝色
+		backgroundColor = Color.parseColor("#2196f3");// 默认的背景色，蓝色
 		///beforeBackground = backgroundColor;// error
 	}
 	

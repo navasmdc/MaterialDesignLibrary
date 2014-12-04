@@ -110,6 +110,19 @@ public class ButtonRectangle extends Button {
 	
 	// GET AND SET
 	
+/*	@Override
+	public void setEnabled(boolean enabled) {
+		// TODO 自动生成的方法存根
+		super.setEnabled(enabled);
+		textButton.setEnabled(enabled);
+		if (enabled) {
+			getBackground().setAlpha(255);
+		}else {
+			getBackground().setAlpha(25);
+		}
+		
+	}*/
+	
 	public void setText(final String text){
 		textButton.setText(text);
 	}

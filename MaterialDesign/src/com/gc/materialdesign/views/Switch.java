@@ -45,6 +45,7 @@ public class Switch extends CustomView {
 	@Override
 	protected void setAttributes(AttributeSet attrs) {
 		super.setAttributes(attrs);
+		getBackground().setAlpha(0);
 		iSchecked = attrs.getAttributeBooleanValue(MATERIALDESIGNXML, "checked", false);
 		eventCheck = iSchecked;
 		setOnClickListener(new OnClickListener() {

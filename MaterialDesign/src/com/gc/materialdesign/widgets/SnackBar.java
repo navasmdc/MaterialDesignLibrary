@@ -86,6 +86,7 @@ public class SnackBar extends Dialog{
 	
 	@Override
 	public void onBackPressed() {
+		
 	}
 	
 	@Override
@@ -185,6 +186,10 @@ public class SnackBar extends Dialog{
 		backgroundSnackBar = color;
 		if(view != null)
 			view.setBackgroundColor(color);
+	}
+	
+	public ButtonFlat getButton() {
+		return button;
 	}
 	
 	/**

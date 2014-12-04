@@ -12,7 +12,6 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
-import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
@@ -59,6 +58,9 @@ public class Slider extends CustomView {
 	@Override
 	protected void setAttributes(AttributeSet attrs) {
 		super.setAttributes(attrs);
+		if (!isInEditMode()) {
+			getBackground().setAlpha(0);
+		}
 		showNumberIndicator = attrs.getAttributeBooleanValue(MATERIALDESIGNXML,"showNumberIndicator", false);
 		min = attrs.getAttributeIntValue(MATERIALDESIGNXML, "min", 0);
 		max = attrs.getAttributeIntValue(MATERIALDESIGNXML, "max", 100);// max > min
@@ -145,7 +147,7 @@ public class Slider extends CustomView {
 		if (isEnabled()) {
 			if (event.getAction() == MotionEvent.ACTION_DOWN || event.getAction() == MotionEvent.ACTION_MOVE) {
 				if (numberIndicator != null && numberIndicator.isShowing() == false)
-					numberIndicator.show();
+					numberIndicator.show();// 只要一按下就会冒出指示器
 				if ((event.getX() <= getWidth() && event.getX() >= 0)) {
 					press = true;
 					// calculate value
@@ -174,8 +176,8 @@ public class Slider extends CustomView {
 					if (numberIndicator != null) {
 						// move number indicator
 						numberIndicator.indicator.x = x;
-						numberIndicator.indicator.finalY = Utils.getRelativeTop(this) 
-								- getHeight() / 2;
+						// 指示器起始的y坐标是当前控件的顶部Y坐标-当前控件高度的一半，就等于从空间的垂直中心开始。
+						numberIndicator.indicator.finalY = Utils.getRelativeTop(this) - getHeight() / 2;
 						numberIndicator.indicator.finalSize = getHeight() / 2;
 						numberIndicator.numberIndicator.setText("");
 					}
@@ -370,6 +372,7 @@ public class Slider extends CustomView {
 
 		@Override
 		public void onBackPressed() {
+			
 		}
 
 	}

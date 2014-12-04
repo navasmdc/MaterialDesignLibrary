@@ -16,8 +16,8 @@ int attr min 0x7f010004
 int attr progress 0x7f010006
 int attr ringWidth 0x7f010007
 int attr rippleBorderRadius 0x7f01000e
-int attr rippleColor 0x7f010001
-int attr rippleSpeed 0x7f010000
+int attr rippleColor 0x7f010000
+int attr rippleSpeed 0x7f010001
 int attr showNumberIndicator 0x7f010002
 int attr thumbSize 0x7f01000a
 int attr value 0x7f010005
@@ -96,7 +96,6 @@ int layout color_selector 0x7f030005
 int layout dialog 0x7f030006
 int layout number_indicator_spinner 0x7f030007
 int layout snackbar 0x7f030008
-int layout text 0x7f030009
 int string app_name 0x7f060000
 int style AppBaseTheme 0x7f070000
 int style AppTheme 0x7f070001
@@ -112,8 +111,8 @@ int styleable CustomAttributes_min 4
 int styleable CustomAttributes_progress 6
 int styleable CustomAttributes_ringWidth 7
 int styleable CustomAttributes_rippleBorderRadius 14
-int styleable CustomAttributes_rippleColor 1
-int styleable CustomAttributes_rippleSpeed 0
+int styleable CustomAttributes_rippleColor 0
+int styleable CustomAttributes_rippleSpeed 1
 int styleable CustomAttributes_showNumberIndicator 2
 int styleable CustomAttributes_thumbSize 10
 int styleable CustomAttributes_value 5
