@@ -46,7 +46,7 @@ public class ButtonFlat extends ButtonRectangle {
 				x = -1;
 				y = -1;
 				radius = getHeight()/rippleSize;
-				if (clickAfterRipple == true && onClickListener != null) {
+				if (isEnabled() && clickAfterRipple == true && onClickListener != null) {
 					onClickListener.onClick(this);
 				}
 			}
@@ -58,9 +58,9 @@ public class ButtonFlat extends ButtonRectangle {
 	public void setBackgroundColor(int color) {
 		super.setBackgroundColor(color);
 		if (!settedRippleColor) {
+			// 如果之前没有设置过涟漪颜色，那么就用默认的
 			rippleColor = Color.parseColor("#88DDDDDD");
 		}
-		//textButton.setTextColor(color);
 	}
 	
 	
