@@ -28,8 +28,8 @@ public final class R {
 		public static final int progress = 0x7f010006;
 		public static final int ringWidth = 0x7f010007;
 		public static final int rippleBorderRadius = 0x7f01000e;
-		public static final int rippleColor = 0x7f010001;
-		public static final int rippleSpeed = 0x7f010000;
+		public static final int rippleColor = 0x7f010000;
+		public static final int rippleSpeed = 0x7f010001;
 		public static final int showNumberIndicator = 0x7f010002;
 		public static final int thumbSize = 0x7f01000a;
 		public static final int value = 0x7f010005;
@@ -82,10 +82,6 @@ public final class R {
 		public static final int dialog = 0x7f030006;
 		public static final int number_indicator_spinner = 0x7f030007;
 		public static final int snackbar = 0x7f030008;
-		public static final int text = 0x7f030009;
-	}
-	public static final class string {
-		public static final int app_name = 0x7f060000;
 	}
 	public static final class styleable {
 		public static final int[] CustomAttributes = { 0x7f010000, 0x7f010001, 0x7f010002, 0x7f010003, 0x7f010004, 0x7f010005, 0x7f010006, 0x7f010007, 0x7f010008, 0x7f010009, 0x7f01000a, 0x7f01000b, 0x7f01000c, 0x7f01000d, 0x7f01000e, 0x7f01000f };
@@ -100,8 +96,8 @@ public final class R {
 		public static final int CustomAttributes_progress = 6;
 		public static final int CustomAttributes_ringWidth = 7;
 		public static final int CustomAttributes_rippleBorderRadius = 14;
-		public static final int CustomAttributes_rippleColor = 1;
-		public static final int CustomAttributes_rippleSpeed = 0;
+		public static final int CustomAttributes_rippleColor = 0;
+		public static final int CustomAttributes_rippleSpeed = 1;
 		public static final int CustomAttributes_showNumberIndicator = 2;
 		public static final int CustomAttributes_thumbSize = 10;
 		public static final int CustomAttributes_value = 5;

@@ -26,7 +26,7 @@ public class LayoutRipple extends RippleView {
 	protected void onInitDefaultValues() {
 		minWidth = 20;
 		minHeight = 20;
-		backgroundColor = 0x00ffffff;
+		backgroundColor = 0x00ffffff;// alpha = 0
 		rippleSpeed = 20f;// default speed
 	}
 	

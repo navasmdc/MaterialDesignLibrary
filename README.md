@@ -105,7 +105,7 @@ Some components have custom attributes, if you want use them, you must add this 
                 android:layout_marginRight="24dp"
                 android:background="#1E88E5"
                 materialdesign:animate="true"
-                materialdesign:icon="@drawable/ic_action_new" />
+                materialdesign:iconDrawable="@drawable/ic_action_new" />
 </RelativeLayout>
 ```
 
@@ -119,7 +119,7 @@ Some components have custom attributes, if you want use them, you must add this 
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="#1E88E5"
-                materialdesign:icon="@drawable/ic_action_new" />
+                materialdesign:iconDrawable="@drawable/ic_action_new" />
 ```
 
 ####Switches

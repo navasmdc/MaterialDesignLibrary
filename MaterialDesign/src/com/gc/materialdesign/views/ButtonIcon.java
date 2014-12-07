@@ -46,7 +46,7 @@ public class ButtonIcon extends ButtonFloat {
 				x = -1;
 				y = -1;
 				radius = getHeight()/rippleSize;
-				if(clickAfterRipple == true && onClickListener != null)
+				if(isEnabled() && clickAfterRipple == true && onClickListener != null)
 					onClickListener.onClick(this);
 			}
 		}

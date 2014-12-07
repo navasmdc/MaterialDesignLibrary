@@ -46,7 +46,8 @@ theme attribute (in the form
 containing a value of this type.
          */
         public static final int checked=0x7f010008;
-        /** <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+        /**  if true, delays calls to OnClickListeners until ripple effect ends 
+         <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
 <p>This may also be a reference to a resource (in the form
 "<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
 theme attribute (in the form
@@ -63,7 +64,7 @@ theme attribute (in the form
 containing a value of this type.
          */
         public static final int iconDrawable=0x7f01000b;
-        /**  in float button indicate icon resource 
+        /**  in button whitch contains drawable indicate icon resource 
          <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
 Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
 in (inches), mm (millimeters).
@@ -111,7 +112,8 @@ theme attribute (in the form
 containing a value of this type.
          */
         public static final int ringWidth=0x7f010007;
-        /** <p>Must be a floating point value, such as "<code>1.2</code>".
+        /**  set the border of the ripple frame 
+         <p>Must be a floating point value, such as "<code>1.2</code>".
 <p>This may also be a reference to a resource (in the form
 "<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
 theme attribute (in the form
@@ -119,13 +121,13 @@ theme attribute (in the form
 containing a value of this type.
          */
         public static final int rippleBorderRadius=0x7f01000e;
-        /**  in float button indicate if must start with animation 
+        /**  Color of ripple animation 
          <p>May be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
 <p>May be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
 "<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
          */
-        public static final int rippleColor=0x7f010001;
+        public static final int rippleColor=0x7f010000;
         /**  Speed of ripple animation 
          <p>Must be a floating point value, such as "<code>1.2</code>".
 <p>This may also be a reference to a resource (in the form
@@ -134,7 +136,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
          */
-        public static final int rippleSpeed=0x7f010000;
+        public static final int rippleSpeed=0x7f010001;
         /**  indicate if the slider must show number indicator 
          <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
 <p>This may also be a reference to a resource (in the form
@@ -246,7 +248,6 @@ containing a value of this type.
         public static final int dialog=0x7f030006;
         public static final int number_indicator_spinner=0x7f030007;
         public static final int snackbar=0x7f030008;
-        public static final int text=0x7f030009;
     }
     public static final class string {
         public static final int app_name=0x7f060000;
@@ -289,15 +290,15 @@ containing a value of this type.
            <tr><td><code>{@link #CustomAttributes_animate com.gc.materialdesigndemo:animate}</code></td><td> in float button indicate if must start with animation </td></tr>
            <tr><td><code>{@link #CustomAttributes_checkBoxSize com.gc.materialdesigndemo:checkBoxSize}</code></td><td></td></tr>
            <tr><td><code>{@link #CustomAttributes_checked com.gc.materialdesigndemo:checked}</code></td><td> in switche's view indicate state of view </td></tr>
-           <tr><td><code>{@link #CustomAttributes_clickAfterRipple com.gc.materialdesigndemo:clickAfterRipple}</code></td><td></td></tr>
+           <tr><td><code>{@link #CustomAttributes_clickAfterRipple com.gc.materialdesigndemo:clickAfterRipple}</code></td><td> if true, delays calls to OnClickListeners until ripple effect ends </td></tr>
            <tr><td><code>{@link #CustomAttributes_iconDrawable com.gc.materialdesigndemo:iconDrawable}</code></td><td> in float button indicate icon resource </td></tr>
-           <tr><td><code>{@link #CustomAttributes_iconSize com.gc.materialdesigndemo:iconSize}</code></td><td> in float button indicate icon resource </td></tr>
+           <tr><td><code>{@link #CustomAttributes_iconSize com.gc.materialdesigndemo:iconSize}</code></td><td> in button whitch contains drawable indicate icon resource </td></tr>
            <tr><td><code>{@link #CustomAttributes_max com.gc.materialdesigndemo:max}</code></td><td> in progress view indicate max value of progress </td></tr>
            <tr><td><code>{@link #CustomAttributes_min com.gc.materialdesigndemo:min}</code></td><td> in progress view indicate min value of progress </td></tr>
            <tr><td><code>{@link #CustomAttributes_progress com.gc.materialdesigndemo:progress}</code></td><td> in progress view indicate value of progress </td></tr>
            <tr><td><code>{@link #CustomAttributes_ringWidth com.gc.materialdesigndemo:ringWidth}</code></td><td></td></tr>
-           <tr><td><code>{@link #CustomAttributes_rippleBorderRadius com.gc.materialdesigndemo:rippleBorderRadius}</code></td><td></td></tr>
-           <tr><td><code>{@link #CustomAttributes_rippleColor com.gc.materialdesigndemo:rippleColor}</code></td><td> in float button indicate if must start with animation </td></tr>
+           <tr><td><code>{@link #CustomAttributes_rippleBorderRadius com.gc.materialdesigndemo:rippleBorderRadius}</code></td><td> set the border of the ripple frame </td></tr>
+           <tr><td><code>{@link #CustomAttributes_rippleColor com.gc.materialdesigndemo:rippleColor}</code></td><td> Color of ripple animation </td></tr>
            <tr><td><code>{@link #CustomAttributes_rippleSpeed com.gc.materialdesigndemo:rippleSpeed}</code></td><td> Speed of ripple animation </td></tr>
            <tr><td><code>{@link #CustomAttributes_showNumberIndicator com.gc.materialdesigndemo:showNumberIndicator}</code></td><td> indicate if the slider must show number indicator </td></tr>
            <tr><td><code>{@link #CustomAttributes_thumbSize com.gc.materialdesigndemo:thumbSize}</code></td><td></td></tr>
@@ -375,8 +376,9 @@ containing a value of this type.
         */
         public static final int CustomAttributes_checked = 8;
         /**
-          <p>This symbol is the offset where the {@link com.gc.materialdesigndemo.R.attr#clickAfterRipple}
-          attribute's value can be found in the {@link #CustomAttributes} array.
+          <p>
+          @attr description
+           if true, delays calls to OnClickListeners until ripple effect ends 
 
 
           <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
@@ -385,6 +387,7 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
+          <p>This is a private symbol.
           @attr name com.gc.materialdesigndemo:clickAfterRipple
         */
         public static final int CustomAttributes_clickAfterRipple = 15;
@@ -407,7 +410,7 @@ containing a value of this type.
         /**
           <p>
           @attr description
-           in float button indicate icon resource 
+           in button whitch contains drawable indicate icon resource 
 
 
           <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
@@ -487,8 +490,9 @@ containing a value of this type.
         */
         public static final int CustomAttributes_ringWidth = 7;
         /**
-          <p>This symbol is the offset where the {@link com.gc.materialdesigndemo.R.attr#rippleBorderRadius}
-          attribute's value can be found in the {@link #CustomAttributes} array.
+          <p>
+          @attr description
+           set the border of the ripple frame 
 
 
           <p>Must be a floating point value, such as "<code>1.2</code>".
@@ -497,13 +501,14 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
+          <p>This is a private symbol.
           @attr name com.gc.materialdesigndemo:rippleBorderRadius
         */
         public static final int CustomAttributes_rippleBorderRadius = 14;
         /**
           <p>
           @attr description
-           in float button indicate if must start with animation 
+           Color of ripple animation 
 
 
           <p>May be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
@@ -513,7 +518,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>This is a private symbol.
           @attr name com.gc.materialdesigndemo:rippleColor
         */
-        public static final int CustomAttributes_rippleColor = 1;
+        public static final int CustomAttributes_rippleColor = 0;
         /**
           <p>
           @attr description
@@ -529,7 +534,7 @@ containing a value of this type.
           <p>This is a private symbol.
           @attr name com.gc.materialdesigndemo:rippleSpeed
         */
-        public static final int CustomAttributes_rippleSpeed = 0;
+        public static final int CustomAttributes_rippleSpeed = 1;
         /**
           <p>
           @attr description

@@ -121,6 +121,7 @@ public class ColorSelector extends android.app.Dialog implements OnValueChangedL
 		
 	@Override
 	public void dismiss() {
+		
 		Animation anim = AnimationUtils.loadAnimation(context, R.anim.dialog_main_hide_amination);
 		
 		anim.setAnimationListener(new AnimationListener() {

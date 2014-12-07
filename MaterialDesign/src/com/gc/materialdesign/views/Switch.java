@@ -45,8 +45,12 @@ public class Switch extends CustomView {
 	@Override
 	protected void setAttributes(AttributeSet attrs) {
 		super.setAttributes(attrs);
+		if (!isInEditMode()) {
+			getBackground().setAlpha(0);
+		}
 		iSchecked = attrs.getAttributeBooleanValue(MATERIALDESIGNXML, "checked", false);
 		eventCheck = iSchecked;
+		//添加监听器，如果点击了这个控件（不包括ball的区域），这个控件就开始判断是否是开启状态。
 		setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
@@ -62,6 +66,15 @@ public class Switch extends CustomView {
 		ball = new Ball(getContext());
 		setThumbParams(size);
 		addView(ball);
+		// 给圆球添加监听器，点击圆球后就开始判断是否进入开启状态
+		ball.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO 自动生成的方法存根
+				setChecked(iSchecked ? false : true);
+			}
+		});
 	}
 
 	private void setThumbParams(float size) {
@@ -78,6 +91,7 @@ public class Switch extends CustomView {
 			if (event.getAction() == MotionEvent.ACTION_DOWN) {
 				press = true;
 			} else if (event.getAction() == MotionEvent.ACTION_MOVE) {
+				requestDisallowInterceptTouchEvent(true);
 				float x = event.getX();
 				x = (x < ball.xIni) ? ball.xIni : x;
 				x = (x > ball.xFin) ? ball.xFin : x;
@@ -92,7 +106,9 @@ public class Switch extends CustomView {
 					isLastTouch = false;
 					press = false;
 				}
-			} else if (event.getAction() == MotionEvent.ACTION_UP) {
+			} else if (event.getAction() == MotionEvent.ACTION_UP 
+					|| event.getAction() == MotionEvent.ACTION_CANCEL) {
+				requestDisallowInterceptTouchEvent(false);
 				press = false;
 				isLastTouch = false;
 				if (eventCheck != iSchecked) {
@@ -107,7 +123,13 @@ public class Switch extends CustomView {
 		}
 		return true;
 	}
-
+	
+/*	@Override
+	public boolean onInterceptTouchEvent(MotionEvent ev) {
+		//return super.onInterceptTouchEvent(ev);
+		return false;
+	}
+*/
 	@Override
 	protected void onDraw(Canvas canvas) {
 		super.onDraw(canvas);

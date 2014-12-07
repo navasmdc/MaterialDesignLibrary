@@ -20,15 +20,15 @@ import com.gc.materialdesign.views.ButtonFlat;
 
 public class SnackBar extends Dialog{
 	
-	String text;
-	float textSize = 14;//Roboto Regular 14sp 
-	String buttonText;
-	View.OnClickListener onClickListener;
-	Activity activity;
-	View view;
-	ButtonFlat button;
-	int backgroundSnackBar = Color.parseColor("#333333");
-	int backgroundButton = Color.parseColor("#1E88E5");
+	private String text;
+	private float textSize = 14;//Roboto Regular 14sp 
+	private String buttonText;
+	private View.OnClickListener onClickListener;
+	private Activity activity;
+	private View view;
+	private ButtonFlat button;
+	private int backgroundSnackBar = Color.parseColor("#333333");
+	private int buttonTextColor = Color.parseColor("#1E88E5");
 	
 	OnHideListener onHideListener;
 	// Timer
@@ -64,7 +64,7 @@ public class SnackBar extends Dialog{
 			button.setVisibility(View.GONE);
 		}else{
 			button.setText(buttonText);
-			button.setBackgroundColor(backgroundButton);
+			button.setTextColor(buttonTextColor);
 			
 			button.setOnClickListener(new View.OnClickListener() {
 				
@@ -86,6 +86,7 @@ public class SnackBar extends Dialog{
 	
 	@Override
 	public void onBackPressed() {
+		
 	}
 	
 	@Override
@@ -187,12 +188,16 @@ public class SnackBar extends Dialog{
 			view.setBackgroundColor(color);
 	}
 	
+	public ButtonFlat getButton() {
+		return button;
+	}
+	
 	/**
 	 * Chage color of FlatButton in Snackbar
 	 * @param color
 	 */
 	public void setColorButton(int color){
-		backgroundButton = color;
+		buttonTextColor = color;
 		if(button != null)
 			button.setBackgroundColor(color);
 	}
