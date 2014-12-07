@@ -1,9 +1,7 @@
 package com.gc.materialdesign.views;
 
-import com.gc.materialdesign.R;
-import com.gc.materialdesign.utils.Utils;
-
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Rect;
@@ -11,6 +9,9 @@ import android.graphics.Typeface;
 import android.util.AttributeSet;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.gc.materialdesign.R;
+import com.gc.materialdesign.utils.Utils;
 
 /**
  * @tips  :矩形按钮
@@ -95,6 +96,7 @@ public class ButtonRectangle extends Button {
 		params.setMargins(Utils.dpToPx(5, getResources()), Utils.dpToPx(5, getResources()), Utils.dpToPx(5, getResources()), Utils.dpToPx(5, getResources()));
 		textButton.setLayoutParams(params);
 		addView(textButton);
+		
 	}
 	
 	@Override

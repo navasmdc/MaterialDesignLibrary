@@ -30,8 +30,8 @@ public class Slider extends CustomView {
 		public void onValueChanged(int value);
 	}
 	
-	Ball ball;
-	NumberIndicator numberIndicator;
+	private Ball ball;
+	public NumberIndicator numberIndicator;
 
 	boolean showNumberIndicator = false;
 	boolean press = false;
@@ -177,7 +177,7 @@ public class Slider extends CustomView {
 						// move number indicator
 						numberIndicator.indicator.x = x;
 						// 指示器起始的y坐标是当前控件的顶部Y坐标-当前控件高度的一半，就等于从空间的垂直中心开始。
-						numberIndicator.indicator.finalY = Utils.getRelativeTop(this) - getHeight() / 2;
+						numberIndicator.indicator.finalY = Utils.getRelativeTop(this) - getHeight() ;
 						numberIndicator.indicator.finalSize = getHeight() / 2;
 						numberIndicator.numberIndicator.setText("");
 					}
@@ -332,7 +332,7 @@ public class Slider extends CustomView {
 
 	// Slider Number Indicator
 
-	private class NumberIndicator extends Dialog {
+	public class NumberIndicator extends Dialog {
 
 		private Indicator indicator;
 		private TextView numberIndicator;
