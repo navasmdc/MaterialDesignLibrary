@@ -13,6 +13,7 @@ bin/
 gen/
 
 # Gradle files
+local.properties
 .gradle/
 build/
 
@@ -27,3 +28,8 @@ proguard/
 
 # Mac Files
 *.DS_Store
+
+# Intellij Idea and Android Studio files
+.idea
+*.iml
+
