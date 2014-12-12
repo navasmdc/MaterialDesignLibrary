@@ -145,7 +145,7 @@ Some components have custom attributes, if you want use them, you must add this 
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="#1E88E5"
-                materialdesign:check="true" />
+                materialdesign:checked="true" />
 ```
 
 ####Progress indicators
