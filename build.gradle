@@ -7,6 +7,8 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:1.+'
         classpath 'org.codehaus.groovy:groovy-backports-compat23:2.3.5'
+        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.0'
+        classpath 'com.github.dcendents:android-maven-plugin:1.2'
     }
 }
 
@@ -16,11 +18,7 @@ allprojects {
         mavenCentral()
     }
 
-    group = "com.gc.materialdesign"
+    group = "com.github.navasmdc"
     version = "1.0"
-}
-
-subprojects {
-    apply from: 'https://raw.github.com/chrisbanes/gradle-mvn-push/master/gradle-mvn-push.gradle'
 }
 
