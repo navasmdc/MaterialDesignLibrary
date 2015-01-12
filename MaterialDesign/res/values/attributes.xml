@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <declare-styleable name="CustomAttributes">
+
+    <declare-styleable name="CustomAttributes">
 
         <!-- Color of ripple animation -->
         <attr name="rippleColor" format="color|reference" />
@@ -18,7 +19,7 @@
         <attr name="progress" format="integer" />
         <attr name="ringWidth" format="dimension" />
         <!-- in switche's view indicate state of view -->
-        <attr name="checked" format="boolean" />
+        <attr name="check" format="boolean" />
         <attr name="checkBoxSize" format="dimension" />
         <attr name="thumbSize" format="dimension" />
         <!-- in float button indicate icon resource -->
