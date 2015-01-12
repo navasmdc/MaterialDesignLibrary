@@ -1,8 +1,12 @@
 package com.gc.materialdesign.views;
 
+import com.gc.materialdesign.utils.Utils;
+
+import android.R;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.Rect;
 import android.graphics.drawable.ColorDrawable;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
@@ -11,16 +15,9 @@ public class ButtonIcon extends ButtonFloat {
 
 	public ButtonIcon(Context context, AttributeSet attrs) {
 		super(context, attrs);
-	}
-	
-	@Override
-	protected void onInitDefaultValues() {
-		super.onInitDefaultValues();
-		rippleSpeed = 2;
-		rippleSize = 5;
-		backgroundResId = -1;
-		// Background shape
-		setBackgroundDrawable(new ColorDrawable(getResources().getColor(android.R.color.transparent)));
+		setBackground(new ColorDrawable(getResources().getColor(android.R.color.transparent)));
+		rippleSpeed = Utils.dpToPx(2, getResources());
+		rippleSize = Utils.dpToPx(5, getResources());
 	}
 	
 	@Override
@@ -38,7 +35,7 @@ public class ButtonIcon extends ButtonFloat {
 		if (x != -1) {
 			Paint paint = new Paint();
 			paint.setAntiAlias(true);
-			paint.setColor(backgroundColor);
+			paint.setColor(makePressColor());
 			canvas.drawCircle(x, y, radius, paint);
 			if(radius > getHeight()/rippleSize)
 				radius += rippleSpeed;
@@ -46,11 +43,16 @@ public class ButtonIcon extends ButtonFloat {
 				x = -1;
 				y = -1;
 				radius = getHeight()/rippleSize;
-				if(isEnabled() && clickAfterRipple == true && onClickListener != null)
+				if(onClickListener != null)
 					onClickListener.onClick(this);
 			}
+			invalidate();
 		}
-		invalidate();
+	}
+	
+	@Override
+	protected int makePressColor() {
+		return backgroundColor;
 	}
 
 }

@@ -21,69 +21,65 @@ import android.widget.RelativeLayout;
 
 public class Switch extends CustomView {
 
-	private Ball ball;
+	int backgroundColor = Color.parseColor("#4CAF50");
 
-	private boolean iSchecked = false;
-	private boolean eventCheck = false;
-	private boolean press = false;
+	Ball ball;
 
-	private OnCheckListener onCheckListener;
+	boolean check = false;
+	boolean eventCheck = false;
+	boolean press = false;
+
+	OnCheckListener onCheckListener;
 
 	public Switch(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		setAttributes(attrs);
-	}
-	
-	@Override
-	protected void onInitDefaultValues() {
-		minWidth = 80;// size of view
-		minHeight = 48;
-		backgroundColor = Color.parseColor("#4CAF50");// default color
-		backgroundResId = R.drawable.background_transparent;
-	}
-	
-	@Override
-	protected void setAttributes(AttributeSet attrs) {
-		super.setAttributes(attrs);
-		if (!isInEditMode()) {
-			getBackground().setAlpha(0);
-		}
-		iSchecked = attrs.getAttributeBooleanValue(MATERIALDESIGNXML, "checked", false);
-		eventCheck = iSchecked;
-		//添加监听器，如果点击了这个控件（不包括ball的区域），这个控件就开始判断是否是开启状态。
 		setOnClickListener(new OnClickListener() {
+
 			@Override
 			public void onClick(View arg0) {
-				setChecked(iSchecked ? false : true);
-			}
-		});
-		
-		float size = 20;
-		String thumbSize = attrs.getAttributeValue(MATERIALDESIGNXML, "thumbSize");
-		if (thumbSize != null) {
-			size = Utils.dipOrDpToFloat(thumbSize);
-		}
-		ball = new Ball(getContext());
-		setThumbParams(size);
-		addView(ball);
-		// 给圆球添加监听器，点击圆球后就开始判断是否进入开启状态
-		ball.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				// TODO 自动生成的方法存根
-				setChecked(iSchecked ? false : true);
+				if (check)
+					setChecked(false);
+				else
+					setChecked(true);
 			}
 		});
 	}
 
-	private void setThumbParams(float size) {
-		RelativeLayout.LayoutParams params = new LayoutParams(
-				Utils.dpToPx(size, getResources()), Utils.dpToPx(size, getResources()));
+	// Set atributtes of XML to View
+	protected void setAttributes(AttributeSet attrs) {
+
+		setBackgroundResource(R.drawable.background_transparent);
+
+		// Set size of view
+		setMinimumHeight(Utils.dpToPx(48, getResources()));
+		setMinimumWidth(Utils.dpToPx(80, getResources()));
+
+		// Set background Color
+		// Color by resource
+		int bacgroundColor = attrs.getAttributeResourceValue(ANDROIDXML,
+				"background", -1);
+		if (bacgroundColor != -1) {
+			setBackgroundColor(getResources().getColor(bacgroundColor));
+		} else {
+			// Color by hexadecimal
+			int background = attrs.getAttributeIntValue(ANDROIDXML, "background", -1);
+			if (background != -1)
+				setBackgroundColor(background);
+		}
+
+		check = attrs.getAttributeBooleanValue(MATERIALDESIGNXML, "check",
+				false);
+		eventCheck = check;
+		ball = new Ball(getContext());
+		RelativeLayout.LayoutParams params = new LayoutParams(Utils.dpToPx(20,
+				getResources()), Utils.dpToPx(20, getResources()));
 		params.addRule(RelativeLayout.CENTER_VERTICAL, RelativeLayout.TRUE);
 		ball.setLayoutParams(params);
+		addView(ball);
+
 	}
-	
+
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
 		if (isEnabled()) {
@@ -91,45 +87,37 @@ public class Switch extends CustomView {
 			if (event.getAction() == MotionEvent.ACTION_DOWN) {
 				press = true;
 			} else if (event.getAction() == MotionEvent.ACTION_MOVE) {
-				requestDisallowInterceptTouchEvent(true);
 				float x = event.getX();
 				x = (x < ball.xIni) ? ball.xIni : x;
 				x = (x > ball.xFin) ? ball.xFin : x;
 				if (x > ball.xCen) {
-					iSchecked = true;
+					check = true;
 				} else {
-					iSchecked = false;
+					check = false;
 				}
 				ViewHelper.setX(ball, x);
 				ball.changeBackground();
-				if (event.getX() <= getWidth() && event.getX() >= 0) {
+				if ((event.getX() <= getWidth() && event.getX() >= 0)) {
 					isLastTouch = false;
 					press = false;
 				}
-			} else if (event.getAction() == MotionEvent.ACTION_UP 
-					|| event.getAction() == MotionEvent.ACTION_CANCEL) {
-				requestDisallowInterceptTouchEvent(false);
+			} else if (event.getAction() == MotionEvent.ACTION_UP ||
+					event.getAction() == MotionEvent.ACTION_CANCEL) {
 				press = false;
 				isLastTouch = false;
-				if (eventCheck != iSchecked) {
-					eventCheck = iSchecked;
+				if (eventCheck != check) {
+					eventCheck = check;
 					if (onCheckListener != null)
-						onCheckListener.onCheck(iSchecked);
+						onCheckListener.onCheck(check);
 				}
-				if (event.getX() <= getWidth() && event.getX() >= 0) {
+				if ((event.getX() <= getWidth() && event.getX() >= 0)) {
 					ball.animateCheck();
-				} 
+				}
 			}
 		}
 		return true;
 	}
-	
-/*	@Override
-	public boolean onInterceptTouchEvent(MotionEvent ev) {
-		//return super.onInterceptTouchEvent(ev);
-		return false;
-	}
-*/
+
 	@Override
 	protected void onDraw(Canvas canvas) {
 		super.onDraw(canvas);
@@ -142,26 +130,49 @@ public class Switch extends CustomView {
 		Canvas temp = new Canvas(bitmap);
 		Paint paint = new Paint();
 		paint.setAntiAlias(true);
-		paint.setColor((iSchecked) ? backgroundColor : Color.parseColor("#B0B0B0"));
+		paint.setColor((check) ? backgroundColor : Color.parseColor("#B0B0B0"));
 		paint.setStrokeWidth(Utils.dpToPx(2, getResources()));
-		temp.drawLine(getHeight() / 2, getHeight() / 2, getWidth() - getHeight() / 2, getHeight() / 2, paint);
+		temp.drawLine(getHeight() / 2, getHeight() / 2, getWidth()
+				- getHeight() / 2, getHeight() / 2, paint);
 		Paint transparentPaint = new Paint();
 		transparentPaint.setAntiAlias(true);
-		transparentPaint.setColor(getResources().getColor(android.R.color.transparent));
-		transparentPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.CLEAR));
+		transparentPaint.setColor(getResources().getColor(
+				android.R.color.transparent));
+		transparentPaint.setXfermode(new PorterDuffXfermode(
+				PorterDuff.Mode.CLEAR));
 		temp.drawCircle(ViewHelper.getX(ball) + ball.getWidth() / 2,
-				ViewHelper.getY(ball) + ball.getHeight() / 2, ball.getWidth() / 2, transparentPaint);
+				ViewHelper.getY(ball) + ball.getHeight() / 2,
+				ball.getWidth() / 2, transparentPaint);
+
 		canvas.drawBitmap(bitmap, 0, 0, new Paint());
 
 		if (press) {
-			paint.setColor((iSchecked) ? makePressColor(70) : Color.parseColor("#446D6D6D"));
-			canvas.drawCircle(ViewHelper.getX(ball) + ball.getWidth() / 2, getHeight() / 2, getHeight() / 2, paint);
+			paint.setColor((check) ? makePressColor() : Color
+					.parseColor("#446D6D6D"));
+			canvas.drawCircle(ViewHelper.getX(ball) + ball.getWidth() / 2,
+					getHeight() / 2, getHeight() / 2, paint);
 		}
 		invalidate();
+
+	}
+
+	/**
+	 * Make a dark color to press effect
+	 * 
+	 * @return
+	 */
+	protected int makePressColor() {
+		int r = (this.backgroundColor >> 16) & 0xFF;
+		int g = (this.backgroundColor >> 8) & 0xFF;
+		int b = (this.backgroundColor >> 0) & 0xFF;
+		r = (r - 30 < 0) ? 0 : r - 30;
+		g = (g - 30 < 0) ? 0 : g - 30;
+		b = (b - 30 < 0) ? 0 : b - 30;
+		return Color.argb(70, r, g, b);
 	}
 
 	// Move ball to first position in view
-	private boolean placedBall = false;
+	boolean placedBall = false;
 
 	private void placeBall() {
 		ViewHelper.setX(ball, getHeight() / 2 - ball.getWidth() / 2);
@@ -172,62 +183,50 @@ public class Switch extends CustomView {
 		ball.animateCheck();
 	}
 
-	// SETTERS AND GETTERS
-	
+	// SETTERS
+
 	@Override
 	public void setBackgroundColor(int color) {
 		backgroundColor = color;
-		if (isEnabled()) {
+		if (isEnabled())
 			beforeBackground = backgroundColor;
-		}
+		
 	}
-	
+
 	public void setChecked(boolean check) {
-		iSchecked = check;
+		this.check = check;
 		ball.animateCheck();
 	}
-	
-	public boolean isChecked() {
-		return iSchecked;
+
+	public boolean isCheck() {
+		return check;
 	}
 
-	public void setThumbSize(float size) {
-		setThumbParams(size);
-	}
+	class Ball extends View {
 
-	
-	private class Ball extends View {
-
-		private float xIni, xFin, xCen;
+		float xIni, xFin, xCen;
 
 		public Ball(Context context) {
 			super(context);
-			if (!isInEditMode()) {
-				setBackgroundResource(R.drawable.background_switch_ball_uncheck);
-			}
+			setBackgroundResource(R.drawable.background_switch_ball_uncheck);
 		}
 
 		public void changeBackground() {
-			if (iSchecked) {
-				if (!isInEditMode()) {
-					setBackgroundResource(R.drawable.background_checkbox);
-					LayerDrawable layer = (LayerDrawable) getBackground();
-					GradientDrawable shape = (GradientDrawable) layer
-							.findDrawableByLayerId(R.id.shape_bacground);
-					shape.setColor(backgroundColor);
-				}
-
+			if (check) {
+				setBackgroundResource(R.drawable.background_checkbox);
+				LayerDrawable layer = (LayerDrawable) getBackground();
+				GradientDrawable shape = (GradientDrawable) layer
+						.findDrawableByLayerId(R.id.shape_bacground);
+				shape.setColor(backgroundColor);
 			} else {
-				if (!isInEditMode()) {
-					setBackgroundResource(R.drawable.background_switch_ball_uncheck);
-				}
+				setBackgroundResource(R.drawable.background_switch_ball_uncheck);
 			}
 		}
 
 		public void animateCheck() {
 			changeBackground();
 			ObjectAnimator objectAnimator;
-			if (iSchecked) {
+			if (check) {
 				objectAnimator = ObjectAnimator.ofFloat(this, "x", ball.xFin);
 
 			} else {
@@ -238,13 +237,13 @@ public class Switch extends CustomView {
 		}
 
 	}
-	
+
 	public void setOncheckListener(OnCheckListener onCheckListener) {
 		this.onCheckListener = onCheckListener;
 	}
 
 	public interface OnCheckListener {
-		public void onCheck(boolean isChecked);
+		public void onCheck(boolean check);
 	}
 
 }
