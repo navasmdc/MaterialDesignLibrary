@@ -25,8 +25,8 @@ android {
     defaultConfig {
         minSdkVersion 8
         targetSdkVersion 21
-        versionCode 1
-        versionName '1.0'
+        versionCode 2
+        versionName '1.1'
     }
 }
 
@@ -35,8 +35,8 @@ ext.issueUrl = 'https://github.com/navasmdc/MaterialDesignLibrary/issues'
 ext.gitUrl = 'https://github.com/navasmdc/MaterialDesignLibrary.git'
 
 bintray {
-    user = hasProperty('BINTRAY_USER') ? BINTRAY_USER : "_"
-    key = hasProperty('BINTRAY_KEY') ? BINTRAY_PASSWORD : "_"
+    user = hasProperty('BINTRAY_USER') ? BINTRAY_USER : ""
+    key = hasProperty('BINTRAY_KEY') ? BINTRAY_PASSWORD : ""
 
     configurations = ["archives"]
     pkg {

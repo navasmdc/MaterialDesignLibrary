@@ -1,44 +1,77 @@
 package com.gc.materialdesign.views;
 
+import com.gc.materialdesign.R;
+import com.gc.materialdesign.utils.Utils;
+
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Typeface;
 import android.util.AttributeSet;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.gc.materialdesign.R;
-
-public class ButtonFlat extends ButtonRectangle {
+public class ButtonFlat extends Button {
 	
+	TextView textButton;
+
 	public ButtonFlat(Context context, AttributeSet attrs) {
 		super(context, attrs);
+		
 	}
 	
-	@Override
-	protected void onInitDefaultValues(){
-		textButton = new TextView(getContext());
+	protected void setDefaultProperties(){
 		minHeight = 36;
 		minWidth = 88;
-		rippleSpeed = 6f;
-		defaultTextColor =  Color.parseColor("#1E88E5");
-		backgroundResId = R.drawable.background_transparent;
-		rippleColor = Color.parseColor("#88DDDDDD");
-		//setBackgroundResource(R.drawable.background_transparent);
+		rippleSize = 3;
+		// Min size
+		setMinimumHeight(Utils.dpToPx(minHeight, getResources()));
+		setMinimumWidth(Utils.dpToPx(minWidth, getResources()));
+		setBackgroundResource(R.drawable.background_transparent);
 	}
+
+	@Override
+	protected void setAttributes(AttributeSet attrs) {
+		// Set text button
+		String text = null;
+		int textResource = attrs.getAttributeResourceValue(ANDROIDXML,"text",-1);
+		if(textResource != -1){
+			text = getResources().getString(textResource);
+		}else{
+			text = attrs.getAttributeValue(ANDROIDXML,"text");
+		}
+		if(text != null){
+			textButton = new TextView(getContext());
+			textButton.setText(text.toUpperCase());
+			textButton.setTextColor(backgroundColor);
+			textButton.setTypeface(null, Typeface.BOLD);
+			RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT);
+			params.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);
+			textButton.setLayoutParams(params);
+			addView(textButton);
+		}
+		int bacgroundColor = attrs.getAttributeResourceValue(ANDROIDXML,"background",-1);
+		if(bacgroundColor != -1){
+			setBackgroundColor(getResources().getColor(bacgroundColor));
+		}else{
+			// Color by hexadecimal
+			// Color by hexadecimal
+			background = attrs.getAttributeIntValue(ANDROIDXML, "background", -1);
+			if (background != -1)
+				setBackgroundColor(background);
+		}
+	}
+	
 	
 	@Override
 	protected void onDraw(Canvas canvas) {
-		//super.onDraw(canvas);//不调用父类的onDraw()方法。因为这会用ButtonRectangle的onDraw()
+		super.onDraw(canvas);
 		if (x != -1) {
 			
 			Paint paint = new Paint();
 			paint.setAntiAlias(true);
-			if (rippleColor == null) {
-				paint.setColor(Color.parseColor("#88DDDDDD"));
-			}else {
-				paint.setColor(rippleColor);
-			}
+			paint.setColor(makePressColor());
 			canvas.drawCircle(x, y, radius, paint);
 			if(radius > getHeight()/rippleSize)
 				radius += rippleSpeed;
@@ -46,22 +79,42 @@ public class ButtonFlat extends ButtonRectangle {
 				x = -1;
 				y = -1;
 				radius = getHeight()/rippleSize;
-				if (isEnabled() && clickAfterRipple == true && onClickListener != null) {
+				if(onClickListener != null)
 					onClickListener.onClick(this);
-				}
 			}
+			invalidate();
 		}		
-		invalidate();
+		
 	}
 	
+	/**
+	 * Make a dark color to ripple effect
+	 * @return
+	 */
 	@Override
-	public void setBackgroundColor(int color) {
-		super.setBackgroundColor(color);
-		if (!settedRippleColor) {
-			// 如果之前没有设置过涟漪颜色，那么就用默认的
-			rippleColor = Color.parseColor("#88DDDDDD");
-		}
+	protected int makePressColor(){
+		return Color.parseColor("#88DDDDDD");	
 	}
 	
+	public void setText(String text){
+		textButton.setText(text.toUpperCase());
+	}
 	
+	// Set color of background
+	public void setBackgroundColor(int color){
+		backgroundColor = color;
+		if(isEnabled())
+			beforeBackground = backgroundColor;
+		textButton.setTextColor(color);
+	}
+
+	@Override
+	public TextView getTextView() {
+		return textButton;
+	}
+	
+	public String getText(){
+        	return textButton.getText().toString();
+ 	}
+
 }

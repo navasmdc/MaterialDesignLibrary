@@ -1,31 +1,33 @@
 package com.gc.materialdesign.views;
 
+import com.gc.materialdesign.R;
+import com.gc.materialdesign.utils.Utils;
+
 import android.content.Context;
 import android.util.AttributeSet;
+import android.widget.RelativeLayout;
 
-
-/**
- * @tips :很小的圆形按钮，上面可以添加图片
- * @date :2014-11-1
- */
 public class ButtonFloatSmall extends ButtonFloat {
-
+	
 	public ButtonFloatSmall(Context context, AttributeSet attrs) {
 		super(context, attrs);
+		sizeRadius = 20;
+		sizeIcon = 20;
+		setDefaultProperties();
+		RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(Utils.dpToPx(sizeIcon, getResources()),Utils.dpToPx(sizeIcon, getResources()));
+		params.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);
+		icon.setLayoutParams(params);
 	}
 	
-	@Override
-	protected void onInitDefaultValues() {
-		super.onInitDefaultValues();
-		/**
-		 *  其实这里里面很多值在父控件中已经设置过了，这里可以不用super语句。
-		 *  但为了方便理解和避免错误。用了super语句，super后将需要自定义的值又重新设置了一遍。
-		 */
-		sizeRadius = 20;
-		rippleSize = 8;
-		minWidth = sizeRadius * 2;// 40dp
-		minHeight = sizeRadius * 2;// 40dp
+	protected void setDefaultProperties(){
+		rippleSpeed = Utils.dpToPx(2, getResources());
+		rippleSize = 10;		
+		// Min size
+		setMinimumHeight(Utils.dpToPx(sizeRadius*2, getResources()));
+		setMinimumWidth(Utils.dpToPx(sizeRadius*2, getResources()));
+		// Background shape
+		setBackgroundResource(R.drawable.background_button_float);
+//		setBackgroundColor(backgroundColor);
 	}
-
 
 }

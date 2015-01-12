@@ -91,9 +91,9 @@ public class ColorSelector extends android.app.Dialog implements OnValueChangedL
 		int g = (this.color >> 8) & 0xFF;
 		int b = (this.color >> 0) & 0xFF;
 		
-		red.setValue(r, true);
-		green.setValue(g, true);
-		blue.setValue(b, true);
+		red.setValue(r);
+		green.setValue(g);
+		blue.setValue(b);
 		
 		red.setOnValueChangedListener(this);
 		green.setOnValueChangedListener(this);
@@ -121,7 +121,6 @@ public class ColorSelector extends android.app.Dialog implements OnValueChangedL
 		
 	@Override
 	public void dismiss() {
-		
 		Animation anim = AnimationUtils.loadAnimation(context, R.anim.dialog_main_hide_amination);
 		
 		anim.setAnimationListener(new AnimationListener() {
