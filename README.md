@@ -38,7 +38,7 @@ repositories {
 }
 
 dependencies {
-    compile 'com.github.navasmdc:MaterialDesign:1.+@aar'
+    compile 'com.github.navasmdc:MaterialDesign:1.2@aar'
 }
 ```
 
