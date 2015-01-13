@@ -33,6 +33,11 @@ public class ButtonFloat extends Button{
 	ImageView icon; // Icon of float button
 	Drawable drawableIcon;
 	
+	public boolean isShow = false;
+	
+	float showPosition;
+	float hidePosition;
+	
 	
 	
 	public ButtonFloat(Context context, AttributeSet attrs) {
@@ -97,24 +102,22 @@ public class ButtonFloat extends Button{
 				setRippleColor(makePressColor());
 		}
 		// Icon of button
-		int iconResource = attrs.getAttributeResourceValue(MATERIALDESIGNXML,"iconFloat",-1);
+		int iconResource = attrs.getAttributeResourceValue(MATERIALDESIGNXML,"iconDrawable",-1);
 		if(iconResource != -1)
 			drawableIcon = getResources().getDrawable(iconResource);
-		boolean animate = attrs.getAttributeBooleanValue(MATERIALDESIGNXML,"animate", false);
-		if(animate){
+		final boolean animate = attrs.getAttributeBooleanValue(MATERIALDESIGNXML,"animate", false);
 			post(new Runnable() {
 				
 				@Override
 				public void run() {
-					float originalY = ViewHelper.getY(ButtonFloat.this)-Utils.dpToPx(24, getResources());
-					ViewHelper.setY(ButtonFloat.this,ViewHelper.getY(ButtonFloat.this)+getHeight()*3);
-					ObjectAnimator animator = ObjectAnimator.ofFloat(ButtonFloat.this, "y", originalY);
-					animator.setInterpolator(new BounceInterpolator());
-					animator.setDuration(1500);
-					animator.start();
+					showPosition = ViewHelper.getY(ButtonFloat.this) - Utils.dpToPx(24, getResources());
+					hidePosition = ViewHelper.getY(ButtonFloat.this) + getHeight() * 3;
+					if(animate){
+						ViewHelper.setY(ButtonFloat.this, hidePosition);
+						show();
+					}
 				}
 			});
-		}
 					
 	}
 		
@@ -181,5 +184,27 @@ public class ButtonFloat extends Button{
 	
 	public void setRippleColor(int rippleColor) {
 		this.rippleColor = rippleColor;
+	}
+	
+	public void show(){
+		ObjectAnimator animator = ObjectAnimator.ofFloat(ButtonFloat.this, "y", showPosition);
+		animator.setInterpolator(new BounceInterpolator());
+		animator.setDuration(1500);
+		animator.start();
+		isShow = true;
+	}
+	
+	public void hide(){
+		
+		ObjectAnimator animator = ObjectAnimator.ofFloat(ButtonFloat.this, "y", hidePosition);
+		animator.setInterpolator(new BounceInterpolator());
+		animator.setDuration(1500);
+		animator.start();
+		
+		isShow = false;
+	}
+	
+	public boolean isShow(){
+		return isShow;
 	}
 }
