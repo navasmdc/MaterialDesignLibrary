@@ -14,36 +14,36 @@ import android.widget.TextView;
 
 import com.gc.materialdesign.R;
 import com.gc.materialdesign.views.ButtonFlat;
+import com.gc.materialdesign.views.ProgressBarCircularIndeterminate;
 
-public class Dialog extends android.app.Dialog{
+public class ProgressDialog extends android.app.Dialog{
 	
 	Context context;
 	View view;
 	View backView;
-	String message;
-	TextView messageTextView;
 	String title;
 	TextView titleTextView;
 	
-	ButtonFlat buttonAccept;
-	ButtonFlat buttonCancel;
+	int progressColor = -1;
 	
-	View.OnClickListener onAcceptButtonClickListener;
-	View.OnClickListener onCancelButtonClickListener;
-	
-
-	public Dialog(Context context,String title, String message) {
+	public ProgressDialog(Context context,String title) {
 		super(context, android.R.style.Theme_Translucent);
-		this.context = context;// init Context
-		this.message = message;
 		this.title = title;
+		this.context = context;
+	}
+	
+	public ProgressDialog(Context context,String title, int progressColor) {
+		super(context, android.R.style.Theme_Translucent);
+		this.title = title;
+		this.progressColor = progressColor;
+		this.context = context;
 	}
 	
 	@Override
 	  protected void onCreate(Bundle savedInstanceState) {
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 	    super.onCreate(savedInstanceState);
-	    setContentView(R.layout.dialog);
+	    setContentView(R.layout.progress_dialog);
 	    
 		view = (RelativeLayout)findViewById(R.id.contentDialog);
 		backView = (RelativeLayout)findViewById(R.id.dialog_rootView);
@@ -63,29 +63,12 @@ public class Dialog extends android.app.Dialog{
 		
 	    this.titleTextView = (TextView) findViewById(R.id.title);
 	    setTitle(title);
+	    if(progressColor != -1){
+	    	ProgressBarCircularIndeterminate progressBarCircularIndeterminate = (ProgressBarCircularIndeterminate) findViewById(R.id.progressBarCircularIndetermininate);
+	    	progressBarCircularIndeterminate.setBackgroundColor(progressColor);
+	    }
 	    
-	    this.messageTextView = (TextView) findViewById(R.id.message);
-	    setMessage(message);
 	    
-	    this.buttonAccept = (ButtonFlat) findViewById(R.id.button_accept);
-	    buttonAccept.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				dismiss();
-				if(onAcceptButtonClickListener != null)
-			    	onAcceptButtonClickListener.onClick(v);
-			}
-		});
-	    this.buttonCancel = (ButtonFlat) findViewById(R.id.button_cancel);
-    	buttonCancel.setOnClickListener(new View.OnClickListener() {
-    		
-			@Override
-			public void onClick(View v) {
-				dismiss();	
-				if(onCancelButtonClickListener != null)
-			    	onCancelButtonClickListener.onClick(v);
-			}
-		});
 	}
 	
 	@Override
@@ -98,23 +81,6 @@ public class Dialog extends android.app.Dialog{
 	}
 	
 	// GETERS & SETTERS
-
-	public String getMessage() {
-		return message;
-	}
-
-	public void setMessage(String message) {
-		this.message = message;
-		messageTextView.setText(message);
-	}
-
-	public TextView getMessageTextView() {
-		return messageTextView;
-	}
-
-	public void setMessageTextView(TextView messageTextView) {
-		this.messageTextView = messageTextView;
-	}
 
 	public String getTitle() {
 		return title;
@@ -138,36 +104,6 @@ public class Dialog extends android.app.Dialog{
 		this.titleTextView = titleTextView;
 	}
 
-	public ButtonFlat getButtonAccept() {
-		return buttonAccept;
-	}
-
-	public void setButtonAccept(ButtonFlat buttonAccept) {
-		this.buttonAccept = buttonAccept;
-	}
-
-	public ButtonFlat getButtonCancel() {
-		return buttonCancel;
-	}
-
-	public void setButtonCancel(ButtonFlat buttonCancel) {
-		this.buttonCancel = buttonCancel;
-	}
-
-	public void setOnAcceptButtonClickListener(
-			View.OnClickListener onAcceptButtonClickListener) {
-		this.onAcceptButtonClickListener = onAcceptButtonClickListener;
-		if(buttonAccept != null)
-			buttonAccept.setOnClickListener(onAcceptButtonClickListener);
-	}
-
-	public void setOnCancelButtonClickListener(
-			View.OnClickListener onCancelButtonClickListener) {
-		this.onCancelButtonClickListener = onCancelButtonClickListener;
-		if(buttonCancel != null)
-			buttonCancel.setOnClickListener(onCancelButtonClickListener);
-	}
-	
 	@Override
 	public void dismiss() {
 		Animation anim = AnimationUtils.loadAnimation(context, R.anim.dialog_main_hide_amination);
@@ -186,7 +122,7 @@ public class Dialog extends android.app.Dialog{
 				view.post(new Runnable() {
 					@Override
 					public void run() {
-			        	Dialog.super.dismiss();
+			        	ProgressDialog.super.dismiss();
 			        }
 			    });
 				

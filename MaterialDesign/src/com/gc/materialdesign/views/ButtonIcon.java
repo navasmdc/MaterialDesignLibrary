@@ -16,7 +16,7 @@ public class ButtonIcon extends ButtonFloat {
 	public ButtonIcon(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		setBackground(new ColorDrawable(getResources().getColor(android.R.color.transparent)));
-		rippleSpeed = Utils.dpToPx(2, getResources());
+		rippleSpeed = Utils.dpToPx(6, getResources());
 		rippleSize = Utils.dpToPx(5, getResources());
 	}
 	
@@ -43,7 +43,7 @@ public class ButtonIcon extends ButtonFloat {
 				x = -1;
 				y = -1;
 				radius = getHeight()/rippleSize;
-				if(onClickListener != null)
+				if(onClickListener != null && clickAfterRipple)
 					onClickListener.onClick(this);
 			}
 			invalidate();
