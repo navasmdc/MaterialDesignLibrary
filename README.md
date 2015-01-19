@@ -30,7 +30,7 @@
 
 If you want use this library, you only have to download MaterialDesign project, import it into your workspace and add the project as a library in your android project settings.
 
-If you prefer it, you can use the grade dependency, you have to add these lines in your buil.gradle file:
+If you prefer it, you can use the grade dependency, you have to add these lines in your build.gradle file:
 
 ```xml
 repositories {
