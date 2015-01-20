@@ -19,6 +19,6 @@ allprojects {
     }
 
     group = "com.github.navasmdc"
-    version = "1.3"
+    version = "1.4"
 }
 

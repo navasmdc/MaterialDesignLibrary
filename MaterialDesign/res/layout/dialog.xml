@@ -59,15 +59,16 @@
                 android:id="@+id/button_cancel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Cancel"
-                android:textColor="#000" />
+                android:text="Cancel"                
+                android:background="#000000"
+                android:visibility="gone" />
 
             <com.gc.materialdesign.views.ButtonFlat
                 android:id="@+id/button_accept"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Accept"
-                android:textColor="#1E88E5" />
+                android:background="#1E88E5" />
         </LinearLayout>
     </RelativeLayout>
 
