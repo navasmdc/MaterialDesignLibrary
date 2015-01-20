@@ -28,16 +28,28 @@ public class Dialog extends android.app.Dialog{
 	ButtonFlat buttonAccept;
 	ButtonFlat buttonCancel;
 	
+	String buttonCancelText;
+	
 	View.OnClickListener onAcceptButtonClickListener;
 	View.OnClickListener onCancelButtonClickListener;
 	
-
+	
 	public Dialog(Context context,String title, String message) {
 		super(context, android.R.style.Theme_Translucent);
 		this.context = context;// init Context
 		this.message = message;
 		this.title = title;
 	}
+	
+	public void addCancelButton(String buttonCancelText){
+		this.buttonCancelText = buttonCancelText;
+	}
+	
+	public void addCancelButton(String buttonCancelText, View.OnClickListener onCancelButtonClickListener){
+		this.buttonCancelText = buttonCancelText;
+		this.onCancelButtonClickListener = onCancelButtonClickListener;
+	}
+	
 	
 	@Override
 	  protected void onCreate(Bundle savedInstanceState) {
@@ -76,16 +88,21 @@ public class Dialog extends android.app.Dialog{
 			    	onAcceptButtonClickListener.onClick(v);
 			}
 		});
-	    this.buttonCancel = (ButtonFlat) findViewById(R.id.button_cancel);
-    	buttonCancel.setOnClickListener(new View.OnClickListener() {
-    		
-			@Override
-			public void onClick(View v) {
-				dismiss();	
-				if(onCancelButtonClickListener != null)
-			    	onCancelButtonClickListener.onClick(v);
-			}
-		});
+	    
+	    if(buttonCancelText != null){
+		    this.buttonCancel = (ButtonFlat) findViewById(R.id.button_cancel);
+		    this.buttonCancel.setVisibility(View.VISIBLE);
+		    this.buttonCancel.setText(buttonCancelText);
+	    	buttonCancel.setOnClickListener(new View.OnClickListener() {
+	    		
+				@Override
+				public void onClick(View v) {
+					dismiss();	
+					if(onCancelButtonClickListener != null)
+				    	onCancelButtonClickListener.onClick(v);
+				}
+			});
+	    }
 	}
 	
 	@Override

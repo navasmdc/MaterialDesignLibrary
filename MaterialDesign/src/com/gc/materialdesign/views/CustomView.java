@@ -1,6 +1,7 @@
 package com.gc.materialdesign.views;
 
 import android.content.Context;
+import android.graphics.Canvas;
 import android.graphics.Color;
 import android.util.AttributeSet;
 import android.widget.RelativeLayout;
@@ -29,5 +30,26 @@ public class CustomView extends RelativeLayout{
 		else
 			setBackgroundColor(disabledBackgroundColor);
 		invalidate();
+	}
+	
+	boolean animation = false;
+	
+	@Override
+	protected void onAnimationStart() {
+		super.onAnimationStart();
+		animation = true;
+	}
+	
+	@Override
+	protected void onAnimationEnd() {
+		super.onAnimationEnd();
+		animation = false;
+	}
+	
+	@Override
+	protected void onDraw(Canvas canvas) {
+		super.onDraw(canvas);
+		if(animation)
+			invalidate();
 	}
 }

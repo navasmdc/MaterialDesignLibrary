@@ -50,11 +50,6 @@ public class ButtonFloat extends Button{
 		icon.setScaleType(ScaleType.CENTER_CROP);
 		if(drawableIcon != null) {
 			icon.setImageDrawable(drawableIcon);
-//			try {
-//				icon.setBackground(drawableIcon);
-//			} catch (NoSuchMethodError e) {
-//				icon.setBackgroundDrawable(drawableIcon);
-//			}
 		}
 		RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(Utils.dpToPx(sizeIcon, getResources()),Utils.dpToPx(sizeIcon, getResources()));
 		params.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);
