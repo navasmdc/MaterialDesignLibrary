@@ -12,6 +12,7 @@ public class ProgressBarIndeterminateDeterminate extends ProgressBarDeterminate 
 
 	boolean firstProgress = true;
 	boolean runAnimation = true;
+	int duration = 2000;
 	ObjectAnimator animation;
 	Runnable animationRunnable = new Runnable() {
 
@@ -20,25 +21,19 @@ public class ProgressBarIndeterminateDeterminate extends ProgressBarDeterminate 
 			// Make progress animation
 
 			setProgress(60);
-			ViewHelper.setX(progressView,getWidth()+progressView.getWidth()/2);
-			animation = ObjectAnimator.ofFloat(progressView, "x", -progressView.getWidth()/2);
-			animation.setDuration(1200);
+			ViewHelper.setX(progressView,getWidth());
+			animation = ObjectAnimator.ofFloat(progressView, "x", getWidth());
+			animation.setDuration(0);
 			animation.addListener(new AnimatorListener() {
-
-				int cont = 1;
-				int suma = 1;
-				int duration = 1200;
 
 				public void onAnimationEnd(Animator arg0) {
 					// Repeat animation
 					if(runAnimation){
-						ViewHelper.setX(progressView,getWidth()+progressView.getWidth()/2);
-						cont += suma;
-						animation = ObjectAnimator.ofFloat(progressView, "x", -progressView.getWidth()/2);
-						animation.setDuration(duration/cont);
+						ViewHelper.setX(progressView,getWidth());
+						animation = ObjectAnimator.ofFloat(progressView, "x", -progressView.getWidth());
+						animation.setDuration(duration);
 						animation.addListener(this);
 						animation.start();
-						if(cont == 3 || cont == 1) suma *=-1;
 					}
 
 				}
