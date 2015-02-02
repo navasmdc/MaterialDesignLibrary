@@ -22,6 +22,9 @@ import android.widget.RelativeLayout;
 public class Switch extends CustomView {
 
 	int backgroundColor = Color.parseColor("#4CAF50");
+    
+    float downX;
+    boolean isMoved;
 
 	Ball ball;
 
@@ -85,16 +88,15 @@ public class Switch extends CustomView {
 		if (isEnabled()) {
 			isLastTouch = true;
 			if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                		getParent().requestDisallowInterceptTouchEvent(true);
 				press = true;
+                downX = event.getX();
 			} else if (event.getAction() == MotionEvent.ACTION_MOVE) {
 				float x = event.getX();
+                isMoved = isMoved || Math.abs(downX - event.getX()) > 5;
 				x = (x < ball.xIni) ? ball.xIni : x;
 				x = (x > ball.xFin) ? ball.xFin : x;
-				if (x > ball.xCen) {
-					check = true;
-				} else {
-					check = false;
-				}
+                check = x > ball.xCen;
 				ViewHelper.setX(ball, x);
 				ball.changeBackground();
 				if ((event.getX() <= getWidth() && event.getX() >= 0)) {
@@ -103,8 +105,11 @@ public class Switch extends CustomView {
 				}
 			} else if (event.getAction() == MotionEvent.ACTION_UP ||
 					event.getAction() == MotionEvent.ACTION_CANCEL) {
+                if (!isMoved)
+                    check = !eventCheck;
 				press = false;
 				isLastTouch = false;
+                isMoved = false;
 				if (eventCheck != check) {
 					eventCheck = check;
 					if (onCheckListener != null)
