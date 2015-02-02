@@ -88,6 +88,7 @@ public class Switch extends CustomView {
 		if (isEnabled()) {
 			isLastTouch = true;
 			if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                		getParent().requestDisallowInterceptTouchEvent(true);
 				press = true;
                 downX = event.getX();
 			} else if (event.getAction() == MotionEvent.ACTION_MOVE) {
