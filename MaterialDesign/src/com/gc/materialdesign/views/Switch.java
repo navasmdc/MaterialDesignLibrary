@@ -30,6 +30,7 @@ public class Switch extends CustomView {
 	boolean press = false;
 
 	OnCheckListener onCheckListener;
+    OnCheckedChangeListener onCheckedListener;
 
 	public Switch(Context context, AttributeSet attrs) {
 		super(context, attrs);
@@ -107,8 +108,10 @@ public class Switch extends CustomView {
 				isLastTouch = false;
 				if (eventCheck != check) {
 					eventCheck = check;
-					if (onCheckListener != null)
-						onCheckListener.onCheck(check);
+                    if (onCheckListener != null)
+                        onCheckListener.onCheck(check);
+                    if (onCheckedListener != null)
+                        onCheckedListener.onChecked(Switch.this,check);
 				}
 				if ((event.getX() <= getWidth() && event.getX() >= 0)) {
 					ball.animateCheck();
@@ -243,8 +246,16 @@ public class Switch extends CustomView {
 		this.onCheckListener = onCheckListener;
 	}
 
-	public interface OnCheckListener {
-		public void onCheck(boolean check);
-	}
+    public void setOnCheckedChangeListener(OnCheckedChangeListener onCheckedChangeListener) {
+        this.onCheckedListener = onCheckedChangeListener;
+    }
+
+    public interface OnCheckListener {
+        public void onCheck(boolean check);
+    }
+
+    public interface OnCheckedChangeListener {
+        public void onChecked(Switch SwitchView, boolean isChecked);
+    }
 
 }

@@ -27,6 +27,7 @@ public class CheckBox extends CustomView {
 	boolean check = false;
 
 	OnCheckListener onCheckListener;
+    OnCheckedChangeListener onCheckedListener;
 
 	public CheckBox(Context context, AttributeSet attrs) {
 		super(context, attrs);
@@ -103,6 +104,8 @@ public class CheckBox extends CustomView {
 					check = !check;
 					if (onCheckListener != null)
 						onCheckListener.onCheck(check);
+                    if (onCheckedListener != null)
+                        onCheckedListener.onChecked(CheckBox.this,check);
 					if (check) {
 						step = 0;
 					}
@@ -234,8 +237,16 @@ public class CheckBox extends CustomView {
 		this.onCheckListener = onCheckListener;
 	}
 
+    public void setOnCheckedChangeListener(OnCheckedChangeListener onCheckedChangeListener) {
+        this.onCheckedListener = onCheckedChangeListener;
+    }
+
 	public interface OnCheckListener {
 		public void onCheck(boolean check);
 	}
+
+    public interface OnCheckedChangeListener {
+        public void onChecked(CheckBox checkboxView, boolean isChecked);
+    }
 
 }
