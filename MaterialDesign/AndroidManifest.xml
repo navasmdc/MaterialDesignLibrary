@@ -5,6 +5,6 @@
 
     <uses-sdk android:minSdkVersion="8" />
 
-    <application android:allowBackup="true" />
+    <application />
 
 </manifest>
