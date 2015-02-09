@@ -30,6 +30,6 @@ proguard/
 *.DS_Store
 
 # Intellij Idea and Android Studio files
-.idea
-*.iml
+# .idea
+# *.iml
 
