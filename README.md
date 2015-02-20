@@ -44,6 +44,7 @@ repositories {
 
 dependencies {
     compile 'com.github.navasmdc:MaterialDesign:1.+@aar'
+    compile 'com.nineoldandroids:library:2.4.+'
 }
 ```
 
