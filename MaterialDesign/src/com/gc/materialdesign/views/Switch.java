@@ -91,9 +91,9 @@ public class Switch extends CustomView {
 				x = (x < ball.xIni) ? ball.xIni : x;
 				x = (x > ball.xFin) ? ball.xFin : x;
 				if (x > ball.xCen) {
-					check = true;
+					eventCheck = true;
 				} else {
-					check = false;
+					eventCheck = false;
 				}
 				ViewHelper.setX(ball, x);
 				ball.changeBackground();
@@ -106,7 +106,7 @@ public class Switch extends CustomView {
 				press = false;
 				isLastTouch = false;
 				if (eventCheck != check) {
-					eventCheck = check;
+					check = eventCheck;
 					if (onCheckListener != null)
 						onCheckListener.onCheck(check);
 				}
