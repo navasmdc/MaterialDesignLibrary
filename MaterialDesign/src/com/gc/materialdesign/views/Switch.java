@@ -91,9 +91,9 @@ public class Switch extends CustomView {
 				x = (x < ball.xIni) ? ball.xIni : x;
 				x = (x > ball.xFin) ? ball.xFin : x;
 				if (x > ball.xCen) {
-					check = true;
+					eventCheck = true;
 				} else {
-					check = false;
+					eventCheck = false;
 				}
 				ViewHelper.setX(ball, x);
 				ball.changeBackground();
@@ -106,7 +106,7 @@ public class Switch extends CustomView {
 				press = false;
 				isLastTouch = false;
 				if (eventCheck != check) {
-					eventCheck = check;
+					check = eventCheck;
 					if (onCheckListener != null)
 						onCheckListener.onCheck(check);
 				}
@@ -130,7 +130,7 @@ public class Switch extends CustomView {
 		Canvas temp = new Canvas(bitmap);
 		Paint paint = new Paint();
 		paint.setAntiAlias(true);
-		paint.setColor((check) ? backgroundColor : Color.parseColor("#B0B0B0"));
+		paint.setColor((eventCheck) ? backgroundColor : Color.parseColor("#B0B0B0"));
 		paint.setStrokeWidth(Utils.dpToPx(2, getResources()));
 		temp.drawLine(getHeight() / 2, getHeight() / 2, getWidth()
 				- getHeight() / 2, getHeight() / 2, paint);
@@ -196,6 +196,7 @@ public class Switch extends CustomView {
 	public void setChecked(boolean check) {
 		invalidate();
 		this.check = check;
+		this.eventCheck = check;
 		ball.animateCheck();
 	}
 
@@ -213,7 +214,7 @@ public class Switch extends CustomView {
 		}
 
 		public void changeBackground() {
-			if (check) {
+			if (eventCheck) {
 				setBackgroundResource(R.drawable.background_checkbox);
 				LayerDrawable layer = (LayerDrawable) getBackground();
 				GradientDrawable shape = (GradientDrawable) layer
@@ -227,7 +228,7 @@ public class Switch extends CustomView {
 		public void animateCheck() {
 			changeBackground();
 			ObjectAnimator objectAnimator;
-			if (check) {
+			if (eventCheck) {
 				objectAnimator = ObjectAnimator.ofFloat(this, "x", ball.xFin);
 
 			} else {
