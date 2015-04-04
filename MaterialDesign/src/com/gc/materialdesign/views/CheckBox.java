@@ -16,6 +16,7 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 public class CheckBox extends CustomView {
 
@@ -70,20 +71,45 @@ public class CheckBox extends CustomView {
 			});
 
 		checkView = new Check(getContext());
+        checkView.setId(View.generateViewId());
 		RelativeLayout.LayoutParams params = new LayoutParams(Utils.dpToPx(20,
 				getResources()), Utils.dpToPx(20, getResources()));
 		params.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);
 		checkView.setLayoutParams(params);
 		addView(checkView);
 
+        // Adding text view to checkbox
+        int textResource = attrs.getAttributeResourceValue(ANDROIDXML, "text", -1);
+        String text = null;
+
+        if(textResource != -1) {
+            text = getResources().getString(textResource);
+        } else {
+            text = attrs.getAttributeValue(ANDROIDXML, "text");
+        }
+
+        if(text != null) {
+            params.removeRule(RelativeLayout.CENTER_IN_PARENT);
+            params.addRule(RelativeLayout.CENTER_VERTICAL, RelativeLayout.TRUE);
+                    TextView textView = new TextView(getContext());
+            RelativeLayout.LayoutParams textViewLayoutParams = new LayoutParams(LayoutParams.WRAP_CONTENT,
+                    LayoutParams.WRAP_CONTENT);
+            textViewLayoutParams.addRule(RelativeLayout.RIGHT_OF, checkView.getId());
+            textViewLayoutParams.addRule(RelativeLayout.CENTER_VERTICAL, RelativeLayout.TRUE);
+            textViewLayoutParams.setMargins(10, 0, 0, 0);
+            textView.setLayoutParams(textViewLayoutParams);
+            textView.setText(text);
+
+            addView(textView);
+        }
 	}
-	
+
 	@Override
 	public void invalidate() {
 		checkView.invalidate();
 		super.invalidate();
 	}
-	
+
 
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
@@ -137,7 +163,7 @@ public class CheckBox extends CustomView {
 
 	/**
 	 * Make a dark color to press effect
-	 * 
+	 *
 	 * @return
 	 */
 	protected int makePressColor() {
