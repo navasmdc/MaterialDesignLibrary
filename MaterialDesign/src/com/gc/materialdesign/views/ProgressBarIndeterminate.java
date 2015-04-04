@@ -36,10 +36,14 @@ public class ProgressBarIndeterminate extends ProgressBarDeterminate {
 						// Repeat animation
 						ViewHelper.setX(progressView,-progressView.getWidth()/2);
 						cont += suma;
-						ObjectAnimator anim2Repeat = ObjectAnimator.ofFloat(progressView, "x", getWidth());
-						anim2Repeat.setDuration(duration/cont);
-						anim2Repeat.addListener(this);
-						anim2Repeat.start();
+						try {
+							ObjectAnimator anim2Repeat = ObjectAnimator.ofFloat(progressView, "x", getWidth());
+							anim2Repeat.setDuration(duration/cont);
+							anim2Repeat.addListener(this);
+							anim2Repeat.start();
+						} catch (java.lang.ArrayIndexOutOfBoundsException e) {
+							// ignore this error that sometimes comes from the NineOldAndroids 2.4 library
+						}
 						if(cont == 3 || cont == 1) suma *=-1;
 						
 					}
