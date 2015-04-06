@@ -106,19 +106,19 @@ public class CheckBox extends CustomView {
         }
 	}
 
-    /**
-     * Apply textAppearance based from attribute set xml to a specific TextView
-     *
-     * @param textView
-     * @param attributeSet
-     */
-    private void applyTextAppearance(TextView textView, AttributeSet attributeSet) {
-        int textAppearanceResource = attributeSet.getAttributeResourceValue(ANDROIDXML, "textAppearance", -1);
+        /**
+         * Apply textAppearance based from attribute set xml to a specific TextView
+         *
+         * @param textView
+         * @param attributeSet
+         */
+        private void applyTextAppearance(TextView textView, AttributeSet attributeSet) {
+            int textAppearanceResource = attributeSet.getAttributeResourceValue(ANDROIDXML, "textAppearance", -1);
 
-        if (textAppearanceResource != -1) {
-            textView.setTextAppearance(getContext(), textAppearanceResource);
+            if (textAppearanceResource != -1) {
+                textView.setTextAppearance(getContext(), textAppearanceResource);
+            }
         }
-    }
 
 	@Override
 	public void invalidate() {
