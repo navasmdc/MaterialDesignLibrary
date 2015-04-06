@@ -42,7 +42,6 @@ public class ButtonFloat extends Button{
 	
 	public ButtonFloat(Context context, AttributeSet attrs) {
 		super(context, attrs);
-		setBackgroundResource(R.drawable.background_button_float);
 		sizeRadius = 28;
 		setDefaultProperties();
 		icon = new ImageView(context);
@@ -63,7 +62,7 @@ public class ButtonFloat extends Button{
 		rippleSize = Utils.dpToPx(5, getResources());
 		setMinimumWidth(Utils.dpToPx(sizeRadius*2, getResources()));
 		setMinimumHeight(Utils.dpToPx(sizeRadius*2, getResources()));
-		super.background = R.drawable.background_button_float;
+        setBackgroundResource(R.drawable.background_button_float);
 //		super.setDefaultProperties();
 	}
 	
@@ -77,9 +76,9 @@ public class ButtonFloat extends Button{
 			setBackgroundColor(getResources().getColor(bacgroundColor));
 		}else{
 			// Color by hexadecimal
-			background = attrs.getAttributeIntValue(ANDROIDXML, "background", -1);
-			if (background != -1)
-				setBackgroundColor(background);
+            bacgroundColor = attrs.getAttributeIntValue(ANDROIDXML, "background", -1);
+			if (bacgroundColor != -1)
+				setBackgroundColor(bacgroundColor);
 		}
 		
 		// Set Ripple Color
@@ -90,9 +89,9 @@ public class ButtonFloat extends Button{
 			setRippleColor(getResources().getColor(rippleColor));
 		} else {
 			// Color by hexadecimal
-			int background = attrs.getAttributeIntValue(MATERIALDESIGNXML, "rippleColor", -1);
-			if (background != -1)
-				setRippleColor(background);
+			rippleColor = attrs.getAttributeIntValue(MATERIALDESIGNXML, "rippleColor", -1);
+			if (rippleColor != -1)
+				setRippleColor(rippleColor);
 			else
 				setRippleColor(makePressColor());
 		}
