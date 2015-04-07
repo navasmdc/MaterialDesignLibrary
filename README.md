@@ -102,7 +102,7 @@ Some components have custom attributes, if you want use them, you must add this 
 
 ![float button](images/float_button.png)
 
->It is recommended to put this component in the right-bottom of the screen. To use this component write this code in your xml file.
+>It is recommended to put this component in the right-bottom of the screen with `android:layout_marginRight="16dp"`, according to the [Google Material Design - Metrics & keylines](http://www.google.com/design/spec/layout/metrics-keylines.html#metrics-keylines-keylines-spacing). To use this component write this code in your xml file.
 >If you don`t want to start this component with animation set the animate attribute to false.
 >Put your icon in the icon attribute to set the drawable icon for this component.
 
@@ -119,7 +119,7 @@ Some components have custom attributes, if you want use them, you must add this 
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentBottom="true"
-                android:layout_marginRight="24dp"
+                android:layout_marginRight="16dp"
                 android:background="#1E88E5"
                 materialdesign:animate="true"
                 materialdesign:iconDrawable="@drawable/ic_action_new" />
