@@ -227,17 +227,15 @@ public class Slider extends CustomView {
             canvas.drawBitmap(bitmap, 0, 0, new Paint());
         } else {
 
+            //Draw whole line
             paint.setColor(Color.parseColor("#B0B0B0"));
             paint.setStrokeWidth(Utils.dpToPx(2, getResources()));
             canvas.drawLine(getHeight() / 2, getHeight() / 2, getWidth()
                     - getHeight() / 2, getHeight() / 2, paint);
+
+            //Draw active line
             paint.setColor(backgroundColor);
-            float division = (ball.xFin - ball.xIni) / (max - min);
-            int value = this.value - min;
-
-            canvas.drawLine(getHeight() / 2, getHeight() / 2, value * division
-                    + getHeight() / 2, getHeight() / 2, paint);
-
+            canvas.drawLine(getHeight() / 2, getHeight() / 2, ball.getX(), getHeight() / 2, paint);
         }
 
         if (press && !showNumberIndicator) {
