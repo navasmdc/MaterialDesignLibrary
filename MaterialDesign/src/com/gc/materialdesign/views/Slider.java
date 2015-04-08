@@ -12,7 +12,6 @@ import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
@@ -37,6 +36,7 @@ public class Slider extends CustomView {
     private boolean press               = false;
     private boolean showNumberIndicator = false;
     private int     value               = 0;
+    private int parentLayoutScrollY = 0;
 
     public Slider(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -147,7 +147,7 @@ public class Slider extends CustomView {
                         // move number indicator
                         numberIndicator.indicator.x = x;
                         numberIndicator.indicator.finalY = Utils
-                                .getRelativeTop(this) - getHeight() / 2;
+                                .getRelativeTop(this) - getHeight() / 2 - getParentLayoutScrollY();
                         numberIndicator.indicator.finalSize = getHeight() / 2;
                         numberIndicator.numberIndicator.setText("");
                     }
@@ -296,6 +296,14 @@ public class Slider extends CustomView {
         ball.xFin = getWidth() - getHeight() / 2 - ball.getWidth() / 2;
         ball.xCen = getWidth() / 2 - ball.getWidth() / 2;
         placedBall = true;
+    }
+
+    public int getParentLayoutScrollY() {
+        return parentLayoutScrollY;
+    }
+
+    public void setParentLayoutScrollY(int parentLayoutScrollY) {
+        this.parentLayoutScrollY = parentLayoutScrollY;
     }
 
     // Event when slider change value
