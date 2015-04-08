@@ -185,34 +185,42 @@ public class Dialog extends android.app.Dialog{
 			buttonCancel.setOnClickListener(onCancelButtonClickListener);
 	}
 	
+	boolean dismissInProgress = false;
+	
 	@Override
 	public void dismiss() {
-		Animation anim = AnimationUtils.loadAnimation(context, R.anim.dialog_main_hide_amination);
-		anim.setAnimationListener(new AnimationListener() {
-			
-			@Override
-			public void onAnimationStart(Animation animation) {
-			}
-			
-			@Override
-			public void onAnimationRepeat(Animation animation) {
-			}
-			
-			@Override
-			public void onAnimationEnd(Animation animation) {
-				view.post(new Runnable() {
-					@Override
-					public void run() {
-			        	Dialog.super.dismiss();
-			        }
-			    });
+		if (!dismissInProgress) {
+			dismissInProgress = true;
+			Animation anim = AnimationUtils.loadAnimation(context, R.anim.dialog_main_hide_amination);
+			anim.setAnimationListener(new AnimationListener() {
 				
-			}
-		});
-		Animation backAnim = AnimationUtils.loadAnimation(context, R.anim.dialog_root_hide_amin);
-		
-		view.startAnimation(anim);
-		backView.startAnimation(backAnim);
+				@Override
+				public void onAnimationStart(Animation animation) {
+				}
+				
+				@Override
+				public void onAnimationRepeat(Animation animation) {
+				}
+				
+				@Override
+				public void onAnimationEnd(Animation animation) {
+			                dismissInProgress = false;
+                                    	view.setAlpha(0.0f);
+        			        backView.setAlpha(0.0f);
+					view.post(new Runnable() {
+						@Override
+						public void run() {
+				        		Dialog.super.dismiss();
+				        }
+				    });
+					
+				}
+			});
+			Animation backAnim = AnimationUtils.loadAnimation(context, R.anim.dialog_root_hide_amin);
+			
+			view.startAnimation(anim);
+			backView.startAnimation(backAnim);
+		}
 	}
 	
 	
