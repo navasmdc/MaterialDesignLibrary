@@ -35,6 +35,7 @@ public class Slider extends CustomView {
     private boolean placedBall          = false;
     private boolean press               = false;
     private boolean showNumberIndicator = false;
+    private boolean alwaysBallChecked = false;
     private int     value               = 0;
     private int parentLayoutScrollY = 0;
 
@@ -203,7 +204,7 @@ public class Slider extends CustomView {
 
         Paint paint = new Paint();
 
-        if (value == min) {
+        if (value == min && !alwaysBallChecked) {
             // Crop line to transparent effect
 
             if (bitmap == null) {
@@ -226,7 +227,6 @@ public class Slider extends CustomView {
 
             canvas.drawBitmap(bitmap, 0, 0, new Paint());
         } else {
-
             //Draw whole line
             paint.setColor(Color.parseColor("#B0B0B0"));
             paint.setStrokeWidth(Utils.dpToPx(2, getResources()));
@@ -269,13 +269,15 @@ public class Slider extends CustomView {
                 setBackgroundColor(background);
         }
 
+        alwaysBallChecked = attrs.getAttributeBooleanValue(MATERIALDESIGNXML,
+                "alwaysBallChecked" , false);
         showNumberIndicator = attrs.getAttributeBooleanValue(MATERIALDESIGNXML,
                 "showNumberIndicator", false);
         min = attrs.getAttributeIntValue(MATERIALDESIGNXML, "min", 0);
         max = attrs.getAttributeIntValue(MATERIALDESIGNXML, "max", 0);
         value = attrs.getAttributeIntValue(MATERIALDESIGNXML, "value", min);
 
-        ball = new Ball(getContext());
+        ball = new Ball(getContext(), alwaysBallChecked);
         RelativeLayout.LayoutParams params = new LayoutParams(Utils.dpToPx(20,
                 getResources()), Utils.dpToPx(20, getResources()));
         params.addRule(RelativeLayout.CENTER_VERTICAL, RelativeLayout.TRUE);
@@ -306,6 +308,14 @@ public class Slider extends CustomView {
         this.parentLayoutScrollY = parentLayoutScrollY;
     }
 
+    public boolean isAlwaysBallChecked() {
+        return alwaysBallChecked;
+    }
+
+    public void setAlwaysBallChecked(boolean alwaysBallChecked) {
+        this.alwaysBallChecked = alwaysBallChecked;
+    }
+
     // Event when slider change value
     public interface OnValueChangedListener {
         public void onValueChanged(int value);
@@ -314,14 +324,24 @@ public class Slider extends CustomView {
     class Ball extends View {
 
         float xIni, xFin, xCen;
+        boolean alwaysBallChecked;
 
-        public Ball(Context context) {
+        public Ball(Context context , boolean alwaysBallChecked) {
             super(context);
-            setBackgroundResource(R.drawable.background_switch_ball_uncheck);
+            this.alwaysBallChecked = alwaysBallChecked;
+            if (alwaysBallChecked) {
+                setBackgroundResource(R.drawable.background_checkbox);
+                LayerDrawable layer = (LayerDrawable) getBackground();
+                GradientDrawable shape = (GradientDrawable) layer
+                        .findDrawableByLayerId(R.id.shape_bacground);
+                shape.setColor(backgroundColor);
+            }
+            else
+                setBackgroundResource(R.drawable.background_switch_ball_uncheck);
         }
 
         public void changeBackground() {
-            if (value != min) {
+            if (value != min || alwaysBallChecked) {
                 setBackgroundResource(R.drawable.background_checkbox);
                 LayerDrawable layer = (LayerDrawable) getBackground();
                 GradientDrawable shape = (GradientDrawable) layer
