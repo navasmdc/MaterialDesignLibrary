@@ -12,6 +12,7 @@ import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
@@ -74,7 +75,7 @@ public class Slider extends CustomView {
     }
 
     public void setValue(final int value) {
-        if (placedBall == false)
+        if (!placedBall)
             post(new Runnable() {
 
                 @Override
@@ -115,7 +116,7 @@ public class Slider extends CustomView {
             if (event.getAction() == MotionEvent.ACTION_DOWN
                     || event.getAction() == MotionEvent.ACTION_MOVE) {
                 if (numberIndicator != null
-                        && numberIndicator.isShowing() == false)
+                        && !numberIndicator.isShowing())
                     numberIndicator.show();
                 if ((event.getX() <= getWidth() && event.getX() >= 0)) {
                     press = true;
@@ -185,7 +186,7 @@ public class Slider extends CustomView {
     protected int makePressColor() {
         int r = (this.backgroundColor >> 16) & 0xFF;
         int g = (this.backgroundColor >> 8) & 0xFF;
-        int b = (this.backgroundColor >> 0) & 0xFF;
+        int b = (this.backgroundColor) & 0xFF;
         r = (r - 30 < 0) ? 0 : r - 30;
         g = (g - 30 < 0) ? 0 : g - 30;
         b = (b - 30 < 0) ? 0 : b - 30;
@@ -353,7 +354,7 @@ public class Slider extends CustomView {
         protected void onDraw(Canvas canvas) {
             super.onDraw(canvas);
 
-            if (numberIndicatorResize == false) {
+            if (!numberIndicatorResize) {
                 RelativeLayout.LayoutParams params = (LayoutParams) numberIndicator.numberIndicator
                         .getLayoutParams();
                 params.height = (int) finalSize * 2;
@@ -376,7 +377,7 @@ public class Slider extends CustomView {
                             + ball.getWidth() / 2, y, size, paint);
             if (animate && size >= finalSize)
                 animate = false;
-            if (animate == false) {
+            if (!animate) {
                 ViewHelper
                         .setX(numberIndicator.numberIndicator,
                                 (ViewHelper.getX(ball)
@@ -431,8 +432,8 @@ public class Slider extends CustomView {
             content.addView(numberIndicator);
 
             indicator.setLayoutParams(new RelativeLayout.LayoutParams(
-                    RelativeLayout.LayoutParams.FILL_PARENT,
-                    RelativeLayout.LayoutParams.FILL_PARENT));
+                    LayoutParams.MATCH_PARENT,
+                    LayoutParams.MATCH_PARENT));
         }
 
     }
