@@ -29,6 +29,7 @@ public class Dialog extends android.app.Dialog{
 	ButtonFlat buttonCancel;
 	
 	String buttonCancelText;
+	String buttonAcceptText;
 	
 	View.OnClickListener onAcceptButtonClickListener;
 	View.OnClickListener onCancelButtonClickListener;
@@ -80,6 +81,10 @@ public class Dialog extends android.app.Dialog{
 	    setMessage(message);
 	    
 	    this.buttonAccept = (ButtonFlat) findViewById(R.id.button_accept);
+	    if(this.buttonAcceptText != null)
+	    {
+	        this.buttonAccept.setText(this.buttonAcceptText);
+	    }
 	    buttonAccept.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -153,6 +158,10 @@ public class Dialog extends android.app.Dialog{
 
 	public void setTitleTextView(TextView titleTextView) {
 		this.titleTextView = titleTextView;
+	}
+
+	public void setButtonAcceptText(String buttonAcceptText) {
+        	this.buttonAcceptText = buttonAcceptText;
 	}
 
 	public ButtonFlat getButtonAccept() {
