@@ -32,6 +32,7 @@ public class Slider extends CustomView {
     private int min = 0;
     private NumberIndicator        numberIndicator;
     private OnValueChangedListener onValueChangedListener;
+    private CustomValueTextProvider customValueTextProvider;
     private boolean placedBall          = false;
     private boolean press               = false;
     private boolean showNumberIndicator = false;
@@ -65,6 +66,14 @@ public class Slider extends CustomView {
     public void setOnValueChangedListener(
             OnValueChangedListener onValueChangedListener) {
         this.onValueChangedListener = onValueChangedListener;
+    }
+
+    public CustomValueTextProvider getCustomValueTextProvider(){
+        return customValueTextProvider;
+    }
+
+    public void setCustomValueTextProvider(CustomValueTextProvider customValueTextProvider){
+        this.customValueTextProvider = customValueTextProvider;
     }
 
     // GETERS & SETTERS
@@ -304,6 +313,11 @@ public class Slider extends CustomView {
         public void onValueChanged(int value);
     }
 
+    // Provide custom text based on the value of the number slider
+    public interface CustomValueTextProvider {
+        public String provideCustomValueText(int currentValue);
+    }
+
     class Ball extends View {
 
         float xIni, xFin, xCen;
@@ -384,7 +398,11 @@ public class Slider extends CustomView {
                                         .getParent()) + ball.getWidth() / 2)
                                         - size);
                 ViewHelper.setY(numberIndicator.numberIndicator, y - size);
-                numberIndicator.numberIndicator.setText(value + "");
+                if (customValueTextProvider == null) {
+                    numberIndicator.numberIndicator.setText(value + "");
+                }else{
+                    numberIndicator.numberIndicator.setText(customValueTextProvider.provideCustomValueText(value));
+                }
             }
 
             invalidate();
