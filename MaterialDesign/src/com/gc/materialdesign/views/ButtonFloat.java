@@ -16,6 +16,8 @@ import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.Bitmap.Config;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
+import android.graphics.drawable.LayerDrawable;
 import android.util.AttributeSet;
 import android.view.animation.BounceInterpolator;
 import android.widget.ImageView;
@@ -43,6 +45,7 @@ public class ButtonFloat extends Button{
 	public ButtonFloat(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		setBackgroundResource(R.drawable.background_button_float);
+		setBackgroundColor(backgroundColor);
 		sizeRadius = 28;
 		setDefaultProperties();
 		icon = new ImageView(context);
@@ -202,4 +205,5 @@ public class ButtonFloat extends Button{
 	public boolean isShow(){
 		return isShow;
 	}
+	
 }

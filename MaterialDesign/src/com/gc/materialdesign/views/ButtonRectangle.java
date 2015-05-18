@@ -4,6 +4,7 @@ import com.gc.materialdesign.R;
 import com.gc.materialdesign.utils.Utils;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Rect;
@@ -94,7 +95,23 @@ public class ButtonRectangle extends Button {
 //					params.width = getWidth();
 //					params.gravity = Gravity.CENTER_HORIZONTAL;
 ////					params.setMargins(paddingLeft, paddingTop, paddingRight, paddingRight);
-//					textView.setLayoutParams(params);
+//					textView.setLayoutParams(params);textColor
+			int textColor = attrs.getAttributeResourceValue(ANDROIDXML,"textColor",-1);
+			if(textColor != -1){
+				textButton.setTextColor(textColor);
+			}else{
+				// Color by hexadecimal
+				// Color by hexadecimal
+				textColor = attrs.getAttributeIntValue(ANDROIDXML, "textColor", -1);
+				if (textColor != -1)
+					textButton.setTextColor(textColor);
+			}
+			int[] array = {android.R.attr.textSize};
+			TypedArray values = getContext().obtainStyledAttributes(attrs, array);
+	        float textSize = values.getDimension(0, -1);
+	        values.recycle();
+	        if(textSize != -1)
+	        	textButton.setTextSize(textSize);
 			
 		}
 		
@@ -130,20 +147,4 @@ public class ButtonRectangle extends Button {
 		}
 	}
 	
-	public void setText(String text){
-			textButton.setText(text);
-	}
-	
-	public void setTextColor(int color){
-		textButton.setTextColor(color);
-	}
-	@Override
-	public TextView getTextView() {
-		return textButton;
-	}
-
-	public String getText(){
-        	return textButton.getText().toString();
- 	}
-
 }

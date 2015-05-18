@@ -102,7 +102,7 @@ public class CheckBox extends CustomView {
 					isLastTouch = false;
 					check = !check;
 					if (onCheckListener != null)
-						onCheckListener.onCheck(check);
+						onCheckListener.onCheck(CheckBox.this, check);
 					if (check) {
 						step = 0;
 					}
@@ -235,7 +235,7 @@ public class CheckBox extends CustomView {
 	}
 
 	public interface OnCheckListener {
-		public void onCheck(boolean check);
+		public void onCheck(CheckBox view, boolean check);
 	}
 
 }
