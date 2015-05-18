@@ -2,6 +2,11 @@
 
 # Material Design Android Library
 
+<a href="https://play.google.com/store/apps/details?id=com.gc.demomaterialdesign">
+  <img alt="Android app on Google Play" src="https://developer.android.com/images/brand/en_app_rgb_wo_45.png" />
+</a>
+
+
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-Material%20Design%20Android%20Library-brightgreen.svg?style=flat)](https://android-arsenal.com/details/1/1156)
 
 * [How to use](#howtouse)
@@ -166,8 +171,8 @@ Some components have custom attributes, if you want use them, you must add this 
 ![progress bar circular indeterminate](images/progress_bar_circular_indeterminate.png)
 
 ```xml
-<com.gc.materialdesign.views.ProgressBarCircularIndetermininate
-                android:id="@+id/progressBarCircularIndetermininate"
+<com.gc.materialdesign.views.ProgressBarCircularIndeterminate
+                android:id="@+id/progressBarCircularIndeterminate"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:background="#1E88E5" />

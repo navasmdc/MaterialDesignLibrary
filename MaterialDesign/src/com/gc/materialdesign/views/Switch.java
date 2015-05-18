@@ -1,10 +1,5 @@
 package com.gc.materialdesign.views;
 
-import com.gc.materialdesign.R;
-import com.gc.materialdesign.utils.Utils;
-import com.nineoldandroids.animation.ObjectAnimator;
-import com.nineoldandroids.view.ViewHelper;
-
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -19,47 +14,53 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.RelativeLayout;
 
+import com.gc.materialdesign.R;
+import com.gc.materialdesign.utils.Utils;
+import com.nineoldandroids.animation.ObjectAnimator;
+import com.nineoldandroids.view.ViewHelper;
+
 public class Switch extends CustomView {
 
-	int backgroundColor = Color.parseColor("#4CAF50");
+    private int backgroundColor = Color.parseColor("#4CAF50");
 
-	Ball ball;
+    private Ball ball;
 
-	boolean check = false;
-	boolean eventCheck = false;
-	boolean press = false;
+    private boolean check      = false;
+    private boolean eventCheck = false;
+    private boolean press      = false;
 
-	OnCheckListener onCheckListener;
+    private OnCheckListener onCheckListener;
+    private Bitmap bitmap;
 
-	public Switch(Context context, AttributeSet attrs) {
-		super(context, attrs);
-		setAttributes(attrs);
-		setOnClickListener(new OnClickListener() {
+    public Switch(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        setAttributes(attrs);
+        setOnClickListener(new OnClickListener() {
 
-			@Override
-			public void onClick(View arg0) {
-				if (check)
-					setChecked(false);
-				else
-					setChecked(true);
-			}
-		});
-	}
+            @Override
+            public void onClick(View arg0) {
+                if (check)
+                    setChecked(false);
+                else
+                    setChecked(true);
+            }
+        });
+    }
 
-	// Set atributtes of XML to View
-	protected void setAttributes(AttributeSet attrs) {
+    // Set atributtes of XML to View
+    protected void setAttributes(AttributeSet attrs) {
 
-		setBackgroundResource(R.drawable.background_transparent);
+        setBackgroundResource(R.drawable.background_transparent);
 
-		// Set size of view
-		setMinimumHeight(Utils.dpToPx(48, getResources()));
-		setMinimumWidth(Utils.dpToPx(80, getResources()));
+        // Set size of view
+        setMinimumHeight(Utils.dpToPx(48, getResources()));
+        setMinimumWidth(Utils.dpToPx(80, getResources()));
 
-		// Set background Color
-		// Color by resource
-		int bacgroundColor = attrs.getAttributeResourceValue(ANDROIDXML,
-				"background", -1);
-		if (bacgroundColor != -1) {
+        // Set background Color
+        // Color by resource
+        int bacgroundColor = attrs.getAttributeResourceValue(ANDROIDXML,
+                "background", -1);
+        if (bacgroundColor != -1) {
 			setBackgroundColor(getResources().getColor(bacgroundColor));
 		} else {
 			// Color by hexadecimal
@@ -91,9 +92,9 @@ public class Switch extends CustomView {
 				x = (x < ball.xIni) ? ball.xIni : x;
 				x = (x > ball.xFin) ? ball.xFin : x;
 				if (x > ball.xCen) {
-					check = true;
+					eventCheck = true;
 				} else {
-					check = false;
+					eventCheck = false;
 				}
 				ViewHelper.setX(ball, x);
 				ball.changeBackground();
@@ -106,7 +107,7 @@ public class Switch extends CustomView {
 				press = false;
 				isLastTouch = false;
 				if (eventCheck != check) {
-					eventCheck = check;
+					check = eventCheck;
 					if (onCheckListener != null)
 						onCheckListener.onCheck(Switch.this,check);
 				}
@@ -121,16 +122,19 @@ public class Switch extends CustomView {
 	@Override
 	protected void onDraw(Canvas canvas) {
 		super.onDraw(canvas);
-		if (!placedBall)
-			placeBall();
+		if (!placedBall) {
+            placeBall();
+        }
 
 		// Crop line to transparent effect
-		Bitmap bitmap = Bitmap.createBitmap(canvas.getWidth(),
-				canvas.getHeight(), Bitmap.Config.ARGB_8888);
+        if(null == bitmap) {
+            bitmap = Bitmap.createBitmap(canvas.getWidth(),
+                    canvas.getHeight(), Bitmap.Config.ARGB_8888);
+        }
 		Canvas temp = new Canvas(bitmap);
 		Paint paint = new Paint();
 		paint.setAntiAlias(true);
-		paint.setColor((check) ? backgroundColor : Color.parseColor("#B0B0B0"));
+		paint.setColor((eventCheck) ? backgroundColor : Color.parseColor("#B0B0B0"));
 		paint.setStrokeWidth(Utils.dpToPx(2, getResources()));
 		temp.drawLine(getHeight() / 2, getHeight() / 2, getWidth()
 				- getHeight() / 2, getHeight() / 2, paint);
@@ -196,6 +200,7 @@ public class Switch extends CustomView {
 	public void setChecked(boolean check) {
 		invalidate();
 		this.check = check;
+		this.eventCheck = check;
 		ball.animateCheck();
 	}
 
@@ -213,7 +218,7 @@ public class Switch extends CustomView {
 		}
 
 		public void changeBackground() {
-			if (check) {
+			if (eventCheck) {
 				setBackgroundResource(R.drawable.background_checkbox);
 				LayerDrawable layer = (LayerDrawable) getBackground();
 				GradientDrawable shape = (GradientDrawable) layer
@@ -227,7 +232,7 @@ public class Switch extends CustomView {
 		public void animateCheck() {
 			changeBackground();
 			ObjectAnimator objectAnimator;
-			if (check) {
+			if (eventCheck) {
 				objectAnimator = ObjectAnimator.ofFloat(this, "x", ball.xFin);
 
 			} else {
