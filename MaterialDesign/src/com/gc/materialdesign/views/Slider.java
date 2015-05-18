@@ -35,7 +35,9 @@ public class Slider extends CustomView {
     private boolean placedBall          = false;
     private boolean press               = false;
     private boolean showNumberIndicator = false;
+    private boolean alwaysBallChecked = false;
     private int     value               = 0;
+    private int parentLayoutScrollY = 0;
 
     public Slider(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -74,7 +76,7 @@ public class Slider extends CustomView {
     }
 
     public void setValue(final int value) {
-        if (placedBall == false)
+        if (!placedBall)
             post(new Runnable() {
 
                 @Override
@@ -115,7 +117,7 @@ public class Slider extends CustomView {
             if (event.getAction() == MotionEvent.ACTION_DOWN
                     || event.getAction() == MotionEvent.ACTION_MOVE) {
                 if (numberIndicator != null
-                        && numberIndicator.isShowing() == false)
+                        && !numberIndicator.isShowing())
                     numberIndicator.show();
                 if ((event.getX() <= getWidth() && event.getX() >= 0)) {
                     press = true;
@@ -146,7 +148,7 @@ public class Slider extends CustomView {
                         // move number indicator
                         numberIndicator.indicator.x = x;
                         numberIndicator.indicator.finalY = Utils
-                                .getRelativeTop(this) - getHeight() / 2;
+                                .getRelativeTop(this) - getHeight() / 2 - getParentLayoutScrollY();
                         numberIndicator.indicator.finalSize = getHeight() / 2;
                         numberIndicator.numberIndicator.setText("");
                     }
@@ -185,7 +187,7 @@ public class Slider extends CustomView {
     protected int makePressColor() {
         int r = (this.backgroundColor >> 16) & 0xFF;
         int g = (this.backgroundColor >> 8) & 0xFF;
-        int b = (this.backgroundColor >> 0) & 0xFF;
+        int b = (this.backgroundColor) & 0xFF;
         r = (r - 30 < 0) ? 0 : r - 30;
         g = (g - 30 < 0) ? 0 : g - 30;
         b = (b - 30 < 0) ? 0 : b - 30;
@@ -202,7 +204,7 @@ public class Slider extends CustomView {
 
         Paint paint = new Paint();
 
-        if (value == min) {
+        if (value == min && !alwaysBallChecked) {
             // Crop line to transparent effect
 
             if (bitmap == null) {
@@ -225,18 +227,15 @@ public class Slider extends CustomView {
 
             canvas.drawBitmap(bitmap, 0, 0, new Paint());
         } else {
-
+            //Draw whole line
             paint.setColor(Color.parseColor("#B0B0B0"));
             paint.setStrokeWidth(Utils.dpToPx(2, getResources()));
             canvas.drawLine(getHeight() / 2, getHeight() / 2, getWidth()
                     - getHeight() / 2, getHeight() / 2, paint);
+
+            //Draw active line
             paint.setColor(backgroundColor);
-            float division = (ball.xFin - ball.xIni) / (max - min);
-            int value = this.value - min;
-
-            canvas.drawLine(getHeight() / 2, getHeight() / 2, value * division
-                    + getHeight() / 2, getHeight() / 2, paint);
-
+            canvas.drawLine(getHeight() / 2, getHeight() / 2, ball.getX(), getHeight() / 2, paint);
         }
 
         if (press && !showNumberIndicator) {
@@ -270,13 +269,15 @@ public class Slider extends CustomView {
                 setBackgroundColor(background);
         }
 
+        alwaysBallChecked = attrs.getAttributeBooleanValue(MATERIALDESIGNXML,
+                "alwaysBallChecked" , false);
         showNumberIndicator = attrs.getAttributeBooleanValue(MATERIALDESIGNXML,
                 "showNumberIndicator", false);
         min = attrs.getAttributeIntValue(MATERIALDESIGNXML, "min", 0);
         max = attrs.getAttributeIntValue(MATERIALDESIGNXML, "max", 0);
         value = attrs.getAttributeIntValue(MATERIALDESIGNXML, "value", min);
 
-        ball = new Ball(getContext());
+        ball = new Ball(getContext(), alwaysBallChecked);
         RelativeLayout.LayoutParams params = new LayoutParams(Utils.dpToPx(20,
                 getResources()), Utils.dpToPx(20, getResources()));
         params.addRule(RelativeLayout.CENTER_VERTICAL, RelativeLayout.TRUE);
@@ -299,6 +300,22 @@ public class Slider extends CustomView {
         placedBall = true;
     }
 
+    public int getParentLayoutScrollY() {
+        return parentLayoutScrollY;
+    }
+
+    public void setParentLayoutScrollY(int parentLayoutScrollY) {
+        this.parentLayoutScrollY = parentLayoutScrollY;
+    }
+
+    public boolean isAlwaysBallChecked() {
+        return alwaysBallChecked;
+    }
+
+    public void setAlwaysBallChecked(boolean alwaysBallChecked) {
+        this.alwaysBallChecked = alwaysBallChecked;
+    }
+
     // Event when slider change value
     public interface OnValueChangedListener {
         public void onValueChanged(int value);
@@ -307,14 +324,24 @@ public class Slider extends CustomView {
     class Ball extends View {
 
         float xIni, xFin, xCen;
+        boolean alwaysBallChecked;
 
-        public Ball(Context context) {
+        public Ball(Context context , boolean alwaysBallChecked) {
             super(context);
-            setBackgroundResource(R.drawable.background_switch_ball_uncheck);
+            this.alwaysBallChecked = alwaysBallChecked;
+            if (alwaysBallChecked) {
+                setBackgroundResource(R.drawable.background_checkbox);
+                LayerDrawable layer = (LayerDrawable) getBackground();
+                GradientDrawable shape = (GradientDrawable) layer
+                        .findDrawableByLayerId(R.id.shape_bacground);
+                shape.setColor(backgroundColor);
+            }
+            else
+                setBackgroundResource(R.drawable.background_switch_ball_uncheck);
         }
 
         public void changeBackground() {
-            if (value != min) {
+            if (value != min || alwaysBallChecked) {
                 setBackgroundResource(R.drawable.background_checkbox);
                 LayerDrawable layer = (LayerDrawable) getBackground();
                 GradientDrawable shape = (GradientDrawable) layer
@@ -353,7 +380,7 @@ public class Slider extends CustomView {
         protected void onDraw(Canvas canvas) {
             super.onDraw(canvas);
 
-            if (numberIndicatorResize == false) {
+            if (!numberIndicatorResize) {
                 RelativeLayout.LayoutParams params = (LayoutParams) numberIndicator.numberIndicator
                         .getLayoutParams();
                 params.height = (int) finalSize * 2;
@@ -376,7 +403,7 @@ public class Slider extends CustomView {
                             + ball.getWidth() / 2, y, size, paint);
             if (animate && size >= finalSize)
                 animate = false;
-            if (animate == false) {
+            if (!animate) {
                 ViewHelper
                         .setX(numberIndicator.numberIndicator,
                                 (ViewHelper.getX(ball)
@@ -431,8 +458,8 @@ public class Slider extends CustomView {
             content.addView(numberIndicator);
 
             indicator.setLayoutParams(new RelativeLayout.LayoutParams(
-                    RelativeLayout.LayoutParams.FILL_PARENT,
-                    RelativeLayout.LayoutParams.FILL_PARENT));
+                    LayoutParams.MATCH_PARENT,
+                    LayoutParams.MATCH_PARENT));
         }
 
     }

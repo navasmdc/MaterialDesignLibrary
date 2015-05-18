@@ -9,6 +9,8 @@
         <attr name="rippleSpeed" format="float" />
         <!-- indicate if the slider must show number indicator -->
         <attr name="showNumberIndicator" format="boolean" />
+        <!-- alwaysBallChecked , if true ? minimum value shown with a fill circle -->
+        <attr name="alwaysBallChecked" format="boolean" />
         <!-- in progress view indicate max value of progress -->
         <attr name="max" format="integer" />
         <!-- in progress view indicate min value of progress -->
