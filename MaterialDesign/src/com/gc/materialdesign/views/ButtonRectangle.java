@@ -146,5 +146,16 @@ public class ButtonRectangle extends Button {
 			invalidate();
 		}
 	}
+    public void setText(String text){
+        textButton.setText(text.toUpperCase());
+    }
+    @Override
+    public TextView getTextView() {
+        return textButton;
+    }
+
+    public String getText(){
+        return textButton.getText().toString();
+    }
 	
 }
