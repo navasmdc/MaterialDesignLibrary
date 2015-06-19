@@ -69,7 +69,7 @@ public class Switch extends CustomView {
 				setBackgroundColor(background);
 		}
 
-		check = attrs.getAttributeBooleanValue(MATERIALDESIGNXML, "check",
+		check = attrs.getAttributeBooleanValue(MATERIALDESIGNXML, "mdl_check",
 				false);
 		eventCheck = check;
 		ball = new Ball(getContext());

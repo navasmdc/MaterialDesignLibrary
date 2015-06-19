@@ -52,9 +52,9 @@ public class ProgressBarDeterminate extends CustomView {
 					setBackgroundColor(Color.parseColor("#1E88E5"));
 			}
 			
-			min = attrs.getAttributeIntValue(MATERIALDESIGNXML,"min", 0);
-			max = attrs.getAttributeIntValue(MATERIALDESIGNXML,"max", 100);
-			progress = attrs.getAttributeIntValue(MATERIALDESIGNXML,"progress", min);
+			min = attrs.getAttributeIntValue(MATERIALDESIGNXML,"mdl_min", 0);
+			max = attrs.getAttributeIntValue(MATERIALDESIGNXML,"mdl_max", 100);
+			progress = attrs.getAttributeIntValue(MATERIALDESIGNXML,"mdl_progress", min);
 			
 			setMinimumHeight(Utils.dpToPx(3, getResources()));
 			

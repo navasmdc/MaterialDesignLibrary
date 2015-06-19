@@ -164,8 +164,8 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:background="#1E88E5"
-                materialdesign:max="50"
-                materialdesign:min="0"
+                materialdesign:mdl_max="50"
+                materialdesign:mdl_min="0"
                  />
         </RelativeLayout>
         
@@ -198,9 +198,9 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:background="#1E88E5"
-                materialdesign:max="50"
-                materialdesign:min="0"
-                materialdesign:showNumberIndicator="true" />
+                materialdesign:mdl_max="50"
+                materialdesign:mdl_min="0"
+                materialdesign:mdl_showNumberIndicator="true" />
         </RelativeLayout>
     </LinearLayout>
 
