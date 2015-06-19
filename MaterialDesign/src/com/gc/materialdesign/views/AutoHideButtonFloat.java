@@ -36,7 +36,7 @@ public class AutoHideButtonFloat extends ButtonFloat implements AbsListView.OnSc
     @Override
     public void onScrollStateChanged(AbsListView absListView, int scrollState) {
         switch (scrollState) {
-            case AbsListView.SCROLL_AXIS_NONE:
+            case AbsListView.OnScrollListener.SCROLL_STATE_IDLE:
                 floatHiding = false;
                 floatShowing = false;
                 ViewPropertyAnimator.animate(view).translationY(0).setDuration(300);
