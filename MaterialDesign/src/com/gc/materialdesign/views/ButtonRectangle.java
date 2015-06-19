@@ -116,7 +116,7 @@ public class ButtonRectangle extends Button {
 		}
 		
 		rippleSpeed = attrs.getAttributeFloatValue(MATERIALDESIGNXML,
-				"rippleSpeed", Utils.dpToPx(6, getResources()));
+				"mdl_rippleSpeed", Utils.dpToPx(6, getResources()));
 	}
 	
 //	/**

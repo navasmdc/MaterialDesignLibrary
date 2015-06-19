@@ -108,7 +108,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:background="#1E88E5"
-                materialdesign:iconDrawable="@drawable/ic_action_new" />
+                materialdesign:mdl_iconDrawable="@drawable/ic_action_new" />
         </RelativeLayout>
         
         <!-- FLOAT BUTTON -->
@@ -141,7 +141,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:background="#1E88E5"
-                materialdesign:iconDrawable="@drawable/ic_next" />
+                materialdesign:mdl_iconDrawable="@drawable/ic_next" />
         </RelativeLayout>
         
         <!-- FLOAT BUTTON -->
@@ -173,7 +173,7 @@
                 android:layout_alignParentBottom="true"
                 android:layout_marginRight="24dp"
                 android:background="#1E88E5"
-                materialdesign:animate="true"
-                materialdesign:iconDrawable="@drawable/ic_action_new" />
+                materialdesign:mdl_animate="true"
+                materialdesign:mdl_iconDrawable="@drawable/ic_action_new" />
 
 </RelativeLayout>

@@ -30,13 +30,12 @@ public abstract class Button extends CustomView {
 	OnClickListener onClickListener;
 	boolean clickAfterRipple = true;
 	int backgroundColor = Color.parseColor("#1E88E5");
-	TextView textButton;
 
 	public Button(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		setDefaultProperties();
 		clickAfterRipple = attrs.getAttributeBooleanValue(MATERIALDESIGNXML,
-				"animate", true);
+				"mdl_animate", true);
 		setAttributes(attrs);
 		beforeBackground = backgroundColor;
 		if (rippleColor == null)
