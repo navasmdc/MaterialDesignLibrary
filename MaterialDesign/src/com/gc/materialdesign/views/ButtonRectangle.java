@@ -13,7 +13,7 @@ import android.util.AttributeSet;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-public class ButtonRectangle extends Button {
+public class ButtonRectangle extends ButtonText {
 	
 	TextView textButton;
 	
@@ -146,5 +146,9 @@ public class ButtonRectangle extends Button {
 			invalidate();
 		}
 	}
-	
+
+	@Override
+	public TextView getTextView() {
+		return textButton;
+	}
 }

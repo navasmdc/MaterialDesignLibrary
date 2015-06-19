@@ -12,7 +12,7 @@ import android.util.AttributeSet;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-public class ButtonFlat extends Button {
+public class ButtonFlat extends ButtonText {
 	
 	TextView textButton;
 
@@ -97,7 +97,7 @@ public class ButtonFlat extends Button {
 	}
 	
 	public void setText(String text){
-		textButton.setText(text.toUpperCase());
+		super.setText(text.toUpperCase());
 	}
 	
 	// Set color of background
@@ -112,9 +112,4 @@ public class ButtonFlat extends Button {
 	public TextView getTextView() {
 		return textButton;
 	}
-	
-	public String getText(){
-        	return textButton.getText().toString();
- 	}
-
 }

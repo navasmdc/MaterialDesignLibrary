@@ -175,11 +175,6 @@ public class ButtonFloat extends Button{
 	    return output;
 	}
 
-	@Override
-	public TextView getTextView() {
-		return null;
-	}
-	
 	public void setRippleColor(int rippleColor) {
 		this.rippleColor = rippleColor;
 	}

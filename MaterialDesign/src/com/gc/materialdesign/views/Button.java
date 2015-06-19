@@ -30,7 +30,6 @@ public abstract class Button extends CustomView {
 	OnClickListener onClickListener;
 	boolean clickAfterRipple = true;
 	int backgroundColor = Color.parseColor("#1E88E5");
-	TextView textButton;
 
 	public Button(Context context, AttributeSet attrs) {
 		super(context, attrs);
@@ -179,21 +178,5 @@ public abstract class Button extends CustomView {
 
 	public float getRippleSpeed() {
 		return this.rippleSpeed;
-	}
-
-	public void setText(String text) {
-		textButton.setText(text);
-	}
-
-	public void setTextColor(int color) {
-		textButton.setTextColor(color);
-	}
-
-	public TextView getTextView() {
-		return textButton;
-	}
-
-	public String getText() {
-		return textButton.getText().toString();
 	}
 }
