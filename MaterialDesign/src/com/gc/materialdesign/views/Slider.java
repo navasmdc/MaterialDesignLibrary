@@ -173,6 +173,7 @@ public class Slider extends CustomView {
     @Override
     public void setBackgroundColor(int color) {
         backgroundColor = color;
+        ball.changeBackground();
         if (isEnabled())
             beforeBackground = backgroundColor;
     }
