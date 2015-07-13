@@ -1,1 +1,2 @@
 include ':MaterialDesign'
+include ':MaterialDesignDemo'
