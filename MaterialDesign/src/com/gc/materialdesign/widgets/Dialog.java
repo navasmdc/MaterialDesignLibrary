@@ -1,7 +1,9 @@
 package com.gc.materialdesign.widgets;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
@@ -15,7 +17,7 @@ import android.widget.TextView;
 import com.gc.materialdesign.R;
 import com.gc.materialdesign.views.ButtonFlat;
 
-public class Dialog extends android.app.Dialog{
+public class Dialog extends android.app.Dialog implements DialogInterface.OnKeyListener {
 	
 	Context context;
 	View view;
@@ -32,6 +34,7 @@ public class Dialog extends android.app.Dialog{
 	
 	View.OnClickListener onAcceptButtonClickListener;
 	View.OnClickListener onCancelButtonClickListener;
+	OnKeyDownListener onKeyDownListener;
 	
 	
 	public Dialog(Context context,String title, String message) {
@@ -48,6 +51,12 @@ public class Dialog extends android.app.Dialog{
 	public void addCancelButton(String buttonCancelText, View.OnClickListener onCancelButtonClickListener){
 		this.buttonCancelText = buttonCancelText;
 		this.onCancelButtonClickListener = onCancelButtonClickListener;
+	}
+
+	public void setOnKeyDownListener(OnKeyDownListener onKeyDownListener) {
+		if (onKeyDownListener != null) {
+			this.onKeyDownListener = onKeyDownListener;
+		}
 	}
 	
 	
@@ -84,8 +93,8 @@ public class Dialog extends android.app.Dialog{
 			@Override
 			public void onClick(View v) {
 				dismiss();
-				if(onAcceptButtonClickListener != null)
-			    	onAcceptButtonClickListener.onClick(v);
+				if (onAcceptButtonClickListener != null)
+					onAcceptButtonClickListener.onClick(v);
 			}
 		});
 	    
@@ -103,11 +112,27 @@ public class Dialog extends android.app.Dialog{
 				}
 			});
 	    }
+
+		setOnKeyListener(this);
 	}
-	
+
+	@Override
+	public boolean onKey(DialogInterface dialogInterface, int keyCode, KeyEvent keyEvent) {
+		if (keyCode == KeyEvent.KEYCODE_BACK) {
+			if(keyEvent.getAction() != KeyEvent.ACTION_DOWN) {
+				dismiss();
+				if (onKeyDownListener != null) {
+					onKeyDownListener.onBackPressed();
+				}
+				return true;
+			}
+		}
+
+		return false;
+	}
+
 	@Override
 	public void show() {
-		// TODO 自动生成的方法存根
 		super.show();
 		// set dialog enter animations
 		view.startAnimation(AnimationUtils.loadAnimation(context, R.anim.dialog_main_show_amination));
@@ -215,6 +240,7 @@ public class Dialog extends android.app.Dialog{
 		backView.startAnimation(backAnim);
 	}
 	
-	
-
+	public interface OnKeyDownListener {
+		void onBackPressed();
+	}
 }
