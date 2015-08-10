@@ -37,7 +37,7 @@ If you want use this library, you only have to download MaterialDesign project, 
 
 If you prefer it, you can use the gradle dependency, you have to add these lines in your build.gradle file:
 
-```xml
+```gradle
 repositories {
     jcenter()
 }
