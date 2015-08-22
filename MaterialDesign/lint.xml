@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<lint>
-    <issue id="DrawAllocation" severity="ignore" />
-    <issue id="NewApi" severity="ignore">
-        <ignore path="src/com/gc/materialdesign/views/Button.java" />
-        <ignore path="src/com/gc/materialdesign/views/ButtonRectangle.java" />
-    </issue>
-</lint>
