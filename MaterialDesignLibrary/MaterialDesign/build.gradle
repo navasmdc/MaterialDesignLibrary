@@ -1,0 +1,107 @@
+apply plugin: 'com.android.library'
+// COMMENT TO DEVELOPER MODE / UNCOMMENT TO UPLOAD TO BINTARRAY
+//apply plugin: 'com.github.dcendents.android-maven'
+//apply plugin: 'com.jfrog.bintray'
+
+android {
+    compileSdkVersion 22
+    buildToolsVersion "22.0.1"
+
+    defaultConfig {
+        minSdkVersion 16
+        targetSdkVersion 22
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    compile 'com.nineoldandroids:library:2.4.+'
+    compile 'com.android.support:support-v4:22.+'
+    compile fileTree(dir: 'libs', include: '*.jar')
+}
+
+// COMMENT TO DEVELOPER MODE / UNCOMMENT TO UPLOAD TO BINTARRAY
+
+//ext.siteUrl = 'https://github.com/navasmdc/MaterialDesignLibrary'
+//ext.issueUrl = 'https://github.com/navasmdc/MaterialDesignLibrary/issues'
+//ext.gitUrl = 'https://github.com/navasmdc/MaterialDesignLibrary.git'
+//
+//bintray {
+//    user = hasProperty('BINTRAY_USER') ? BINTRAY_USER : "navasmdc"
+//    key = hasProperty('BINTRAY_KEY') ? BINTRAY_PASSWORD : ""
+//
+//    configurations = ["archives"]
+//    pkg {
+//        repo = 'maven'
+//        name = 'MaterialDesignLibrary'
+//        desc = 'This is a library with components of Android L to you use in android 2.2'
+//        websiteUrl = siteUrl
+//        issueTrackerUrl = issueUrl
+//        vcsUrl = gitUrl
+//        licenses = ['Apache-2.0']
+//        labels = []
+//        publicDownloadNumbers = true
+//    }
+//}
+
+//install {
+//    repositories.mavenInstaller {
+//        pom {
+//            project {
+//                packaging 'aar'
+//                name 'MaterialDesignLibrary'
+//                url siteUrl
+//                licenses {
+//                    license {
+//                        name 'The Apache Software License, Version 2.0'
+//                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+//                    }
+//                }
+//                developers {
+//                    developer {
+//                        id 'navasmdc'
+//                        name 'Iván Navas'
+//                        email 'i.navas.mdc@gmail.com'
+//                    }
+//                }
+//                scm {
+//                    connection gitUrl
+//                    developerConnection gitUrl
+//                    url siteUrl
+//                }
+//            }
+//        }
+//    }
+//}
+//
+//task sourcesJar(type: Jar) {
+//    from android.sourceSets.main.java.srcDirs
+//    classifier = 'sources'
+//}
+//
+//task javadoc(type: Javadoc) {
+//    source = android.sourceSets.main.java.srcDirs
+//    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+//}
+//
+//task javadocJar(type: Jar, dependsOn: javadoc) {
+//    classifier = 'javadoc'
+//    from javadoc.destinationDir
+//}
+//
+//artifacts {
+//    archives javadocJar
+//    archives sourcesJar
+//}
+//
+//task findConventions << {
+//    println project.getConvention()
+//}
+

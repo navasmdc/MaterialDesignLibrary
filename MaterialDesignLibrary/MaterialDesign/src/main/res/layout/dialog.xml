@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/dialog_rootView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#55000000"
+    android:padding="32dp" >
+
+    <RelativeLayout
+        android:id="@+id/contentDialog"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:background="@drawable/dialog_background"
+        android:padding="24dp">
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:text="Title"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="#000" />
+
+        <ScrollView
+            android:id="@+id/message_scrollView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/title"
+            android:paddingBottom="50dp"
+            android:scrollbarSize="2dp"
+            android:scrollbarThumbVertical="@color/thumbColor" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/message"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam"
+                    android:textColor="#000"
+                    android:textSize="18sp" />
+            </LinearLayout>
+        </ScrollView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/message_scrollView"
+            android:layout_marginTop="24dp"
+            android:gravity="right"
+            android:orientation="horizontal" >
+
+            <com.gc.materialdesign.views.ButtonFlat
+                android:id="@+id/button_cancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cancel"                
+                android:background="#000000"
+                android:visibility="gone" />
+
+            <com.gc.materialdesign.views.ButtonFlat
+                android:id="@+id/button_accept"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Accept"
+                android:background="#1E88E5" />
+        </LinearLayout>
+    </RelativeLayout>
+
+</RelativeLayout>

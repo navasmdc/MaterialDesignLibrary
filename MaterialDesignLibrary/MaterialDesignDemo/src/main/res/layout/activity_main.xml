@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:materialdesign="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFF"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="148dp" >
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="128dp"
+            android:background="#01579b"
+            android:paddingBottom="20dp"
+            android:paddingLeft="104dp" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:text="MaterialDesign"
+                android:textColor="#FFF"
+                android:textSize="25dp" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="128dp"
+            android:background="#88CECECE" />
+
+        <com.gc.materialdesign.views.ButtonFloatSmall
+            android:id="@+id/buttonColorSelector"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="32dp"
+            android:layout_marginTop="108dp"
+            android:background="#1E88E5"
+            materialdesign:iconDrawable="@drawable/icn_select_color" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="48dp"
+        android:layout_marginLeft="104dp" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="Views" />
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentBottom="true"
+            android:background="#1E88E5" />
+    </RelativeLayout>
+
+    <com.gc.materialdesign.views.LayoutRipple
+        android:id="@+id/itemButtons"
+        android:layout_width="fill_parent"
+        android:layout_height="64dp"
+        android:background="#FFF"
+        android:clickable="true" >
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="32dp"
+            android:src="@drawable/icn_button" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="104dp"
+            android:text="Buttons" />
+    </com.gc.materialdesign.views.LayoutRipple>
+
+    <com.gc.materialdesign.views.LayoutRipple
+        android:id="@+id/itemSwitches"
+        android:layout_width="fill_parent"
+        android:layout_height="64dp"
+        android:background="#FFF"
+        android:clickable="true" >
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="32dp"
+            android:src="@drawable/icn_switch" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="104dp"
+            android:text="Switches" />
+    </com.gc.materialdesign.views.LayoutRipple>
+
+    <com.gc.materialdesign.views.LayoutRipple
+        android:id="@+id/itemProgress"
+        android:layout_width="fill_parent"
+        android:layout_height="64dp"
+        android:background="#FFF"
+        android:clickable="true" >
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="32dp"
+            android:src="@drawable/icn_progress" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="104dp"
+            android:text="Progress indicators" />
+    </com.gc.materialdesign.views.LayoutRipple>
+
+    <com.gc.materialdesign.views.LayoutRipple
+        android:id="@+id/itemWidgets"
+        android:layout_width="fill_parent"
+        android:layout_height="64dp"
+        android:background="#FFF"
+        android:clickable="true" >
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="32dp"
+            android:src="@drawable/icn_widget" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="104dp"
+            android:text="Widgets" />
+    </com.gc.materialdesign.views.LayoutRipple>
+
+</LinearLayout>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item
+        android:id="@+id/shape_bacground">
+        <shape android:shape="oval" >
+            <stroke android:width="2dp" android:color="#6D6D6D"/>
+            <solid android:color="@android:color/transparent"/>
+        </shape>
+    </item>
+
+</layer-list>
