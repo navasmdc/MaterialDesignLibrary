@@ -4,12 +4,12 @@ apply plugin: 'com.android.library'
 //apply plugin: 'com.jfrog.bintray'
 
 android {
-    compileSdkVersion 22
-    buildToolsVersion "22.0.1"
+    compileSdkVersion 23
+    buildToolsVersion "23.0.1"
 
     defaultConfig {
         minSdkVersion 16
-        targetSdkVersion 22
+        targetSdkVersion 23
         versionCode 1
         versionName "1.0"
     }
@@ -23,7 +23,7 @@ android {
 
 dependencies {
     compile 'com.nineoldandroids:library:2.4.+'
-    compile 'com.android.support:support-v4:22.+'
+    compile 'com.android.support:support-v4:23.0.1'
     compile fileTree(dir: 'libs', include: '*.jar')
 }
 
