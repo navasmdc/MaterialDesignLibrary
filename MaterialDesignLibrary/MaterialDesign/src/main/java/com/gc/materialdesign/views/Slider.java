@@ -94,7 +94,9 @@ public class Slider extends CustomView {
 
     @Override
     public void invalidate() {
-        ball.invalidate();
+        if (ball != null) {
+            ball.invalidate();
+        }
         super.invalidate();
     }
 
