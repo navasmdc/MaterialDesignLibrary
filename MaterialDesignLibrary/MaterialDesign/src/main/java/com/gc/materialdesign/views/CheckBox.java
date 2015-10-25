@@ -106,7 +106,8 @@ public class CheckBox extends CustomView {
 
 	@Override
 	public void invalidate() {
-		checkView.invalidate();
+		if(null != checkView)
+			checkView.invalidate();
 		super.invalidate();
 	}
 
