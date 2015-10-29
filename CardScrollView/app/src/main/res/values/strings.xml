@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">CardScrollView</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+
+
+    <!-- "ok glass" voice command -->
+    <string name="start_command">Movie Cards</string>
+
+</resources>
