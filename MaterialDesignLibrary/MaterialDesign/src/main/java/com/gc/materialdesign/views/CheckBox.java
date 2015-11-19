@@ -213,8 +213,10 @@ public class CheckBox extends CustomView {
 		public Check(Context context) {
 			super(context);
 			setBackgroundResource(R.drawable.background_checkbox_uncheck);
+			BitmapFactory.Options noScale = new BitmapFactory.Options();
+			noScale.inScaled = false;
 			sprite = BitmapFactory.decodeResource(context.getResources(),
-					R.drawable.sprite_check);
+					R.drawable.sprite_check, noScale);
 		}
 
 		public void changeBackground() {
