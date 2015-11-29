@@ -44,6 +44,7 @@ repositories {
 
 dependencies {
     compile 'com.github.navasmdc:MaterialDesign:1.5@aar'
+    compile 'com.nineoldandroids:library:2.4.0'
 }
 ```
 
@@ -154,7 +155,7 @@ Some components have custom attributes, if you want use them, you must add this 
 ```
 
 ######Switch
-![switch](images/switch.png)
+![switch](images/switch.png)co
 
 ```xml
 <com.gc.materialdesign.views.Switch
