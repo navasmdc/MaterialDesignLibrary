@@ -155,7 +155,7 @@ Some components have custom attributes, if you want use them, you must add this 
 ```
 
 ######Switch
-![switch](images/switch.png)co
+![switch](images/switch.png)
 
 ```xml
 <com.gc.materialdesign.views.Switch
