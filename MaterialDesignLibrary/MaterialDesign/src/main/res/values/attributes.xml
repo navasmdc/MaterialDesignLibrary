@@ -4,7 +4,7 @@
     <declare-styleable name="CustomAttributes">
 
         <!-- Color of ripple animation -->
-        <attr name="rippleColor" format="color|reference" />
+        <attr name="material_rippleColor" format="color|reference" />
         <!-- Speed of ripple animation -->
         <attr name="rippleSpeed" format="float" />
         <!-- indicate if the slider must show number indicator -->
