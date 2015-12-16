@@ -32,6 +32,16 @@
         <attr name="rippleBorderRadius" format="float" />
         <!-- if true, delays calls to OnClickListeners until ripple effect ends -->
         <attr name="clickAfterRipple" format="boolean" />
+        <!-- color for the slider track (left of the ball)-->
+        <attr name="sliderTrackColor" format="color"/>
+        <!-- color for part of slider to the right of the progress ball-->
+        <attr name="sliderTrackColorNoProgress" format="color"/>
+        <!-- color for the slider ball-->
+        <attr name="sliderBallColor" format="color"/>
+        <!-- Slider track thickness-->
+        <attr name="sliderTrackThicknessDp" format="integer"/>
+        <!-- Slider disable left/right padding -->
+        <attr name="sliderEnablePaddingLR" format="boolean"/>
     </declare-styleable>
 
 </resources>
