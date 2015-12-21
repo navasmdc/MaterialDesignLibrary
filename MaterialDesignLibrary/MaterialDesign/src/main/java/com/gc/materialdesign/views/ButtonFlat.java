@@ -14,8 +14,6 @@ import android.widget.TextView;
 
 public class ButtonFlat extends Button {
 	
-	TextView textButton;
-
 	public ButtonFlat(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		
@@ -42,7 +40,6 @@ public class ButtonFlat extends Button {
 			text = attrs.getAttributeValue(ANDROIDXML,"text");
 		}
 		if(text != null){
-			textButton = new TextView(getContext());
 			textButton.setText(text.toUpperCase());
 			textButton.setTextColor(backgroundColor);
 			textButton.setTypeface(null, Typeface.BOLD);
