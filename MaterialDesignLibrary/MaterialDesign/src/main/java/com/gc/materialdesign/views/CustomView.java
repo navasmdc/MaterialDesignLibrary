@@ -18,7 +18,11 @@ public class CustomView extends RelativeLayout{
 	// Indicate if user touched this view the last time
 	public boolean isLastTouch = false;
 
-	public CustomView(Context context, AttributeSet attrs) {
+    public CustomView(Context context) {
+        super(context);
+    }
+
+    public CustomView(Context context, AttributeSet attrs) {
 		super(context, attrs);
 	}
 	
