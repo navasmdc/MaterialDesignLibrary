@@ -11,6 +11,7 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.PorterDuff;
 import android.graphics.PorterDuff.Mode;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
@@ -18,7 +19,10 @@ import android.graphics.Bitmap.Config;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.LayerDrawable;
+import android.support.annotation.ColorInt;
+import android.support.v4.view.TintableBackgroundView;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.animation.BounceInterpolator;
 import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
@@ -175,11 +179,6 @@ public class ButtonFloat extends Button{
 	    return output;
 	}
 
-	@Override
-	public TextView getTextView() {
-		return null;
-	}
-	
 	public void setRippleColor(int rippleColor) {
 		this.rippleColor = rippleColor;
 	}
@@ -205,5 +204,30 @@ public class ButtonFloat extends Button{
 	public boolean isShow(){
 		return isShow;
 	}
+
+    @Override
+    public TextView getTextView() {
+        Log.e("ButtonFloat", "getTextView() - no text view on float button");
+        return null;
+    }
+
+    @Override
+    public String getText() {
+        Log.e("ButtonFloat", "getText() - no text view on float button");
+        return null;
+    }
+
+    @Override
+    public void setText(String text) {
+        Log.e("ButtonFloat", "ButtonFloat does not have a text");
+    }
+
+    @Override
+    public void setTextColor(int color) {
+        if (drawableIcon != null){
+            Log.w("ButtonFloat", "ButtonFloat does not have a text, will try to tint image, but make sure this is what you want");
+            drawableIcon.setColorFilter(color, PorterDuff.Mode.SRC_ATOP);
+        }
+    }
 	
 }
