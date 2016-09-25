@@ -6,7 +6,6 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Window;
 
-import com.gc.materialdesign.views.ButtonFloat;
 import com.gc.materialdesigndemo.R;
 
 
@@ -27,10 +26,6 @@ public class ButtonsActivity extends Activity {
         findViewById(R.id.buttonFloatSmall).setBackgroundColor(color);
         findViewById(R.id.buttonIcon).setBackgroundColor(color);
         findViewById(R.id.buttonFloat).setBackgroundColor(color);
-
-         // Quick test of tint
-         ButtonFloat buttonFloat = (ButtonFloat) findViewById(R.id.buttonFloat);
-         buttonFloat.setTextColor(Color.RED);
     }  
     
 
