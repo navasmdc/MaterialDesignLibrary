@@ -40,7 +40,7 @@ public class WidgetActivity extends Activity {
 								ButtonFlat btn = (ButtonFlat) findViewById(R.id.buttonSnackBar);
 								btn.setTextColor(Color.RED);
 							}
-						}).show();
+						}).setPushUpView(findViewById(R.id.buttonFloat)).show();
 			}
 		});
 //		SHOW DiALOG

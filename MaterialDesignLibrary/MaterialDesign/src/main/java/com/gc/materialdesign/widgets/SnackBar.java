@@ -16,7 +16,10 @@ import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 
 import com.gc.materialdesign.R;
+import com.gc.materialdesign.utils.Utils;
 import com.gc.materialdesign.views.ButtonFlat;
+import com.nineoldandroids.view.ViewHelper;
+import com.nineoldandroids.view.ViewPropertyAnimator;
 
 public class SnackBar extends Dialog{
 	
@@ -29,6 +32,8 @@ public class SnackBar extends Dialog{
 	ButtonFlat button;
 	int backgroundSnackBar = Color.parseColor("#333333");
 	int backgroundButton = Color.parseColor("#1E88E5");
+
+	View pushUpView;
 	
 	OnHideListener onHideListener;
 	// Timer
@@ -93,6 +98,17 @@ public class SnackBar extends Dialog{
 		super.show();
 		view.setVisibility(View.VISIBLE);
 		view.startAnimation(AnimationUtils.loadAnimation(activity, R.anim.snackbar_show_animation));
+		view.post(new Runnable() {
+			@Override
+			public void run() {
+				if(pushUpView != null)
+					ViewPropertyAnimator.animate(pushUpView).y(
+							ViewHelper.getY(pushUpView) - view.getHeight())
+							.setDuration(300)
+							.start();
+			}
+		});
+
 		if (!mIndeterminate) {
 		    dismissTimer.start();
 		}
@@ -124,9 +140,6 @@ public class SnackBar extends Dialog{
 		}
 	});
 	
-	/**
-	 * @author Jack Tony
-	 */
 	@Override
 	public void dismiss() {
 		Animation anim = AnimationUtils.loadAnimation(activity, R.anim.snackbar_hide_animation);
@@ -146,31 +159,46 @@ public class SnackBar extends Dialog{
 			}
 		});
 		view.startAnimation(anim);
+		if(pushUpView != null)
+			ViewPropertyAnimator.animate(pushUpView).y(
+					ViewHelper.getY(pushUpView) + view.getHeight())
+					.setDuration(300)
+					.start();
 	}
 	
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		// TODO 自动生成的方法存根
 		 if (keyCode == KeyEvent.KEYCODE_BACK )  {
 			 dismiss();
 		 }
 		return super.onKeyDown(keyCode, event);
 	}
 	
-	public void setMessageTextSize(float size) {
+	public SnackBar setMessageTextSize(float size) {
 		textSize = size;
+		return this;
 	}
-	
-	public void setIndeterminate(boolean indeterminate) {
-        	mIndeterminate = indeterminate;
+
+	/**
+	 * Set true to avoid hide the snackbar
+	 * @param indeterminate
+     */
+	public SnackBar setIndeterminate(boolean indeterminate) {
+		mIndeterminate = indeterminate;
+		return this;
 	}
 	
 	public boolean isIndeterminate() {
 		return mIndeterminate;
 	}
 
-	public void setDismissTimer(int time) {
+	/**
+	 * Sets the time to dismiss the snackbar
+	 * @param time
+     */
+	public SnackBar setDismissTimer(int time) {
 		mTimer = time;
+		return this;
 	}
 	
 	public int getDismissTimer() {
@@ -181,20 +209,22 @@ public class SnackBar extends Dialog{
 	 * Change background color of SnackBar
 	 * @param color
 	 */
-	public void setBackgroundSnackBar(int color){
+	public SnackBar setBackgroundSnackBar(int color){
 		backgroundSnackBar = color;
 		if(view != null)
 			view.setBackgroundColor(color);
+		return this;
 	}
 	
 	/**
 	 * Chage color of FlatButton in Snackbar
 	 * @param color
 	 */
-	public void setColorButton(int color){
+	public SnackBar setColorButton(int color){
 		backgroundButton = color;
 		if(button != null)
 			button.setBackgroundColor(color);
+		return this;
 	}
 	
 	/**
@@ -205,8 +235,18 @@ public class SnackBar extends Dialog{
 	public interface OnHideListener{
 		public void onHide();
 	}
+
+	/**
+	 * Sets the view to push up when the snackbar will show
+	 * @param pushUpView
+     */
+	public SnackBar setPushUpView(View pushUpView){
+		this.pushUpView = pushUpView;
+		return this;
+	}
 	
-	public void setOnhideListener(OnHideListener onHideListener){
+	public SnackBar setOnhideListener(OnHideListener onHideListener){
 		this.onHideListener = onHideListener;
+		return this;
 	}
 }
