@@ -91,6 +91,8 @@ public class ButtonRectangle extends Button {
             params.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);
             params.setMargins(Utils.dpToPx(5, getResources()), Utils.dpToPx(5, getResources()), Utils.dpToPx(5, getResources()), Utils.dpToPx(5, getResources()));
             textButton.setLayoutParams(params);
+            boolean allCaps = attrs.getAttributeBooleanValue(ANDROIDXML, "textAllCaps", false);
+            textButton.setAllCaps(allCaps);
             addView(textButton);
 //					FrameLayout.LayoutParams params = (LayoutParams) textView.getLayoutParams();
 //					params.width = getWidth();

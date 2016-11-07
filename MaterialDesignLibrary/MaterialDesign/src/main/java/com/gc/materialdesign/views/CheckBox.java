@@ -57,7 +57,7 @@ public class CheckBox extends CustomView {
 				setBackgroundColor(background);
 		}
 
-		final boolean check = attrs.getAttributeBooleanValue(MATERIALDESIGNXML,
+		check = attrs.getAttributeBooleanValue(MATERIALDESIGNXML,
 				"check", false);
 			post(new Runnable() {
 
@@ -106,6 +106,7 @@ public class CheckBox extends CustomView {
 
 	@Override
 	public void invalidate() {
+		if (checkView != null)
 		checkView.invalidate();
 		super.invalidate();
 	}
@@ -193,9 +194,9 @@ public class CheckBox extends CustomView {
 				android.R.color.transparent));
 		if (check) {
 			step = 0;
-		}
-		if (check)
 			checkView.changeBackground();
+		}
+
 
 	}
 

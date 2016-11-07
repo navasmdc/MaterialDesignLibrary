@@ -38,6 +38,7 @@ public class SnackBar extends Dialog{
 	// With action button
 	public SnackBar(Activity activity, String text, String buttonText, View.OnClickListener onClickListener) {
 		super(activity, android.R.style.Theme_Translucent);
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		this.activity = activity;
 		this.text = text;
 		this.buttonText = buttonText;
@@ -47,6 +48,7 @@ public class SnackBar extends Dialog{
 	// Only text
 	public SnackBar(Activity activity, String text) {
 		super(activity, android.R.style.Theme_Translucent);
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		this.activity = activity;
 		this.text = text;
 	}
@@ -150,7 +152,6 @@ public class SnackBar extends Dialog{
 	
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		// TODO 自动生成的方法存根
 		 if (keyCode == KeyEvent.KEYCODE_BACK )  {
 			 dismiss();
 		 }
