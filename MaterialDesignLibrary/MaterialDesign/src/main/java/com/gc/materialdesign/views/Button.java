@@ -38,7 +38,7 @@ public abstract class Button extends CustomView {
 		super(context, attrs);
 		setDefaultProperties();
 		clickAfterRipple = attrs.getAttributeBooleanValue(MATERIALDESIGNXML,
-				"animate", true);
+				ML_ANIMATED, true);
 		TypedArray typedArray = context.obtainStyledAttributes(attrs.getStyleAttribute(), AttributesUtils.attrs);
 		setAttributes(attrs,typedArray);
 		typedArray.recycle();

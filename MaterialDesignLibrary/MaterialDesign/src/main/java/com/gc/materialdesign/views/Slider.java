@@ -26,16 +26,16 @@ import com.nineoldandroids.view.ViewHelper;
 public class Slider extends CustomView {
 
     private int backgroundColor = Color.parseColor("#4CAF50");
-    private Ball   ball;
+    private Ball ball;
     private Bitmap bitmap;
     private int max = 100;
     private int min = 0;
-    private NumberIndicator        numberIndicator;
+    private NumberIndicator numberIndicator;
     private OnValueChangedListener onValueChangedListener;
-    private boolean placedBall          = false;
-    private boolean press               = false;
+    private boolean placedBall = false;
+    private boolean press = false;
     private boolean showNumberIndicator = false;
-    private int     value               = 0;
+    private int value = 0;
 
     public Slider(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -94,7 +94,8 @@ public class Slider extends CustomView {
 
     @Override
     public void invalidate() {
-        ball.invalidate();
+        if (ball != null)
+            ball.invalidate();
         super.invalidate();
     }
 
@@ -331,17 +332,17 @@ public class Slider extends CustomView {
 
     class Indicator extends RelativeLayout {
 
-        boolean animate               = true;
+        boolean animate = true;
         // Final size after animation
-        float   finalSize             = 0;
+        float finalSize = 0;
         // Final y position after animation
-        float   finalY                = 0;
+        float finalY = 0;
         boolean numberIndicatorResize = false;
         // Size of number indicator
-        float   size                  = 0;
+        float size = 0;
         // Position of number indicator
-        float   x                     = 0;
-        float   y                     = 0;
+        float x = 0;
+        float y = 0;
 
         public Indicator(Context context) {
             super(context);
@@ -395,10 +396,11 @@ public class Slider extends CustomView {
     class NumberIndicator extends Dialog {
 
         Indicator indicator;
-        TextView  numberIndicator;
+        TextView numberIndicator;
 
         public NumberIndicator(Context context) {
             super(context, android.R.style.Theme_Translucent);
+            requestWindowFeature(Window.FEATURE_NO_TITLE);
         }
 
         @Override
