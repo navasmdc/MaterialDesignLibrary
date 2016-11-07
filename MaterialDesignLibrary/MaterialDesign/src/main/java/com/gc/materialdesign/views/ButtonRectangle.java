@@ -1,6 +1,7 @@
 package com.gc.materialdesign.views;
 
 import com.gc.materialdesign.R;
+import com.gc.materialdesign.utils.AttributesUtils;
 import com.gc.materialdesign.utils.Utils;
 
 import android.content.Context;
@@ -39,85 +40,38 @@ public class ButtonRectangle extends Button {
 
 
     // Set atributtes of XML to View
-    protected void setAttributes(AttributeSet attrs) {
+    protected void setAttributes(AttributeSet attrs, TypedArray typedArray) {
 
         //Set background Color
         // Color by resource
-        int bacgroundColor = attrs.getAttributeResourceValue(ANDROIDXML, "background", -1);
-        if (bacgroundColor != -1) {
-            setBackgroundColor(getResources().getColor(bacgroundColor));
-        } else {
-            // Color by hexadecimal
-            // Color by hexadecimal
-            background = attrs.getAttributeIntValue(ANDROIDXML, "background", -1);
-            if (background != -1)
-                setBackgroundColor(background);
-        }
+        int bacgroundColor = AttributesUtils.getBackgroundColor(getResources(), attrs, typedArray);
+        if(bacgroundColor != -1) setBackgroundColor(bacgroundColor);
 
         // Set Padding
-        String value = attrs.getAttributeValue(ANDROIDXML, "padding");
-        if (value != null) {
-            float padding = Float.parseFloat(value.replace("dip", ""));
-            paddingBottom = Utils.dpToPx(padding, getResources());
-            paddingLeft = Utils.dpToPx(padding, getResources());
-            paddingRight = Utils.dpToPx(padding, getResources());
-            paddingTop = Utils.dpToPx(padding, getResources());
-        } else {
-            value = attrs.getAttributeValue(ANDROIDXML, "paddingLeft");
-            paddingLeft = (value == null) ? paddingLeft : (int) Float.parseFloat(value.replace("dip", ""));
-            value = attrs.getAttributeValue(ANDROIDXML, "paddingTop");
-            paddingTop = (value == null) ? paddingTop : (int) Float.parseFloat(value.replace("dip", ""));
-            value = attrs.getAttributeValue(ANDROIDXML, "paddingRight");
-            paddingRight = (value == null) ? paddingRight : (int) Float.parseFloat(value.replace("dip", ""));
-            value = attrs.getAttributeValue(ANDROIDXML, "paddingBottom");
-            paddingBottom = (value == null) ? paddingBottom : (int) Float.parseFloat(value.replace("dip", ""));
-        }
-        setPadding(paddingLeft, paddingTop, paddingRight, paddingBottom);
+        int[] paddings = {paddingLeft,paddingTop,paddingRight,paddingBottom};
+        paddings = AttributesUtils.getPadding(getResources(),attrs,typedArray,paddings);
+        setPadding(paddings[0], paddings[1], paddings[2], paddings[3]);
         // Set text button
-        String text = null;
-        int textResource = attrs.getAttributeResourceValue(ANDROIDXML, "text", -1);
-        if (textResource != -1) {
-            text = getResources().getString(textResource);
-        } else {
-            text = attrs.getAttributeValue(ANDROIDXML, "text");
-        }
-
         textButton = new TextView(getContext());
-        if (text != null) {
-            textButton.setText(text);
-            textButton.setTextColor(Color.WHITE);
-            textButton.setTypeface(null, Typeface.BOLD);
-            LayoutParams params = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-            params.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);
-            params.setMargins(Utils.dpToPx(5, getResources()), Utils.dpToPx(5, getResources()), Utils.dpToPx(5, getResources()), Utils.dpToPx(5, getResources()));
-            textButton.setLayoutParams(params);
-            addView(textButton);
-//					FrameLayout.LayoutParams params = (LayoutParams) textView.getLayoutParams();
-//					params.width = getWidth();
-//					params.gravity = Gravity.CENTER_HORIZONTAL;
-////					params.setMargins(paddingLeft, paddingTop, paddingRight, paddingRight);
-//					textView.setLayoutParams(params);textColor
-            int textColor = attrs.getAttributeResourceValue(ANDROIDXML, "textColor", -1);
-            if (textColor != -1) {
-                textButton.setTextColor(textColor);
-            } else {
-                // Color by hexadecimal
-                // Color by hexadecimal
-                textColor = attrs.getAttributeIntValue(ANDROIDXML, "textColor", -1);
-                if (textColor != -1)
-                    textButton.setTextColor(textColor);
-            }
-            int[] array = {android.R.attr.textSize};
-            TypedArray values = getContext().obtainStyledAttributes(attrs, array);
-            float textSize = values.getDimension(0, -1);
-            values.recycle();
-            if (textSize != -1)
-                textButton.setTextSize(textSize);
-
-        }
+        String text = AttributesUtils.getText(getResources(), attrs, typedArray);
+        if(text != null) textButton.setText(text);
+        int textColor = AttributesUtils.getTextColor(getResources(), attrs, typedArray);
+        textButton.setTextColor((textColor == -1) ? Color.WHITE : textColor);
+        textButton.setTypeface(null, Typeface.BOLD);
+        LayoutParams params = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+        params.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);
+        params.setMargins(Utils.dpToPx(5, getResources()), Utils.dpToPx(5, getResources()), Utils.dpToPx(5, getResources()), Utils.dpToPx(5, getResources()));
+        textButton.setLayoutParams(params);
+        addView(textButton);
+        int[] array = {android.R.attr.textSize};
+        TypedArray values = getContext().obtainStyledAttributes(attrs, array);
+        float textSize = AttributesUtils.getTextSize(getResources(), values, typedArray);
+        if (textSize != -1)
+            textButton.setTextSize(textSize);
 
         rippleSpeed = attrs.getAttributeFloatValue(MATERIALDESIGNXML,
                 "rippleSpeed", Utils.dpToPx(6, getResources()));
+
     }
 
 //	/**

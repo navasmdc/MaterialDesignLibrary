@@ -4,6 +4,7 @@ import com.gc.materialdesign.R;
 import com.gc.materialdesign.utils.Utils;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -38,7 +39,7 @@ public class ButtonFlat extends Button {
 	}
 
 	@Override
-	protected void setAttributes(AttributeSet attrs) {
+	protected void setAttributes(AttributeSet attrs, TypedArray typedArray) {
 
 		// Set Padding
 		String value = attrs.getAttributeValue(ANDROIDXML, "padding");

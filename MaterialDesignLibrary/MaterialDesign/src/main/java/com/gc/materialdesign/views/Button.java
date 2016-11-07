@@ -1,9 +1,11 @@
 package com.gc.materialdesign.views;
 
 import com.gc.materialdesign.R;
+import com.gc.materialdesign.utils.AttributesUtils;
 import com.gc.materialdesign.utils.Utils;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -37,7 +39,9 @@ public abstract class Button extends CustomView {
 		setDefaultProperties();
 		clickAfterRipple = attrs.getAttributeBooleanValue(MATERIALDESIGNXML,
 				"animate", true);
-		setAttributes(attrs);
+		TypedArray typedArray = context.obtainStyledAttributes(attrs.getStyleAttribute(), AttributesUtils.attrs);
+		setAttributes(attrs,typedArray);
+		typedArray.recycle();
 		beforeBackground = backgroundColor;
 		if (rippleColor == null)
 			rippleColor = makePressColor();
@@ -53,7 +57,7 @@ public abstract class Button extends CustomView {
 	}
 
 	// Set atributtes of XML to View
-	abstract protected void setAttributes(AttributeSet attrs);
+	abstract protected void setAttributes(AttributeSet attrs, TypedArray typedArray);
 
 	// ### RIPPLE EFFECT ###
 

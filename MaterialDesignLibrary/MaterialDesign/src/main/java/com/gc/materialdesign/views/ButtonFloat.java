@@ -7,6 +7,7 @@ import com.nineoldandroids.view.ViewHelper;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -72,7 +73,7 @@ public class ButtonFloat extends Button{
 	
 	
 	// Set atributtes of XML to View
-	protected void setAttributes(AttributeSet attrs){
+	protected void setAttributes(AttributeSet attrs, TypedArray typedArray){
 		//Set background Color
 		// Color by resource
 		int bacgroundColor = attrs.getAttributeResourceValue(ANDROIDXML,"background",-1);
