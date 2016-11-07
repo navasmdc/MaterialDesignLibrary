@@ -43,6 +43,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
+
                 android:textColor="#ffffff"
                 android:text="Button" />
         </RelativeLayout>
@@ -68,7 +69,7 @@
 
         <RelativeLayout
             android:layout_width="fill_parent"
-            android:layout_height="72dp" >
+            android:layout_height="wrap_content" >
 
             <com.gc.materialdesign.views.ButtonRectangle
                 android:id="@+id/button"

@@ -119,7 +119,8 @@ public class CheckBox extends CustomView {
 			if (event.getAction() == MotionEvent.ACTION_DOWN) {
 				changeBackgroundColor((check) ? makePressColor() : Color
 						.parseColor("#446D6D6D"));
-			} else if (event.getAction() == MotionEvent.ACTION_UP) {
+			} else if ((event.getAction() == MotionEvent.ACTION_UP)
+					| (event.getAction() == MotionEvent.ACTION_CANCEL)){
 				changeBackgroundColor(getResources().getColor(
 						android.R.color.transparent));
 				press = false;
