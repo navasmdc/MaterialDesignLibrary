@@ -16,6 +16,8 @@ public class ButtonFlat extends Button {
 	
 	TextView textButton;
 
+	int paddingTop, paddingBottom, paddingLeft, paddingRight;
+
 	public ButtonFlat(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		
@@ -25,6 +27,10 @@ public class ButtonFlat extends Button {
 		minHeight = 36;
 		minWidth = 88;
 		rippleSize = 3;
+		paddingBottom = Utils.dpToPx(16, getResources());
+		paddingLeft = Utils.dpToPx(16, getResources());
+		paddingRight = Utils.dpToPx(16, getResources());
+		paddingTop = Utils.dpToPx(16, getResources());
 		// Min size
 		setMinimumHeight(Utils.dpToPx(minHeight, getResources()));
 		setMinimumWidth(Utils.dpToPx(minWidth, getResources()));
@@ -33,6 +39,27 @@ public class ButtonFlat extends Button {
 
 	@Override
 	protected void setAttributes(AttributeSet attrs) {
+
+		// Set Padding
+		String value = attrs.getAttributeValue(ANDROIDXML, "padding");
+		if (value != null) {
+			float padding = Float.parseFloat(value.replace("dip", ""));
+			paddingBottom = Utils.dpToPx(padding, getResources());
+			paddingLeft = Utils.dpToPx(padding, getResources());
+			paddingRight = Utils.dpToPx(padding, getResources());
+			paddingTop = Utils.dpToPx(padding, getResources());
+		} else {
+			value = attrs.getAttributeValue(ANDROIDXML, "paddingLeft");
+			paddingLeft = (value == null) ? paddingLeft : (int) Float.parseFloat(value.replace("dip", ""));
+			value = attrs.getAttributeValue(ANDROIDXML, "paddingTop");
+			paddingTop = (value == null) ? paddingTop : (int) Float.parseFloat(value.replace("dip", ""));
+			value = attrs.getAttributeValue(ANDROIDXML, "paddingRight");
+			paddingRight = (value == null) ? paddingRight : (int) Float.parseFloat(value.replace("dip", ""));
+			value = attrs.getAttributeValue(ANDROIDXML, "paddingBottom");
+			paddingBottom = (value == null) ? paddingBottom : (int) Float.parseFloat(value.replace("dip", ""));
+		}
+		setPadding(paddingLeft, paddingTop, paddingRight, paddingBottom);
+
 		// Set text button
 		String text = null;
 		int textResource = attrs.getAttributeResourceValue(ANDROIDXML,"text",-1);
@@ -41,8 +68,8 @@ public class ButtonFlat extends Button {
 		}else{
 			text = attrs.getAttributeValue(ANDROIDXML,"text");
 		}
+		textButton = new TextView(getContext());
 		if(text != null){
-			textButton = new TextView(getContext());
 			textButton.setText(text.toUpperCase());
 			textButton.setTextColor(backgroundColor);
 			textButton.setTypeface(null, Typeface.BOLD);
