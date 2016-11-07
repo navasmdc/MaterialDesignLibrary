@@ -36,7 +36,7 @@ public abstract class Button extends CustomView {
 		super(context, attrs);
 		setDefaultProperties();
 		clickAfterRipple = attrs.getAttributeBooleanValue(MATERIALDESIGNXML,
-				"animate", true);
+				ML_ANIMATED, true);
 		setAttributes(attrs);
 		beforeBackground = backgroundColor;
 		if (rippleColor == null)
