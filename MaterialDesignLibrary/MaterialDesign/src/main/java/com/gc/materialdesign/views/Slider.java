@@ -273,9 +273,9 @@ public class Slider extends CustomView {
 
         showNumberIndicator = attrs.getAttributeBooleanValue(MATERIALDESIGNXML,
                 "showNumberIndicator", false);
-        min = attrs.getAttributeIntValue(MATERIALDESIGNXML, "min", 0);
-        max = attrs.getAttributeIntValue(MATERIALDESIGNXML, "max", 0);
-        value = attrs.getAttributeIntValue(MATERIALDESIGNXML, "value", min);
+        min = attrs.getAttributeIntValue(MATERIALDESIGNXML, ML_MIN, 0);
+        max = attrs.getAttributeIntValue(MATERIALDESIGNXML, ML_MAX, 0);
+        value = attrs.getAttributeIntValue(MATERIALDESIGNXML, ML_VALUE, min);
 
         ball = new Ball(getContext());
         RelativeLayout.LayoutParams params = new LayoutParams(Utils.dpToPx(20,

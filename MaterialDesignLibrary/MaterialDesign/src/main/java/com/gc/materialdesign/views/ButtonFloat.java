@@ -99,7 +99,7 @@ public class ButtonFloat extends Button {
                 setRippleColor(makePressColor());
         }
         // Icon of button
-        int iconResource = attrs.getAttributeResourceValue(MATERIALDESIGNXML, "iconDrawable", -1);
+        int iconResource = attrs.getAttributeResourceValue(MATERIALDESIGNXML, ML_ICON_DRAWABLE, -1);
         if (iconResource != -1)
             drawableIcon = getResources().getDrawable(iconResource);
         final boolean animate = attrs.getAttributeBooleanValue(MATERIALDESIGNXML, ML_ANIMATED, false);
