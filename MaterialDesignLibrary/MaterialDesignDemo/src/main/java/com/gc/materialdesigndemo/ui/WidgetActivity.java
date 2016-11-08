@@ -3,6 +3,7 @@ package com.gc.materialdesigndemo.ui;
 import com.gc.materialdesign.views.ButtonFlat;
 import com.gc.materialdesign.widgets.ColorSelector;
 import com.gc.materialdesign.widgets.Dialog;
+import com.gc.materialdesign.widgets.ProgressDialog;
 import com.gc.materialdesign.widgets.SnackBar;
 import com.gc.materialdesigndemo.R;
 
@@ -25,7 +26,7 @@ public class WidgetActivity extends Activity {
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_widgets);
-		
+
 //		SHOW SNACKBAR
 		findViewById(R.id.buttonSnackBar).setOnClickListener(new OnClickListener() {
 
@@ -66,6 +67,16 @@ public class WidgetActivity extends Activity {
 				dialog.show();
 			}
 		});
+
+		findViewById(R.id.buttonProgressDialog).setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(final View flatButton) {
+				ProgressDialog progressDialog = new ProgressDialog(WidgetActivity.this, "Loading");
+				progressDialog.show();
+			}
+		});
+
 //		SHOW COLOR SEECTOR
 		findViewById(R.id.buttonColorSelector).setOnClickListener(new OnClickListener() {
 			
