@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
+
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <title>Materialdesignlibrary by navasmdc</title>
+  </head>
+
+  <body>
+    <header>
+      <div class="inner">
+        <h1>Materialdesignlibrary</h1>
+        <h2>This is a library with components of Android L to you use in android 2.2</h2>
+        <a href="https://github.com/navasmdc/MaterialDesignLibrary" class="button"><small>View project on</small> GitHub</a>
+      </div>
+    </header>
+
+    <div id="content-wrapper">
+      <div class="inner clearfix">
+        <section id="main-content">
+          <p><img src="images/logo.png" alt="Material design library logo"></p>
+
+<h1>
+<a id="material-design-android-library" class="anchor" href="#material-design-android-library" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Material Design Android Library</h1>
+
+<p><a href="https://play.google.com/store/apps/details?id=com.gc.demomaterialdesign">
+  <img alt="Android app on Google Play" src="https://developer.android.com/images/brand/en_app_rgb_wo_45.png">
+</a></p>
+
+<p><a href="https://android-arsenal.com/details/1/1156"><img src="https://img.shields.io/badge/Android%20Arsenal-Material%20Design%20Android%20Library-brightgreen.svg?style=flat" alt="Android Arsenal"></a></p>
+
+<ul>
+<li><a href="#howtouse">How to use</a></li>
+<li>
+<a href="#components">Components</a>
+
+<ul>
+<li>
+<a href="#buttons">Buttons</a>
+
+<ul>
+<li><a href="#flat-button">Flat Button</a></li>
+<li><a href="#rectangle-button">Rectangle Button</a></li>
+<li><a href="#float-button">Float Button</a></li>
+<li><a href="#float-small-button">Float small button</a></li>
+</ul>
+</li>
+<li>
+<a href="#switches">Switches</a>
+
+<ul>
+<li><a href="#checkbox">CheckBox</a></li>
+<li><a href="#switch">Switch</a></li>
+</ul>
+</li>
+<li>
+<a href="#progress-indicators">Progress indicators</a>
+
+<ul>
+<li><a href="#progress-bar-circula-rindeterminate">Progress bar circular indeterminate</a></li>
+<li><a href="#progress-bar-indeterminate">Progress bar indeterminate</a></li>
+<li><a href="#progress-bar-indeterminate-determinate">Progress bar indeterminate determinate</a></li>
+<li><a href="#progress-bar-determinate">Progress bar determinate</a></li>
+<li><a href="#slider">Slider</a></li>
+<li><a href="#slider-with-number-indicator">Slider with number indicator</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<a href="#widgets">Widgets</a>
+
+<ul>
+<li><a href="#snackbar">SnackBar</a></li>
+<li><a href="#dialog">Dialog</a></li>
+<li><a href="#color-selector">Color selector</a></li>
+</ul>
+</li>
+</ul>
+
+<h2>
+<a id="how-to-use" class="anchor" href="#how-to-use" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>How to use</h2>
+
+<p>If you want use this library, you only have to download MaterialDesign project, import it into your workspace and add the project as a library in your android project settings.</p>
+
+<p>If you prefer it, you can use the gradle dependency, you have to add these lines in your build.gradle file:</p>
+
+<div class="highlight highlight-text-xml"><pre>repositories {
+    jcenter()
+}
+
+dependencies {
+    compile 'com.github.navasmdc:MaterialDesign:1.5@aar'
+}</pre></div>
+
+<p>Some components have custom attributes, if you want use them, you must add this line in your xml file in the first component:</p>
+
+<div class="highlight highlight-text-xml"><pre>&lt;<span class="pl-ent">RelativeLayout</span> <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">android</span>=<span class="pl-s"><span class="pl-pds">"</span>http://schemas.android.com/apk/res/android<span class="pl-pds">"</span></span>
+    <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">materialdesign</span>=<span class="pl-s"><span class="pl-pds">"</span>http://schemas.android.com/apk/res-auto<span class="pl-pds">"</span></span>
+    <span class="pl-e">android</span><span class="pl-e">:</span><span class="pl-e">layout_width</span>=<span class="pl-s"><span class="pl-pds">"</span>match_parent<span class="pl-pds">"</span></span>
+    <span class="pl-e">android</span><span class="pl-e">:</span><span class="pl-e">layout_height</span>=<span class="pl-s"><span class="pl-pds">"</span>match_parent<span class="pl-pds">"</span></span>
+    &gt;
+&lt;/<span class="pl-ent">RelativeLayout</span>&gt;</pre></div>
+
+<blockquote>
+<p>If you are going to use a ScrollView, it is recommended that you use the CustomScrollView provided in this library to avoid problems with the custom components.
+To use this component:</p>
+
+<div class="highlight highlight-text-xml"><pre>&lt;<span class="pl-ent">com</span>.gc.materialdesign.views.ScrollView 
+   <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">android</span>=<span class="pl-s"><span class="pl-pds">"</span>http://schemas.android.com/apk/res/android<span class="pl-pds">"</span></span>
+   <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">materialdesign</span>=<span class="pl-s"><span class="pl-pds">"</span>http://schemas.android.com/apk/res-auto<span class="pl-pds">"</span></span>
+   <span class="pl-e">android</span><span class="pl-e">:</span><span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>@+id/scroll<span class="pl-pds">"</span></span>
+   <span class="pl-e">android</span><span class="pl-e">:</span><span class="pl-e">layout_width</span>=<span class="pl-s"><span class="pl-pds">"</span>match_parent<span class="pl-pds">"</span></span>
+   <span class="pl-e">android</span><span class="pl-e">:</span><span class="pl-e">layout_height</span>=<span class="pl-s"><span class="pl-pds">"</span>match_parent<span class="pl-pds">"</span></span>&gt;
+&lt;/<span class="pl-ent">com</span>.gc.materialdesign.views.ScrollView&gt;</pre></div>
+</blockquote>
+
+<h2>
+<a id="components" class="anchor" href="#components" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Components</h2>
+
+<h4>
+<a id="buttons" class="anchor" href="#buttons" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Buttons</h4>
+
+<h6>
+<a id="flat-button" class="anchor" href="#flat-button" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Flat Button</h6>
+
+<p><img src="images/flat_button.png" alt="flat button"></p>
+
+<div class="highlight highlight-text-xml"><pre>&lt;<span class="pl-ent">com</span>.gc.materialdesign.views.ButtonFlat
+                <span class="pl-e">android</span><span class="pl-e">:</span><span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>@+id/buttonflat<span class="pl-pds">"</span></span>
+                <span class="pl-e">android</span><span class="pl-e">:</span><span class="pl-e">layout_width</span>=<span class="pl-s"><span class="pl-pds">"</span>wrap_content<span class="pl-pds">"</span></span>
+                <span class="pl-e">android</span><span class="pl-e">:</span><span class="pl-e">layout_height</span>=<span class="pl-s"><span class="pl-pds">"</span>wrap_content<span class="pl-pds">"</span></span>
+                <span class="pl-e">android</span><span class="pl-e">:</span><span class="pl-e">background</span>=<span class="pl-s"><span class="pl-pds">"</span>#1E88E5<span class="pl-pds">"</span></span>
+                <span class="pl-e">android</span><span class="pl-e">:</span><span class="pl-e">text</span>=<span class="pl-s"><span class="pl-pds">"</span>Button<span class="pl-pds">"</span></span> /&gt;</pre></div>
+
+<h6>
+<a id="rectangle-button" class="anchor" href="#rectangle-button" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Rectangle Button</h6>
+
+<p><img src="images/rectangle_button.png" alt="rectangle button"></p>
+
+<div class="highlight highlight-text-xml"><pre>&lt;<span class="pl-ent">com</span>.gc.materialdesign.views.ButtonRectangle
+                <span class="pl-e">android</span><span class="pl-e">:</span><span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>@+id/button<span class="pl-pds">"</span></span>
+                <span class="pl-e">android</span><span class="pl-e">:</span><span class="pl-e">layout_width</span>=<span class="pl-s"><span class="pl-pds">"</span>wrap_content<span class="pl-pds">"</span></span>
+                <span class="pl-e">android</span><span class="pl-e">:</span><span class="pl-e">layout_height</span>=<span class="pl-s"><span class="pl-pds">"</span>wrap_content<span class="pl-pds">"</span></span>
+                <span class="pl-e">android</span><span class="pl-e">:</span><span class="pl-e">background</span>=<span class="pl-s"><span class="pl-pds">"</span>#1E88E5<span class="pl-pds">"</span></span>
+                <span class="pl-e">android</span><span class="pl-e">:</span><span class="pl-e">text</span>=<span class="pl-s"><span class="pl-pds">"</span>Button<span class="pl-pds">"</span></span> /&gt;</pre></div>
+
+<h6>
+<a id="float-button" class="anchor" href="#float-button" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Float Button</h6>
+
+<p><img src="images/float_button.png" alt="float button"></p>
+
+<blockquote>
+<p>It is recommended to put this component in the right-bottom of the screen. To use this component write this code in your xml file.
+If you don`t want to start this component with animation set the animate attribute to false.
+Put your icon in the icon attribute to set the drawable icon for this component.</p>
+</blockquote>
+
+<div class="highlight highlight-text-xml"><pre>&lt;<span class="pl-ent">RelativeLayout</span> <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">android</span>=<span class="pl-s"><span class="pl-pds">"</span>http://schemas.android.com/apk/res/android<span class="pl-pds">"</span></span>
+    <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">materialdesign</span>=<span class="pl-s"><span class="pl-pds">"</span>http://schemas.android.com/apk/res-auto<span class="pl-pds">"</span></span>
+    <span class="pl-e">android</span><span class="pl-e">:</span><span class="pl-e">layout_width</span>=<span class="pl-s"><span class="pl-pds">"</span>match_parent<span class="pl-pds">"</span></span>
+    <span class="pl-e">android</span><span class="pl-e">:</span><span class="pl-e">layout_height</span>=<span class="pl-s"><span class="pl-pds">"</span>match_parent<span class="pl-pds">"</span></span>
+    &gt;
+    <span class="pl-c">&lt;!-- ... XML CODE --&gt;</span>
+    &lt;<span class="pl-ent">com</span>.gc.materialdesign.views.ButtonFloat
+                <span class="pl-e">android</span><span class="pl-e">:</span><span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>@+id/buttonFloat<span class="pl-pds">"</span></span>
+                <span class="pl-e">android</span><span class="pl-e">:</span><span class="pl-e">layout_width</span>=<span class="pl-s"><span class="pl-pds">"</span>wrap_content<span class="pl-pds">"</span></span>
+                <span class="pl-e">android</span><span class="pl-e">:</span><span class="pl-e">layout_height</span>=<span class="pl-s"><span class="pl-pds">"</span>wrap_content<span class="pl-pds">"</span></span>
+                <span class="pl-e">android</span><span class="pl-e">:</span><span class="pl-e">layout_alignParentRight</span>=<span class="pl-s"><span class="pl-pds">"</span>true<span class="pl-pds">"</span></span>
+                <span class="pl-e">android</span><span class="pl-e">:</span><span class="pl-e">layout_alignParentBottom</span>=<span class="pl-s"><span class="pl-pds">"</span>true<span class="pl-pds">"</span></span>
+                <span class="pl-e">android</span><span class="pl-e">:</span><span class="pl-e">layout_marginRight</span>=<span class="pl-s"><span class="pl-pds">"</span>24dp<span class="pl-pds">"</span></span>
+                <span class="pl-e">android</span><span class="pl-e">:</span><span class="pl-e">background</span>=<span class="pl-s"><span class="pl-pds">"</span>#1E88E5<span class="pl-pds">"</span></span>
+                <span class="pl-e">materialdesign</span><span class="pl-e">:</span><span class="pl-e">animate</span>=<span class="pl-s"><span class="pl-pds">"</span>true<span class="pl-pds">"</span></span>
+                <span class="pl-e">materialdesign</span><span class="pl-e">:</span><span class="pl-e">iconDrawable</span>=<span class="pl-s"><span class="pl-pds">"</span>@drawable/ic_action_new<span class="pl-pds">"</span></span> /&gt;
+&lt;/<span class="pl-ent">RelativeLayout</span>&gt;</pre></div>
+
+<h6>
+<a id="float-small-button" class="anchor" href="#float-small-button" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Float small button</h6>
+
+<p><img src="images/float_small_button.png" alt="float small button"></p>
+
+<div class="highlight highlight-text-xml"><pre>&lt;<span class="pl-ent">com</span>.gc.materialdesign.views.ButtonFloatSmall
+                <span class="pl-e">android</span><span class="pl-e">:</span><span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>@+id/buttonFloatSmall<span class="pl-pds">"</span></span>
+                <span class="pl-e">android</span><span class="pl-e">:</span><span class="pl-e">layout_width</span>=<span class="pl-s"><span class="pl-pds">"</span>wrap_content<span class="pl-pds">"</span></span>
+                <span class="pl-e">android</span><span class="pl-e">:</span><span class="pl-e">layout_height</span>=<span class="pl-s"><span class="pl-pds">"</span>wrap_content<span class="pl-pds">"</span></span>
+                <span class="pl-e">android</span><span class="pl-e">:</span><span class="pl-e">background</span>=<span class="pl-s"><span class="pl-pds">"</span>#1E88E5<span class="pl-pds">"</span></span>
+                <span class="pl-e">materialdesign</span><span class="pl-e">:</span><span class="pl-e">iconDrawable</span>=<span class="pl-s"><span class="pl-pds">"</span>@drawable/ic_action_new<span class="pl-pds">"</span></span> /&gt;</pre></div>
+
+<h4>
+<a id="switches" class="anchor" href="#switches" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Switches</h4>
+
+<h6>
+<a id="checkbox" class="anchor" href="#checkbox" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>CheckBox</h6>
+
+<p><img src="images/checkbox.png" alt="checkbox"></p>
+
+<div class="highlight highlight-text-xml"><pre>&lt;<span class="pl-ent">com</span>.gc.materialdesign.views.CheckBox
+                <span class="pl-e">android</span><span class="pl-e">:</span><span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>@+id/checkBox<span class="pl-pds">"</span></span>
+                <span class="pl-e">android</span><span class="pl-e">:</span><span class="pl-e">layout_width</span>=<span class="pl-s"><span class="pl-pds">"</span>wrap_content<span class="pl-pds">"</span></span>
+                <span class="pl-e">android</span><span class="pl-e">:</span><span class="pl-e">layout_height</span>=<span class="pl-s"><span class="pl-pds">"</span>wrap_content<span class="pl-pds">"</span></span>
+                <span class="pl-e">android</span><span class="pl-e">:</span><span class="pl-e">background</span>=<span class="pl-s"><span class="pl-pds">"</span>#1E88E5<span class="pl-pds">"</span></span>
+                <span class="pl-e">materialdesign</span><span class="pl-e">:</span><span class="pl-e">check</span>=<span class="pl-s"><span class="pl-pds">"</span>true<span class="pl-pds">"</span></span> /&gt;</pre></div>
+
+<h6>
+<a id="switch" class="anchor" href="#switch" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Switch</h6>
+
+<p><img src="images/switch.png" alt="switch"></p>
+
+<div class="highlight highlight-text-xml"><pre>&lt;<span class="pl-ent">com</span>.gc.materialdesign.views.Switch
+                <span class="pl-e">android</span><span class="pl-e">:</span><span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>@+id/switchView<span class="pl-pds">"</span></span>
+                <span class="pl-e">android</span><span class="pl-e">:</span><span class="pl-e">layout_width</span>=<span class="pl-s"><span class="pl-pds">"</span>wrap_content<span class="pl-pds">"</span></span>
+                <span class="pl-e">android</span><span class="pl-e">:</span><span class="pl-e">layout_height</span>=<span class="pl-s"><span class="pl-pds">"</span>wrap_content<span class="pl-pds">"</span></span>
+                <span class="pl-e">android</span><span class="pl-e">:</span><span class="pl-e">background</span>=<span class="pl-s"><span class="pl-pds">"</span>#1E88E5<span class="pl-pds">"</span></span>
+                <span class="pl-e">materialdesign</span><span class="pl-e">:</span><span class="pl-e">check</span>=<span class="pl-s"><span class="pl-pds">"</span>true<span class="pl-pds">"</span></span> /&gt;</pre></div>
+
+<h4>
+<a id="progress-indicators" class="anchor" href="#progress-indicators" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Progress indicators</h4>
+
+<h6>
+<a id="progress-bar-circular-indeterminate" class="anchor" href="#progress-bar-circular-indeterminate" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Progress bar circular indeterminate</h6>
+
+<p><img src="images/progress_bar_circular_indeterminate.png" alt="progress bar circular indeterminate"></p>
+
+<div class="highlight highlight-text-xml"><pre>&lt;<span class="pl-ent">com</span>.gc.materialdesign.views.ProgressBarCircularIndeterminate
+                <span class="pl-e">android</span><span class="pl-e">:</span><span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>@+id/progressBarCircularIndeterminate<span class="pl-pds">"</span></span>
+                <span class="pl-e">android</span><span class="pl-e">:</span><span class="pl-e">layout_width</span>=<span class="pl-s"><span class="pl-pds">"</span>32dp<span class="pl-pds">"</span></span>
+                <span class="pl-e">android</span><span class="pl-e">:</span><span class="pl-e">layout_height</span>=<span class="pl-s"><span class="pl-pds">"</span>32dp<span class="pl-pds">"</span></span>
+                <span class="pl-e">android</span><span class="pl-e">:</span><span class="pl-e">background</span>=<span class="pl-s"><span class="pl-pds">"</span>#1E88E5<span class="pl-pds">"</span></span> /&gt;</pre></div>
+
+<h6>
+<a id="progress-bar-indeterminate" class="anchor" href="#progress-bar-indeterminate" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Progress bar indeterminate</h6>
+
+<p><img src="images/progress_bar_indeterminate.png" alt="progress bar indeterminate"></p>
+
+<div class="highlight highlight-text-xml"><pre>&lt;<span class="pl-ent">com</span>.gc.materialdesign.views.ProgressBarIndeterminate
+                <span class="pl-e">android</span><span class="pl-e">:</span><span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>@+id/progressBarIndeterminate<span class="pl-pds">"</span></span>
+                <span class="pl-e">android</span><span class="pl-e">:</span><span class="pl-e">layout_width</span>=<span class="pl-s"><span class="pl-pds">"</span>fill_parent<span class="pl-pds">"</span></span>
+                <span class="pl-e">android</span><span class="pl-e">:</span><span class="pl-e">layout_height</span>=<span class="pl-s"><span class="pl-pds">"</span>wrap_content<span class="pl-pds">"</span></span>
+                <span class="pl-e">android</span><span class="pl-e">:</span><span class="pl-e">background</span>=<span class="pl-s"><span class="pl-pds">"</span>#1E88E5<span class="pl-pds">"</span></span> /&gt;</pre></div>
+
+<h6>
+<a id="progress-bar-indeterminate-determinate" class="anchor" href="#progress-bar-indeterminate-determinate" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Progress bar indeterminate determinate</h6>
+
+<p><img src="images/progress_bar_indeterminate_determinate.png" alt="Progress bar indeterminate determinate"></p>
+
+<div class="highlight highlight-text-xml"><pre>&lt;<span class="pl-ent">com</span>.gc.materialdesign.views.ProgressBarIndeterminateDeterminate
+                <span class="pl-e">android</span><span class="pl-e">:</span><span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>@+id/progressBarIndeterminateDeterminate<span class="pl-pds">"</span></span>
+                <span class="pl-e">android</span><span class="pl-e">:</span><span class="pl-e">layout_width</span>=<span class="pl-s"><span class="pl-pds">"</span>fill_parent<span class="pl-pds">"</span></span>
+                <span class="pl-e">android</span><span class="pl-e">:</span><span class="pl-e">layout_height</span>=<span class="pl-s"><span class="pl-pds">"</span>wrap_content<span class="pl-pds">"</span></span>
+                <span class="pl-e">android</span><span class="pl-e">:</span><span class="pl-e">background</span>=<span class="pl-s"><span class="pl-pds">"</span>#1E88E5<span class="pl-pds">"</span></span> /&gt;</pre></div>
+
+<blockquote>
+<p>If you begin progrees, you only have to set progress it</p>
+
+<div class="highlight highlight-source-java"><pre>progressBarIndeterminateDeterminate<span class="pl-k">.</span>setProgress(progress);</pre></div>
+</blockquote>
+
+<h6>
+<a id="progress-bar-determinate" class="anchor" href="#progress-bar-determinate" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Progress bar determinate</h6>
+
+<p><img src="images/progress_bar_determinate.png" alt="Progress bar determinate"></p>
+
+<div class="highlight highlight-text-xml"><pre>&lt;<span class="pl-ent">com</span>.gc.materialdesign.views.ProgressBarDeterminate
+                <span class="pl-e">android</span><span class="pl-e">:</span><span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>@+id/progressDeterminate<span class="pl-pds">"</span></span>
+                <span class="pl-e">android</span><span class="pl-e">:</span><span class="pl-e">layout_width</span>=<span class="pl-s"><span class="pl-pds">"</span>fill_parent<span class="pl-pds">"</span></span>
+                <span class="pl-e">android</span><span class="pl-e">:</span><span class="pl-e">layout_height</span>=<span class="pl-s"><span class="pl-pds">"</span>wrap_content<span class="pl-pds">"</span></span>
+                <span class="pl-e">android</span><span class="pl-e">:</span><span class="pl-e">background</span>=<span class="pl-s"><span class="pl-pds">"</span>#1E88E5<span class="pl-pds">"</span></span> /&gt;</pre></div>
+
+<blockquote>
+<p>You can custom max and min progress values with <code>materialdesign:max="50"</code> and <code>materialdesign:min="25"</code> attributes.</p>
+</blockquote>
+
+<h6>
+<a id="slider" class="anchor" href="#slider" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Slider</h6>
+
+<p><img src="images/slider.png" alt="Slider"></p>
+
+<div class="highlight highlight-text-xml"><pre>&lt;<span class="pl-ent">com</span>.gc.materialdesign.views.Slider
+                <span class="pl-e">android</span><span class="pl-e">:</span><span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>@+id/slider<span class="pl-pds">"</span></span>
+                <span class="pl-e">android</span><span class="pl-e">:</span><span class="pl-e">layout_width</span>=<span class="pl-s"><span class="pl-pds">"</span>fill_parent<span class="pl-pds">"</span></span>
+                <span class="pl-e">android</span><span class="pl-e">:</span><span class="pl-e">layout_height</span>=<span class="pl-s"><span class="pl-pds">"</span>wrap_content<span class="pl-pds">"</span></span>
+                <span class="pl-e">android</span><span class="pl-e">:</span><span class="pl-e">background</span>=<span class="pl-s"><span class="pl-pds">"</span>#1E88E5<span class="pl-pds">"</span></span>
+                <span class="pl-e">materialdesign</span><span class="pl-e">:</span><span class="pl-e">max</span>=<span class="pl-s"><span class="pl-pds">"</span>50<span class="pl-pds">"</span></span>
+                <span class="pl-e">materialdesign</span><span class="pl-e">:</span><span class="pl-e">min</span>=<span class="pl-s"><span class="pl-pds">"</span>0<span class="pl-pds">"</span></span>
+                 /&gt;</pre></div>
+
+<h6>
+<a id="slider-with-number-indicator" class="anchor" href="#slider-with-number-indicator" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Slider with number indicator</h6>
+
+<p><img src="images/slider_with_number_indicator.png" alt="Slider with number indicator"></p>
+
+<div class="highlight highlight-text-xml"><pre>&lt;<span class="pl-ent">com</span>.gc.materialdesign.views.Slider
+                <span class="pl-e">android</span><span class="pl-e">:</span><span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>@+id/slider<span class="pl-pds">"</span></span>
+                <span class="pl-e">android</span><span class="pl-e">:</span><span class="pl-e">layout_width</span>=<span class="pl-s"><span class="pl-pds">"</span>fill_parent<span class="pl-pds">"</span></span>
+                <span class="pl-e">android</span><span class="pl-e">:</span><span class="pl-e">layout_height</span>=<span class="pl-s"><span class="pl-pds">"</span>wrap_content<span class="pl-pds">"</span></span>
+                <span class="pl-e">android</span><span class="pl-e">:</span><span class="pl-e">background</span>=<span class="pl-s"><span class="pl-pds">"</span>#1E88E5<span class="pl-pds">"</span></span>
+                <span class="pl-e">materialdesign</span><span class="pl-e">:</span><span class="pl-e">max</span>=<span class="pl-s"><span class="pl-pds">"</span>50<span class="pl-pds">"</span></span>
+                <span class="pl-e">materialdesign</span><span class="pl-e">:</span><span class="pl-e">min</span>=<span class="pl-s"><span class="pl-pds">"</span>0<span class="pl-pds">"</span></span>
+                <span class="pl-e">materialdesign</span><span class="pl-e">:</span><span class="pl-e">showNumberIndicator</span>=<span class="pl-s"><span class="pl-pds">"</span>true<span class="pl-pds">"</span></span>/&gt;</pre></div>
+
+<h2>
+<a id="widgets" class="anchor" href="#widgets" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Widgets</h2>
+
+<h4>
+<a id="snackbar" class="anchor" href="#snackbar" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>SnackBar</h4>
+
+<p><img src="images/snackbar.png" alt="Snackbar"></p>
+
+<div class="highlight highlight-source-java"><pre><span class="pl-smi">SnackBar</span> snackbar <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-smi">SnackBar</span>(<span class="pl-smi">Activity</span> activity, <span class="pl-smi">String</span> text, <span class="pl-smi">String</span> buttonText, <span class="pl-smi">View</span><span class="pl-k">.</span><span class="pl-smi">OnClickListener</span> onClickListener);
+snackbar<span class="pl-k">.</span>show();</pre></div>
+
+<blockquote>
+<p>If you don't want to show the button, put <code>null</code> in <code>buttonText</code> attribute</p>
+</blockquote>
+
+<h4>
+<a id="dialog" class="anchor" href="#dialog" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Dialog</h4>
+
+<p><img src="images/dialog.png" alt="Dialog"></p>
+
+<div class="highlight highlight-source-java"><pre><span class="pl-smi">Dialog</span> dialog <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-smi">Dialog</span>(<span class="pl-smi">Context</span> context,<span class="pl-smi">String</span> title, <span class="pl-smi">String</span> message);
+dialog<span class="pl-k">.</span>show();</pre></div>
+
+<blockquote>
+<p>You can set the accept and cancel button on the event listener or change it's text</p>
+
+<div class="highlight highlight-source-java"><pre><span class="pl-c">// Set accept click listenner</span>
+dialog<span class="pl-k">.</span>setOnAcceptButtonClickListener(<span class="pl-smi">View</span><span class="pl-k">.</span><span class="pl-smi">OnClickListener</span> onAcceptButtonClickListener);
+<span class="pl-c">// Set cancel click listenner</span>
+dialog<span class="pl-k">.</span>setOnCancelButtonClickListener(<span class="pl-smi">View</span><span class="pl-k">.</span><span class="pl-smi">OnClickListener</span> onCancelButtonClickListener);
+<span class="pl-c">// Acces to accept button</span>
+<span class="pl-smi">ButtonFlat</span> acceptButton <span class="pl-k">=</span> dialog<span class="pl-k">.</span>getButtonAccept();
+<span class="pl-c">// Acces to cancel button</span>
+<span class="pl-smi">ButtonFlat</span> cancelButton <span class="pl-k">=</span> dialog<span class="pl-k">.</span>getButtonCancel();</pre></div>
+</blockquote>
+
+<h4>
+<a id="color-selector" class="anchor" href="#color-selector" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Color selector</h4>
+
+<p><img src="images/color_selector.png" alt="Color selector"></p>
+
+<div class="highlight highlight-source-java"><pre><span class="pl-smi">ColorSelector</span> colorSelector <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-smi">ColorSelector</span>(<span class="pl-smi">Context</span> context,<span class="pl-k">int</span> intialColor, <span class="pl-smi">OnColorSelectedListener</span> onColorSelectedListener);
+colorSelector<span class="pl-k">.</span>show();</pre></div>
+        </section>
+
+        <aside id="sidebar">
+          <a href="https://github.com/navasmdc/MaterialDesignLibrary/zipball/master" class="button">
+            <small>Download</small>
+            .zip file
+          </a>
+          <a href="https://github.com/navasmdc/MaterialDesignLibrary/tarball/master" class="button">
+            <small>Download</small>
+            .tar.gz file
+          </a>
+
+          <p class="repo-owner"><a href="https://github.com/navasmdc/MaterialDesignLibrary"></a> is maintained by <a href="https://github.com/navasmdc">navasmdc</a>.</p>
+
+          <p>This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the Architect theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.</p>
+        </aside>
+      </div>
+    </div>
+
+  
+  </body>
+</html>
