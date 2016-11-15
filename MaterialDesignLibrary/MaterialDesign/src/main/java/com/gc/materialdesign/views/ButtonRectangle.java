@@ -146,5 +146,25 @@ public class ButtonRectangle extends Button {
 			invalidate();
 		}
 	}
+
+    @Override
+    public void setText(String text) {
+        textButton.setText(text);
+    }
+
+    @Override
+    public void setTextColor(int color) {
+        textButton.setTextColor(color);
+    }
+
+    @Override
+    public TextView getTextView() {
+        return textButton;
+    }
+
+    @Override
+    public String getText() {
+        return textButton.getText().toString();
+    }
 	
 }
