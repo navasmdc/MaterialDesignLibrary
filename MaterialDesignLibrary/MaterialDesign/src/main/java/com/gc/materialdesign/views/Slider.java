@@ -74,7 +74,7 @@ public class Slider extends CustomView {
     }
 
     public void setValue(final int value) {
-        if (placedBall == false)
+        if (!placedBall)
             post(new Runnable() {
 
                 @Override
@@ -84,9 +84,10 @@ public class Slider extends CustomView {
             });
         else {
             this.value = value;
-            float division = (ball.xFin - ball.xIni) / max;
+            float division = (ball.xFin - ball.xIni) / (max - min);
+            int _value = this.value - min; // this line is new, you were using parameter value (thats incorrect, obviously)
             ViewHelper.setX(ball,
-                    value * division + getHeight() / 2 - ball.getWidth() / 2);
+                    _value * division + getHeight() / 2 - ball.getWidth() / 2);
             ball.changeBackground();
         }
 
@@ -113,6 +114,7 @@ public class Slider extends CustomView {
     public boolean onTouchEvent(MotionEvent event) {
         isLastTouch = true;
         if (isEnabled()) {
+            getParent().requestDisallowInterceptTouchEvent(true);
             if (event.getAction() == MotionEvent.ACTION_DOWN
                     || event.getAction() == MotionEvent.ACTION_MOVE) {
                 if (numberIndicator != null
@@ -319,7 +321,7 @@ public class Slider extends CustomView {
                 setBackgroundResource(R.drawable.background_checkbox);
                 LayerDrawable layer = (LayerDrawable) getBackground();
                 GradientDrawable shape = (GradientDrawable) layer
-                        .findDrawableByLayerId(R.id.shape_bacground);
+                        .findDrawableByLayerId(R.id.shape_background);
                 shape.setColor(backgroundColor);
             } else {
                 setBackgroundResource(R.drawable.background_switch_ball_uncheck);

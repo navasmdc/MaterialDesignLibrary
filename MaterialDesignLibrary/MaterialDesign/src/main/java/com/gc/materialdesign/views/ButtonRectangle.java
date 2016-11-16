@@ -74,6 +74,11 @@ public class ButtonRectangle extends Button {
 
     }
 
+
+    public void setTextSize(float size){
+        if (getTextView() != null)
+        getTextView().setTextSize(size);
+    }
 //	/**
 //	 * Center text in button
 //	 */

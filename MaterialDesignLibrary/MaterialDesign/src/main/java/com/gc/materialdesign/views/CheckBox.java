@@ -159,7 +159,7 @@ public class CheckBox extends CustomView {
 	private void changeBackgroundColor(int color) {
 		LayerDrawable layer = (LayerDrawable) getBackground();
 		GradientDrawable shape = (GradientDrawable) layer
-				.findDrawableByLayerId(R.id.shape_bacground);
+				.findDrawableByLayerId(R.id.shape_background);
 		shape.setColor(color);
 	}
 
@@ -224,7 +224,7 @@ public class CheckBox extends CustomView {
 				setBackgroundResource(R.drawable.background_checkbox_check);
 				LayerDrawable layer = (LayerDrawable) getBackground();
 				GradientDrawable shape = (GradientDrawable) layer
-						.findDrawableByLayerId(R.id.shape_bacground);
+						.findDrawableByLayerId(R.id.shape_background);
 				shape.setColor(backgroundColor);
 			} else {
 				setBackgroundResource(R.drawable.background_checkbox_uncheck);
