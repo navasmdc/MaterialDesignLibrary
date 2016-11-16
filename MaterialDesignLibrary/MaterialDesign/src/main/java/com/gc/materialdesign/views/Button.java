@@ -173,6 +173,13 @@ public abstract class Button extends CustomView {
 		}
 	}
 
+	@Override
+	public boolean performClick() {
+		if (onClickListener != null)
+			onClickListener.onClick(this);
+		return onClickListener != null;
+	}
+
 	public void setRippleSpeed(float rippleSpeed) {
 		this.rippleSpeed = rippleSpeed;
 	}

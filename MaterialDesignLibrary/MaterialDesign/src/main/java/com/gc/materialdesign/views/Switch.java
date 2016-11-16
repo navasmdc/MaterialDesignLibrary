@@ -113,6 +113,8 @@ public class Switch extends CustomView {
                     if (onCheckListener != null)
                         onCheckListener.onCheck(Switch.this, check);
                 } else {
+                    if (onCheckListener != null)
+                        onCheckListener.onCheck(Switch.this, check);
                     if (!moved){
                         check = !eventCheck;
                         setChecked(check);
