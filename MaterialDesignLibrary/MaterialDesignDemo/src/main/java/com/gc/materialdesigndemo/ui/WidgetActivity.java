@@ -11,7 +11,11 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.View.OnClickListener;
 import android.widget.Toast;
@@ -85,6 +89,29 @@ public class WidgetActivity extends Activity {
 				new ColorSelector(WidgetActivity.this, Color.RED, null).show();
 			}
 		});
+
+//		ViewPager vp_slider = (ViewPager) findViewById(R.id.vp_slider);
+//		vp_slider.setAdapter(pagerAdapter);
 	}
 
+
+	PagerAdapter pagerAdapter = new PagerAdapter() {
+		@Override
+		public int getCount() {
+			return 2;
+		}
+
+		@Override
+		public Object instantiateItem(ViewGroup container, int position) {
+			LayoutInflater inflater = LayoutInflater.from(WidgetActivity.this);
+			ViewGroup layout = (ViewGroup) inflater.inflate(R.layout.activity_progress, container, false);
+			container.addView(layout);
+			return layout;
+		}
+
+		@Override
+		public boolean isViewFromObject(View view, Object object) {
+			return view == object;
+		}
+	};
 }

@@ -127,6 +127,13 @@
                 android:layout_centerInParent="true"
                 android:text="Show Progress Dialog" />
         </RelativeLayout>
+
     </LinearLayout>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vp_slider"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"/>
 
 </RelativeLayout>

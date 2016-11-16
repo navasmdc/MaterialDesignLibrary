@@ -198,8 +198,8 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:background="#1E88E5"
-                materialdesign:MLmax="50"
-                materialdesign:MLmin="0"
+                materialdesign:MLmax="3000"
+                materialdesign:MLmin="150"
                 materialdesign:MLshowNumberIndicator="true" />
         </RelativeLayout>
     </LinearLayout>
