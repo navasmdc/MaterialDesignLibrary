@@ -20,12 +20,8 @@
         <attr name="MLringWidth" format="dimension" />
         <!-- in switche's view indicate state of view -->
         <attr name="MLchecked" format="boolean" />
-        <attr name="MLcheckBoxSize" format="dimension" />
-        <attr name="MLthumbSize" format="dimension" />
         <!-- in float button indicate icon resource -->
         <attr name="MLiconDrawable" format="integer" />
-        <!-- in button whitch contains drawable indicate icon resource -->
-        <attr name="MLiconSize" format="dimension" />
         <!-- in float button indicate if must start with animation -->
         <attr name="MLanimated" format="boolean" />
         <!-- set the border of the ripple frame -->
