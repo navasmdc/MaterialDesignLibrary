@@ -109,7 +109,7 @@ public class ColorSelector extends android.app.Dialog implements OnValueChangedL
 	}
 	
 	@Override
-	public void onValueChanged(int value) {
+	public void onValueChanged(int value, boolean userInteraction) {
 		color = Color.rgb(red.getValue(), green.getValue(), blue.getValue());
 		colorView.setBackgroundColor(color);
 	}

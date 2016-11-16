@@ -9,6 +9,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.util.AttributeSet;
+import android.view.Gravity;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -74,6 +75,7 @@ public class ButtonFlat extends Button {
             RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
             params.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);
             textButton.setLayoutParams(params);
+            textButton.setGravity(Gravity.CENTER);
             boolean allCaps = attrs.getAttributeBooleanValue(ANDROIDXML, "textAllCaps", false);
             textButton.setAllCaps(allCaps);
             addView(textButton);

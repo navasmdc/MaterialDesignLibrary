@@ -10,6 +10,7 @@ import android.graphics.Color;
 import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.util.AttributeSet;
+import android.view.Gravity;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -91,6 +92,7 @@ public class ButtonRectangle extends Button {
             params.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);
             params.setMargins(Utils.dpToPx(5, getResources()), Utils.dpToPx(5, getResources()), Utils.dpToPx(5, getResources()), Utils.dpToPx(5, getResources()));
             textButton.setLayoutParams(params);
+            textButton.setGravity(Gravity.CENTER);
             boolean allCaps = attrs.getAttributeBooleanValue(ANDROIDXML, "textAllCaps", false);
             textButton.setAllCaps(allCaps);
             addView(textButton);

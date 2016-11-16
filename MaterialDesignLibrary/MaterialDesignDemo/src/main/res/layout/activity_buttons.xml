@@ -40,12 +40,12 @@
 
             <com.gc.materialdesign.views.ButtonFlat
                 android:id="@+id/buttonflat"
-                android:layout_width="wrap_content"
+                android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
 
                 android:textColor="#ffffff"
-                android:text="Button" />
+                android:text="Button me cago en la puta te centra o que ase me cago en dio que te hagas a dos lineas" />
         </RelativeLayout>
         <!-- RECTANGLE BUTTON -->
 
@@ -73,11 +73,11 @@
 
             <com.gc.materialdesign.views.ButtonRectangle
                 android:id="@+id/button"
-                android:layout_width="wrap_content"
+                android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:background="#1E88E5"
-                android:text="Button" />
+                android:text="Button me cago en la puta te centra o que ase me cago en dio que te hagas a dos lineas" />
         </RelativeLayout>
         <!-- SMALL FLOAT BUTTON -->
 
