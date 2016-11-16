@@ -129,6 +129,13 @@ public class ButtonRectangle extends Button {
         if (getTextView() != null)
         getTextView().setTextSize(size);
     }
+
+    public void setTextSingleLine(boolean singleLine){
+        if (getTextView() != null){
+            getTextView().setSingleLine(singleLine);
+            invalidate();
+        }
+    }
 //	/**
 //	 * Center text in button
 //	 */

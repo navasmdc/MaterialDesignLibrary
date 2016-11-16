@@ -121,6 +121,13 @@ public class ButtonFlat extends Button {
             getTextView().setTextSize(size);
     }
 
+    public void setTextSingleLine(boolean singleLine){
+        if (getTextView() != null){
+            getTextView().setSingleLine(singleLine);
+            invalidate();
+        }
+    }
+
     /**
      * Make a dark color to ripple effect
      *
