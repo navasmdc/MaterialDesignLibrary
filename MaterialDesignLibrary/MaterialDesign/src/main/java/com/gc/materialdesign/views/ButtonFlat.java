@@ -114,6 +114,11 @@ public class ButtonFlat extends Button {
 
     }
 
+    public void setTextSize(float size){
+        if (getTextView() != null)
+            getTextView().setTextSize(size);
+    }
+
     /**
      * Make a dark color to ripple effect
      *

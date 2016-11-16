@@ -122,6 +122,11 @@ public class ButtonRectangle extends Button {
                 ML_RIPPLE_SPEED, Utils.dpToPx(6, getResources()));
     }
 
+
+    public void setTextSize(float size){
+        if (getTextView() != null)
+        getTextView().setTextSize(size);
+    }
 //	/**
 //	 * Center text in button
 //	 */

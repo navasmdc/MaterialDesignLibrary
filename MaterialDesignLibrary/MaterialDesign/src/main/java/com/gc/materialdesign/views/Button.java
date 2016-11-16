@@ -165,7 +165,7 @@ public abstract class Button extends CustomView {
 		try {
 			LayerDrawable layer = (LayerDrawable) getBackground();
 			GradientDrawable shape = (GradientDrawable) layer
-					.findDrawableByLayerId(R.id.shape_bacground);
+					.findDrawableByLayerId(R.id.shape_background);
 			shape.setColor(backgroundColor);
 			rippleColor = makePressColor();
 		} catch (Exception ex) {

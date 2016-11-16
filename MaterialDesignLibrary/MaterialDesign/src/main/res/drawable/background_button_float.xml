@@ -4,7 +4,7 @@
     <item android:drawable="@drawable/float_button_shadow1">
     </item>
     <item
-        android:id="@+id/shape_bacground"
+        android:id="@+id/shape_background"
         android:bottom="2dp"
         android:left="1dp"
         android:top="1dp"

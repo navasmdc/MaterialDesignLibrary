@@ -321,7 +321,7 @@ public class Slider extends CustomView {
                 setBackgroundResource(R.drawable.background_checkbox);
                 LayerDrawable layer = (LayerDrawable) getBackground();
                 GradientDrawable shape = (GradientDrawable) layer
-                        .findDrawableByLayerId(R.id.shape_bacground);
+                        .findDrawableByLayerId(R.id.shape_background);
                 shape.setColor(backgroundColor);
             } else {
                 setBackgroundResource(R.drawable.background_switch_ball_uncheck);

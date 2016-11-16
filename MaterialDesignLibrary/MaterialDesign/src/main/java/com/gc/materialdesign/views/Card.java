@@ -62,7 +62,7 @@ public class Card extends CustomView {
 		if(isEnabled())
 			beforeBackground = backgroundColor;
 		LayerDrawable layer = (LayerDrawable) getBackground();
-		GradientDrawable shape =  (GradientDrawable) layer.findDrawableByLayerId(R.id.shape_bacground);
+		GradientDrawable shape =  (GradientDrawable) layer.findDrawableByLayerId(R.id.shape_background);
 		shape.setColor(backgroundColor);
 	}
 	

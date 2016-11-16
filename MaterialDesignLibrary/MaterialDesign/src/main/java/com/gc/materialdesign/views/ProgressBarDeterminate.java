@@ -131,7 +131,7 @@ public class ProgressBarDeterminate extends CustomView {
         if (isEnabled())
             beforeBackground = backgroundColor;
         LayerDrawable layer = (LayerDrawable) progressView.getBackground();
-        GradientDrawable shape = (GradientDrawable) layer.findDrawableByLayerId(R.id.shape_bacground);
+        GradientDrawable shape = (GradientDrawable) layer.findDrawableByLayerId(R.id.shape_background);
         shape.setColor(color);
         super.setBackgroundColor(makePressColor());
     }
