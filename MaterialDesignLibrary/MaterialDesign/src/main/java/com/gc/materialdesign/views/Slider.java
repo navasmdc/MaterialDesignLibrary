@@ -91,6 +91,7 @@ public class Slider extends CustomView {
             ball.changeBackground();
         }
 
+        onValueChangedListener.onValueChanged(value, false);
     }
 
     @Override
@@ -135,7 +136,7 @@ public class Slider extends CustomView {
                     if (value != newValue) {
                         value = newValue;
                         if (onValueChangedListener != null)
-                            onValueChangedListener.onValueChanged(newValue);
+                            onValueChangedListener.onValueChanged(newValue, true);
                     }
                     // move ball indicator
                     float x = event.getX();
@@ -304,7 +305,12 @@ public class Slider extends CustomView {
 
     // Event when slider change value
     public interface OnValueChangedListener {
-        public void onValueChanged(int value);
+        /**
+         *
+         * @param value
+         * @param userInteraction indicates if the user change the value or it was change programmatically
+         */
+        public void onValueChanged(int value, boolean userInteraction);
     }
 
     class Ball extends View {
