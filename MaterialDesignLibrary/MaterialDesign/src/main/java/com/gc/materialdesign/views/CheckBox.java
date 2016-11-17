@@ -1,9 +1,11 @@
 package com.gc.materialdesign.views;
 
 import com.gc.materialdesign.R;
+import com.gc.materialdesign.utils.AttributesUtils;
 import com.gc.materialdesign.utils.Utils;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -31,11 +33,12 @@ public class CheckBox extends CustomView {
 
 	public CheckBox(Context context, AttributeSet attrs) {
 		super(context, attrs);
-		setAttributes(attrs);
+		TypedArray typedArray = context.obtainStyledAttributes(attrs.getStyleAttribute(), AttributesUtils.attrs);
+		setAttributes(attrs, typedArray);
 	}
 
 	// Set atributtes of XML to View
-	protected void setAttributes(AttributeSet attrs) {
+	protected void setAttributes(AttributeSet attrs, TypedArray style){
 
 		setBackgroundResource(R.drawable.background_checkbox);
 
@@ -45,20 +48,11 @@ public class CheckBox extends CustomView {
 
 		// Set background Color
 		// Color by resource
-		int bacgroundColor = attrs.getAttributeResourceValue(ANDROIDXML,
-				"background", -1);
-		if (bacgroundColor != -1) {
-			setBackgroundColor(getResources().getColor(bacgroundColor));
-		} else {
-			// Color by hexadecimal
-			// Color by hexadecimal
-			int background = attrs.getAttributeIntValue(ANDROIDXML, "background", -1);
-			if (background != -1)
-				setBackgroundColor(background);
-		}
+		int bacgroundColor = AttributesUtils.getBackgroundColor(getResources(),attrs,style);
+		if (bacgroundColor != -1)
+				setBackgroundColor(bacgroundColor);
 
-		check = attrs.getAttributeBooleanValue(MATERIALDESIGNXML,
-				ML_CHECKED, false);
+		check = AttributesUtils.getChecked(getResources(),attrs,style,false);
 			post(new Runnable() {
 
 				@Override
@@ -71,7 +65,7 @@ public class CheckBox extends CustomView {
 			});
 
 		checkView = new Check(getContext());
-        checkView.setId(View.generateViewId());
+//        checkView.setId(View.generateViewId());
 		RelativeLayout.LayoutParams params = new LayoutParams(Utils.dpToPx(20,
 				getResources()), Utils.dpToPx(20, getResources()));
 		params.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);
@@ -89,7 +83,7 @@ public class CheckBox extends CustomView {
         }
 
         if(text != null) {
-            params.removeRule(RelativeLayout.CENTER_IN_PARENT);
+//            params.removeRule(RelativeLayout.CENTER_IN_PARENT);
             params.addRule(RelativeLayout.CENTER_VERTICAL, RelativeLayout.TRUE);
                     TextView textView = new TextView(getContext());
             RelativeLayout.LayoutParams textViewLayoutParams = new LayoutParams(LayoutParams.WRAP_CONTENT,

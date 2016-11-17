@@ -1,6 +1,7 @@
 package com.gc.materialdesign.views;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -15,6 +16,7 @@ import android.view.View;
 import android.widget.RelativeLayout;
 
 import com.gc.materialdesign.R;
+import com.gc.materialdesign.utils.AttributesUtils;
 import com.gc.materialdesign.utils.Utils;
 import com.nineoldandroids.animation.ObjectAnimator;
 import com.nineoldandroids.view.ViewHelper;
@@ -35,7 +37,8 @@ public class Switch extends CustomView {
 
     public Switch(Context context, AttributeSet attrs) {
         super(context, attrs);
-        setAttributes(attrs);
+        TypedArray typedArray = context.obtainStyledAttributes(attrs.getStyleAttribute(), AttributesUtils.attrs);
+        setAttributes(attrs, typedArray);
         setOnClickListener(new OnClickListener() {
 
             @Override
@@ -49,7 +52,7 @@ public class Switch extends CustomView {
     }
 
     // Set atributtes of XML to View
-    protected void setAttributes(AttributeSet attrs) {
+    protected void setAttributes(AttributeSet attrs, TypedArray style){
 
         setBackgroundResource(R.drawable.background_transparent);
 
@@ -59,19 +62,11 @@ public class Switch extends CustomView {
 
         // Set background Color
         // Color by resource
-        int bacgroundColor = attrs.getAttributeResourceValue(ANDROIDXML,
-                "background", -1);
-        if (bacgroundColor != -1) {
-            setBackgroundColor(getResources().getColor(bacgroundColor));
-        } else {
-            // Color by hexadecimal
-            int background = attrs.getAttributeIntValue(ANDROIDXML, "background", -1);
-            if (background != -1)
-                setBackgroundColor(background);
-        }
+        int bacgroundColor = AttributesUtils.getBackgroundColor(getResources(),attrs,style);
+        if (bacgroundColor != -1)
+            setBackgroundColor(bacgroundColor);
 
-        check = attrs.getAttributeBooleanValue(MATERIALDESIGNXML, ML_CHECKED,
-                false);
+        check = AttributesUtils.getChecked(getResources(), attrs, style, false);
         eventCheck = check;
         ball = new Ball(getContext());
         RelativeLayout.LayoutParams params = new LayoutParams(Utils.dpToPx(20,

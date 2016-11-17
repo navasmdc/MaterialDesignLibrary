@@ -37,13 +37,17 @@ public abstract class Button extends CustomView {
 	public Button(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		setDefaultProperties();
-		clickAfterRipple = attrs.getAttributeBooleanValue(MATERIALDESIGNXML,
-				ML_ANIMATED, true);
 		TypedArray typedArray = context.obtainStyledAttributes(attrs.getStyleAttribute(), AttributesUtils.attrs);
+		clickAfterRipple = AttributesUtils.getClickAfterRipple(getResources(),attrs,typedArray,true);
 		setAttributes(attrs,typedArray);
+		int rippleColor = AttributesUtils.getRippleColor(getResources(),attrs,typedArray);
+		if(rippleColor != -1)
+			this.rippleColor = rippleColor;
+		rippleSpeed = AttributesUtils.getRippleSpeed(getResources(), attrs, typedArray);
+		if(rippleSpeed != -1) rippleSpeed = Utils.dpToPx(6, getResources());
 		typedArray.recycle();
 		beforeBackground = backgroundColor;
-		if (rippleColor == null)
+		if (this.rippleColor == null)
 			rippleColor = makePressColor();
 	}
 
@@ -186,6 +190,10 @@ public abstract class Button extends CustomView {
 
 	public void setRippleSpeed(float rippleSpeed) {
 		this.rippleSpeed = rippleSpeed;
+	}
+
+	public void setRippleColor(Integer rippleColor) {
+		this.rippleColor = rippleColor;
 	}
 
 	public float getRippleSpeed() {

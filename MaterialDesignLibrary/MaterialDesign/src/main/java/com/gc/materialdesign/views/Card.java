@@ -1,9 +1,11 @@
 package com.gc.materialdesign.views;
 
 import com.gc.materialdesign.R;
+import com.gc.materialdesign.utils.AttributesUtils;
 import com.gc.materialdesign.utils.Utils;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
 import android.graphics.Canvas;
@@ -33,27 +35,22 @@ public class Card extends CustomView {
 	
 	public Card(Context context, AttributeSet attrs) {
 		super(context, attrs);
-		setAttributes(attrs);
+		TypedArray typedArray = context.obtainStyledAttributes(attrs.getStyleAttribute(), AttributesUtils.attrs);
+		setAttributes(attrs, typedArray);
 	}
 	
 	
 	// Set atributtes of XML to View
-	protected void setAttributes(AttributeSet attrs){
+	protected void setAttributes(AttributeSet attrs, TypedArray style){
+
+
 		
 		setBackgroundResource(R.drawable.background_button_rectangle);
 		//Set background Color
 		// Color by resource
-		int bacgroundColor = attrs.getAttributeResourceValue(ANDROIDXML,"background",-1);
-		if(bacgroundColor != -1){
+		int bacgroundColor = AttributesUtils.getBackgroundColor(getResources(),attrs,style);
+		if(bacgroundColor != -1)
 			setBackgroundColor(getResources().getColor(bacgroundColor));
-		}else{
-			// Color by hexadecimal
-			String background = attrs.getAttributeValue(ANDROIDXML,"background");
-			if(background != null)
-				setBackgroundColor(Color.parseColor(background));
-			else
-				setBackgroundColor(this.backgroundColor);
-		}
 	}
 	
 	// Set color of background

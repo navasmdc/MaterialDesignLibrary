@@ -201,44 +201,44 @@ public class AttributesUtils {
         return rippleSpeed;
     }
 
-    public static boolean getClickAfterRipple(Resources resources, AttributeSet attrs, TypedArray style){
-        return getBoolean(resources, attrs, style, ML_CLICK_AFTER_RIPPLE, CLICK_AFTER_RIPPLE);
+    public static boolean getClickAfterRipple(Resources resources, AttributeSet attrs, TypedArray style, boolean defaaultValue){
+        return getBoolean(resources, attrs, style, ML_CLICK_AFTER_RIPPLE, CLICK_AFTER_RIPPLE, defaaultValue);
     }
 
     public static int getRippleColor(Resources resources, AttributeSet attrs, TypedArray typedArray){
         return getColor(resources, attrs, typedArray,MATERIALDESIGNXML, ML_RIPPLE_COLOR, RIPPLE_COLOR);
     }
 
-    public static boolean getAnimated(Resources resources, AttributeSet attrs, TypedArray style){
-        return getBoolean(resources, attrs, style, ML_ANIMATED, ANIMATED);
+    public static boolean getAnimated(Resources resources, AttributeSet attrs, TypedArray style, boolean defaaultValue){
+        return getBoolean(resources, attrs, style, ML_ANIMATED, ANIMATED, defaaultValue);
     }
 
-    public static boolean getShowNumberIndicator(Resources resources, AttributeSet attrs, TypedArray style){
-        return getBoolean(resources, attrs, style, ML_SHOW_NUMBER_INDICATOR, SHOW_NUMBER_INDICATOR);
+    public static boolean getShowNumberIndicator(Resources resources, AttributeSet attrs, TypedArray style, boolean defaaultValue){
+        return getBoolean(resources, attrs, style, ML_SHOW_NUMBER_INDICATOR, SHOW_NUMBER_INDICATOR, defaaultValue);
     }
 
     public static float getRipleBorderRadius(Resources resources, AttributeSet attrs, TypedArray style){
         return getFloat(resources, attrs, style, ML_RIPPLE_BORDER_RADIUS, RIPPLE_BORDER_RADIUS);
     }
 
-    public static int getMax(Resources resources, AttributeSet attrs, TypedArray style){
-        return getInt(resources,attrs, style, ML_MAX, MAX);
+    public static int getMax(Resources resources, AttributeSet attrs, TypedArray style, int defaultValue){
+        return getInt(resources,attrs, style, ML_MAX, MAX,defaultValue);
     }
 
-    public static int getMin(Resources resources, AttributeSet attrs, TypedArray style){
-        return getInt(resources,attrs, style, ML_MIN, MIN);
+    public static int getMin(Resources resources, AttributeSet attrs, TypedArray style, int defaultValue){
+        return getInt(resources,attrs, style, ML_MIN, MIN,defaultValue);
     }
 
-    public static int getValue(Resources resources, AttributeSet attrs, TypedArray style){
-        return getInt(resources,attrs, style, ML_VALUE, VALUE);
+    public static int getValue(Resources resources, AttributeSet attrs, TypedArray style, int defaultValue){
+        return getInt(resources,attrs, style, ML_VALUE, VALUE,defaultValue);
     }
 
-    public static int getProgress(Resources resources, AttributeSet attrs, TypedArray style){
-        return getInt(resources,attrs, style, ML_PROGRESS, PROGRESS);
+    public static int getProgress(Resources resources, AttributeSet attrs, TypedArray style, int defaultValue){
+        return getInt(resources,attrs, style, ML_PROGRESS, PROGRESS,defaultValue);
     }
 
-    public static boolean getChecked(Resources resources, AttributeSet attrs, TypedArray style){
-        return getBoolean(resources, attrs, style, ML_CHECKED, CHECKED);
+    public static boolean getChecked(Resources resources, AttributeSet attrs, TypedArray style, boolean defaultValue){
+        return getBoolean(resources, attrs, style, ML_CHECKED, CHECKED,defaultValue);
     }
 
     public static int getIconDrawable(Resources resources, AttributeSet attrs, TypedArray style){
@@ -252,19 +252,19 @@ public class AttributesUtils {
         return iconDrawable;
     }
 
-    public static boolean getBoolean(Resources resources, AttributeSet attrs, TypedArray style, String name, int position){
+    public static boolean getBoolean(Resources resources, AttributeSet attrs, TypedArray style, String name, int position, boolean defaultValue){
         boolean bool = attrs.getAttributeBooleanValue(MATERIALDESIGNXML,
-                name, false);
+                name, defaultValue);
         return style.getBoolean(position,bool);
     }
 
-    public static int getInt(Resources resources, AttributeSet attrs, TypedArray style, String name, int position){
+    public static int getInt(Resources resources, AttributeSet attrs, TypedArray style, String name, int position, int defaultValue){
         int integer = attrs.getAttributeIntValue(MATERIALDESIGNXML,
-                name, -1);
-        if(integer != -1){
+                name, defaultValue);
+        if(integer != defaultValue){
             return integer;
         }else if(style != null){
-            integer = style.getInt(position, -1);
+            integer = style.getInt(position, defaultValue);
         }
         return integer;
     }

@@ -11,6 +11,7 @@ import android.graphics.Color;
 import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.util.AttributeSet;
+import android.view.Gravity;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -62,15 +63,13 @@ public class ButtonRectangle extends Button {
         params.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);
         params.setMargins(Utils.dpToPx(5, getResources()), Utils.dpToPx(5, getResources()), Utils.dpToPx(5, getResources()), Utils.dpToPx(5, getResources()));
         textButton.setLayoutParams(params);
+        textButton.setGravity(Gravity.CENTER);
         addView(textButton);
         int[] array = {android.R.attr.textSize};
         TypedArray values = getContext().obtainStyledAttributes(attrs, array);
         float textSize = AttributesUtils.getTextSize(getResources(), values, typedArray);
         if (textSize != -1)
             textButton.setTextSize(textSize);
-
-        rippleSpeed = attrs.getAttributeFloatValue(MATERIALDESIGNXML,
-                "rippleSpeed", Utils.dpToPx(6, getResources()));
 
     }
 

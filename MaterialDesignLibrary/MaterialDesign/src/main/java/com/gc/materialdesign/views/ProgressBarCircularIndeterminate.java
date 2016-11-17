@@ -1,8 +1,10 @@
 package com.gc.materialdesign.views;
 
+import com.gc.materialdesign.utils.AttributesUtils;
 import com.gc.materialdesign.utils.Utils;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -22,31 +24,23 @@ public class ProgressBarCircularIndeterminate extends CustomView {
 
 	public ProgressBarCircularIndeterminate(Context context, AttributeSet attrs) {
 		super(context, attrs);
-		setAttributes(attrs);
-		
+		TypedArray typedArray = context.obtainStyledAttributes(attrs.getStyleAttribute(), AttributesUtils.attrs);
+		setAttributes(attrs, typedArray);
 	}
 	
 	// Set atributtes of XML to View
-		protected void setAttributes(AttributeSet attrs){
+	protected void setAttributes(AttributeSet attrs, TypedArray style){
 			
-			setMinimumHeight(Utils.dpToPx(32, getResources()));
-			setMinimumWidth(Utils.dpToPx(32, getResources()));
-			
-			//Set background Color
-			// Color by resource
-			int bacgroundColor = attrs.getAttributeResourceValue(ANDROIDXML,"background",-1);
-			if(bacgroundColor != -1){
-				setBackgroundColor(getResources().getColor(bacgroundColor));
-			}else{
-				// Color by hexadecimal
-				int background = attrs.getAttributeIntValue(ANDROIDXML, "background", -1);
-				if (background != -1)
-					setBackgroundColor(background);
-				else
-					setBackgroundColor(Color.parseColor("#1E88E5"));
-			}
-			
-			setMinimumHeight(Utils.dpToPx(3, getResources()));
+		setMinimumHeight(Utils.dpToPx(32, getResources()));
+		setMinimumWidth(Utils.dpToPx(32, getResources()));
+
+		//Set background Color
+		// Color by resource
+		int bacgroundColor = AttributesUtils.getBackgroundColor(getResources(),attrs,style);
+		if (bacgroundColor != -1)
+			setBackgroundColor(bacgroundColor);
+
+		setMinimumHeight(Utils.dpToPx(3, getResources()));
 			
 						
 		}

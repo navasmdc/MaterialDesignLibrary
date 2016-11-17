@@ -2,6 +2,7 @@ package com.gc.materialdesign.views;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -20,6 +21,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.gc.materialdesign.R;
+import com.gc.materialdesign.utils.AttributesUtils;
 import com.gc.materialdesign.utils.Utils;
 import com.nineoldandroids.view.ViewHelper;
 
@@ -39,7 +41,8 @@ public class Slider extends CustomView {
 
     public Slider(Context context, AttributeSet attrs) {
         super(context, attrs);
-        setAttributes(attrs);
+        TypedArray typedArray = context.obtainStyledAttributes(attrs.getStyleAttribute(), AttributesUtils.attrs);
+        setAttributes(attrs, typedArray);
     }
 
     public int getMax() {
@@ -252,7 +255,7 @@ public class Slider extends CustomView {
     }
 
     // Set atributtes of XML to View
-    protected void setAttributes(AttributeSet attrs) {
+    protected void setAttributes(AttributeSet attrs, TypedArray style){
 
         setBackgroundResource(R.drawable.background_transparent);
 
@@ -262,22 +265,14 @@ public class Slider extends CustomView {
 
         // Set background Color
         // Color by resource
-        int bacgroundColor = attrs.getAttributeResourceValue(ANDROIDXML,
-                "background", -1);
-        if (bacgroundColor != -1) {
-            setBackgroundColor(getResources().getColor(bacgroundColor));
-        } else {
-            // Color by hexadecimal
-            int background = attrs.getAttributeIntValue(ANDROIDXML, "background", -1);
-            if (background != -1)
-                setBackgroundColor(background);
-        }
+        int bacgroundColor = AttributesUtils.getBackgroundColor(getResources(),attrs,style);
+        if (bacgroundColor != -1)
+            setBackgroundColor(bacgroundColor);
 
-        showNumberIndicator = attrs.getAttributeBooleanValue(MATERIALDESIGNXML,
-                "showNumberIndicator", false);
-        min = attrs.getAttributeIntValue(MATERIALDESIGNXML, ML_MIN, 0);
-        max = attrs.getAttributeIntValue(MATERIALDESIGNXML, ML_MAX, 0);
-        value = attrs.getAttributeIntValue(MATERIALDESIGNXML, ML_VALUE, min);
+        showNumberIndicator = AttributesUtils.getShowNumberIndicator(getResources(),attrs,style,false);
+        min = AttributesUtils.getMin(getResources(),attrs,style,0);
+        max = AttributesUtils.getMax(getResources(),attrs,style,100);
+        value = AttributesUtils.getValue(getResources(),attrs,style,min);
 
         ball = new Ball(getContext());
         RelativeLayout.LayoutParams params = new LayoutParams(Utils.dpToPx(20,

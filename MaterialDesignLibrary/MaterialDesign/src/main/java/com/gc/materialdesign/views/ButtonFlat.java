@@ -1,6 +1,7 @@
 package com.gc.materialdesign.views;
 
 import com.gc.materialdesign.R;
+import com.gc.materialdesign.utils.AttributesUtils;
 import com.gc.materialdesign.utils.Utils;
 
 import android.content.Context;
@@ -10,6 +11,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.util.AttributeSet;
+import android.view.Gravity;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -39,56 +41,34 @@ public class ButtonFlat extends Button {
 	@Override
 	protected void setAttributes(AttributeSet attrs, TypedArray typedArray) {
 
-		// Set Padding
-		String value = attrs.getAttributeValue(ANDROIDXML, "padding");
-		if (value != null) {
-			float padding = Float.parseFloat(value.replace("dip", ""));
-			paddingBottom = Utils.dpToPx(padding, getResources());
-			paddingLeft = Utils.dpToPx(padding, getResources());
-			paddingRight = Utils.dpToPx(padding, getResources());
-			paddingTop = Utils.dpToPx(padding, getResources());
-		} else {
-			value = attrs.getAttributeValue(ANDROIDXML, "paddingLeft");
-			paddingLeft = (value == null) ? paddingLeft : (int) Float.parseFloat(value.replace("dip", ""));
-			value = attrs.getAttributeValue(ANDROIDXML, "paddingTop");
-			paddingTop = (value == null) ? paddingTop : (int) Float.parseFloat(value.replace("dip", ""));
-			value = attrs.getAttributeValue(ANDROIDXML, "paddingRight");
-			paddingRight = (value == null) ? paddingRight : (int) Float.parseFloat(value.replace("dip", ""));
-			value = attrs.getAttributeValue(ANDROIDXML, "paddingBottom");
-			paddingBottom = (value == null) ? paddingBottom : (int) Float.parseFloat(value.replace("dip", ""));
-		}
-		setPadding(paddingLeft, paddingTop, paddingRight, paddingBottom);
+        //Set background Color
+        // Color by resource
+        int bacgroundColor = AttributesUtils.getBackgroundColor(getResources(), attrs, typedArray);
+        if(bacgroundColor != -1) setBackgroundColor(bacgroundColor);
 
+        // Set Padding
+        int[] paddings = {paddingLeft,paddingTop,paddingRight,paddingBottom};
+        paddings = AttributesUtils.getPadding(getResources(),attrs,typedArray,paddings);
+        setPadding(paddings[0], paddings[1], paddings[2], paddings[3]);
         // Set text button
-        String text = null;
-        int textResource = attrs.getAttributeResourceValue(ANDROIDXML, "text", -1);
-        if (textResource != -1) {
-            text = getResources().getString(textResource);
-        } else {
-            text = attrs.getAttributeValue(ANDROIDXML, "text");
-        }
         textButton = new TextView(getContext());
-        if (text != null) {
-            textButton.setText(text.toUpperCase());
-            textButton.setTextColor(backgroundColor);
-            textButton.setTypeface(null, Typeface.BOLD);
-            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-            params.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);
-            textButton.setLayoutParams(params);
-            boolean allCaps = attrs.getAttributeBooleanValue(ANDROIDXML, "textAllCaps", false);
-            textButton.setAllCaps(allCaps);
-            addView(textButton);
-        }
-        int bacgroundColor = attrs.getAttributeResourceValue(ANDROIDXML, "background", -1);
-        if (bacgroundColor != -1) {
-            setBackgroundColor(getResources().getColor(bacgroundColor));
-        } else {
-            // Color by hexadecimal
-            // Color by hexadecimal
-            background = attrs.getAttributeIntValue(ANDROIDXML, "background", -1);
-            if (background != -1)
-                setBackgroundColor(background);
-        }
+        String text = AttributesUtils.getText(getResources(), attrs, typedArray);
+        if(text != null) textButton.setText(text);
+        int textColor = AttributesUtils.getTextColor(getResources(), attrs, typedArray);
+        textButton.setTextColor((textColor == -1) ? Color.WHITE : textColor);
+        textButton.setTypeface(null, Typeface.BOLD);
+        LayoutParams params = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+        params.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);
+        params.setMargins(Utils.dpToPx(5, getResources()), Utils.dpToPx(5, getResources()), Utils.dpToPx(5, getResources()), Utils.dpToPx(5, getResources()));
+        textButton.setLayoutParams(params);
+        textButton.setGravity(Gravity.CENTER);
+        addView(textButton);
+        int[] array = {android.R.attr.textSize};
+        TypedArray values = getContext().obtainStyledAttributes(attrs, array);
+        float textSize = AttributesUtils.getTextSize(getResources(), values, typedArray);
+        if (textSize != -1)
+            textButton.setTextSize(textSize);
+
     }
 
 

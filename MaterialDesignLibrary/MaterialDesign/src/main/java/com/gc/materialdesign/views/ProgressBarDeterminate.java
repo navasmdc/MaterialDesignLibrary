@@ -1,9 +1,11 @@
 package com.gc.materialdesign.views;
 
 import com.gc.materialdesign.R;
+import com.gc.materialdesign.utils.AttributesUtils;
 import com.gc.materialdesign.utils.Utils;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
@@ -26,11 +28,12 @@ public class ProgressBarDeterminate extends CustomView {
 
     public ProgressBarDeterminate(Context context, AttributeSet attrs) {
         super(context, attrs);
-        setAttributes(attrs);
+        TypedArray typedArray = context.obtainStyledAttributes(attrs.getStyleAttribute(), AttributesUtils.attrs);
+        setAttributes(attrs, typedArray);
     }
 
     // Set atributtes of XML to View
-    protected void setAttributes(AttributeSet attrs) {
+    protected void setAttributes(AttributeSet attrs, TypedArray style){
 
         progressView = new View(getContext());
         LayoutParams params = new LayoutParams(1, 1);
@@ -40,21 +43,13 @@ public class ProgressBarDeterminate extends CustomView {
 
         //Set background Color
         // Color by resource
-        int bacgroundColor = attrs.getAttributeResourceValue(ANDROIDXML, "background", -1);
-        if (bacgroundColor != -1) {
-            setBackgroundColor(getResources().getColor(bacgroundColor));
-        } else {
-            // Color by hexadecimal
-            int background = attrs.getAttributeIntValue(ANDROIDXML, "background", -1);
-            if (background != -1)
-                setBackgroundColor(background);
-            else
-                setBackgroundColor(Color.parseColor("#1E88E5"));
-        }
+        int bacgroundColor = AttributesUtils.getBackgroundColor(getResources(),attrs,style);
+        if (bacgroundColor != -1)
+            setBackgroundColor(bacgroundColor);
 
-        min = attrs.getAttributeIntValue(MATERIALDESIGNXML, ML_MIN, 0);
-        max = attrs.getAttributeIntValue(MATERIALDESIGNXML, ML_MAX, 100);
-        progress = attrs.getAttributeIntValue(MATERIALDESIGNXML, ML_PROGRESS, min);
+        min = AttributesUtils.getMin(getResources(),attrs,style,0);
+        max = AttributesUtils.getMax(getResources(),attrs,style,100);
+        progress = AttributesUtils.getProgress(getResources(),attrs,style,min);
 
         setMinimumHeight(Utils.dpToPx(3, getResources()));
 
