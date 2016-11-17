@@ -90,8 +90,8 @@ public class Slider extends CustomView {
                     _value * division + getHeight() / 2 - ball.getWidth() / 2);
             ball.changeBackground();
         }
-
-        onValueChangedListener.onValueChanged(value, false);
+        if (onValueChangedListener != null)
+            onValueChangedListener.onValueChanged(value, false);
     }
 
     @Override
@@ -306,7 +306,6 @@ public class Slider extends CustomView {
     // Event when slider change value
     public interface OnValueChangedListener {
         /**
-         *
          * @param value
          * @param userInteraction indicates if the user change the value or it was change programmatically
          */
