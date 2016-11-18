@@ -3,8 +3,8 @@
 
     <declare-styleable name="CustomAttributes">
 
-        <!-- Color of ripple animation -->
-        <attr name="rippleColor" format="color|reference" />
+        <!-- Color of ripple animation (edit changed to not conflict with android support design library) -->
+        <attr name="rippleAnimationColor" format="color|reference" />
         <!-- Speed of ripple animation -->
         <attr name="rippleSpeed" format="float" />
         <!-- indicate if the slider must show number indicator -->
