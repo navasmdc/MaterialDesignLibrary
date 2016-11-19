@@ -24,13 +24,13 @@ public class ProgressActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_progress);
         
-        int color = getIntent().getIntExtra("BACKGROUND", Color.BLACK);
-        findViewById(R.id.progressBarCircularIndetermininate).setBackgroundColor(color);
-        findViewById(R.id.progressBarIndeterminate).setBackgroundColor(color);
-        findViewById(R.id.progressBarIndeterminateDeterminate).setBackgroundColor(color);
-        findViewById(R.id.progressDeterminate).setBackgroundColor(color);
-        findViewById(R.id.slider).setBackgroundColor(color);
-        findViewById(R.id.sliderNumber).setBackgroundColor(color);
+//        int color = getIntent().getIntExtra("BACKGROUND", Color.BLACK);
+//        findViewById(R.id.progressBarCircularIndetermininate).setBackgroundColor(color);
+//        findViewById(R.id.progressBarIndeterminate).setBackgroundColor(color);
+//        findViewById(R.id.progressBarIndeterminateDeterminate).setBackgroundColor(color);
+//        findViewById(R.id.progressDeterminate).setBackgroundColor(color);
+//        findViewById(R.id.slider).setBackgroundColor(color);
+//        findViewById(R.id.sliderNumber).setBackgroundColor(color);
         
         
         progreesBarDeterminate = (ProgressBarDeterminate) findViewById(R.id.progressDeterminate);

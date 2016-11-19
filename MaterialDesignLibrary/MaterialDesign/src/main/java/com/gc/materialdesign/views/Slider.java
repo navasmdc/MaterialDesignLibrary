@@ -25,7 +25,12 @@ import com.nineoldandroids.view.ViewHelper;
 
 public class Slider extends CustomView {
 
-    private int backgroundColor = Color.parseColor("#4CAF50");
+    private int trackColorProgress = Color.parseColor("#4CAF50");
+    private int trackColorNoProg = Color.parseColor("#B0B0B0");
+    private int ballColor = Color.parseColor("#4CAF50");
+    private int trackThickness = 2;
+    private boolean enablePaddingLr = true;
+
     private Ball   ball;
     private Bitmap bitmap;
     private int max = 100;
@@ -85,8 +90,12 @@ public class Slider extends CustomView {
         else {
             this.value = value;
             float division = (ball.xFin - ball.xIni) / max;
-            ViewHelper.setX(ball,
-                    value * division + getHeight() / 2 - ball.getWidth() / 2);
+            if(enablePaddingLr) {
+                ViewHelper.setX(ball,
+                        value * division + getHeight() / 2 - ball.getWidth() / 2);
+            } else {
+                ViewHelper.setX(ball, value * division);
+            }
             ball.changeBackground();
         }
 
@@ -172,9 +181,18 @@ public class Slider extends CustomView {
 
     @Override
     public void setBackgroundColor(int color) {
-        backgroundColor = color;
+        //progress color
+        trackColorProgress = color;
         if (isEnabled())
-            beforeBackground = backgroundColor;
+            beforeBackground = trackColorProgress;
+    }
+
+    public void setBackgroundColorNoProg(int color) {
+        trackColorNoProg = color;
+    }
+
+    public void setBallColor(int color) {
+        ballColor = color;
     }
 
     /**
@@ -183,9 +201,9 @@ public class Slider extends CustomView {
      * @return
      */
     protected int makePressColor() {
-        int r = (this.backgroundColor >> 16) & 0xFF;
-        int g = (this.backgroundColor >> 8) & 0xFF;
-        int b = (this.backgroundColor >> 0) & 0xFF;
+        int r = (this.trackColorProgress >> 16) & 0xFF;
+        int g = (this.trackColorProgress >> 8) & 0xFF;
+        int b = (this.trackColorProgress >> 0) & 0xFF;
         r = (r - 30 < 0) ? 0 : r - 30;
         g = (g - 30 < 0) ? 0 : g - 30;
         b = (b - 30 < 0) ? 0 : b - 30;
@@ -210,10 +228,15 @@ public class Slider extends CustomView {
                         canvas.getHeight(), Bitmap.Config.ARGB_8888);
             }
             Canvas temp = new Canvas(bitmap);
-            paint.setColor(Color.parseColor("#B0B0B0"));
-            paint.setStrokeWidth(Utils.dpToPx(2, getResources()));
-            temp.drawLine(getHeight() / 2, getHeight() / 2, getWidth()
-                    - getHeight() / 2, getHeight() / 2, paint);
+            paint.setColor(trackColorProgress);
+            paint.setStrokeWidth(Utils.dpToPx(trackThickness, getResources()));
+
+            if(enablePaddingLr) {
+                temp.drawLine(getHeight() / 2, getHeight() / 2, getWidth()
+                        - getHeight() / 2, getHeight() / 2, paint);
+            } else {
+                temp.drawLine(0, getHeight() / 2, getWidth(), getHeight() / 2, paint);
+            }
             Paint transparentPaint = new Paint();
             transparentPaint.setColor(getResources().getColor(
                     android.R.color.transparent));
@@ -226,21 +249,29 @@ public class Slider extends CustomView {
             canvas.drawBitmap(bitmap, 0, 0, new Paint());
         } else {
 
-            paint.setColor(Color.parseColor("#B0B0B0"));
-            paint.setStrokeWidth(Utils.dpToPx(2, getResources()));
-            canvas.drawLine(getHeight() / 2, getHeight() / 2, getWidth()
-                    - getHeight() / 2, getHeight() / 2, paint);
-            paint.setColor(backgroundColor);
+            paint.setColor(trackColorNoProg);
+            paint.setStrokeWidth(Utils.dpToPx(trackThickness, getResources()));
+            if(enablePaddingLr) {
+                canvas.drawLine(getHeight() / 2, getHeight() / 2, getWidth()
+                        - getHeight() / 2, getHeight() / 2, paint);
+            } else {
+                canvas.drawLine(0, getHeight()/2, getWidth(), getHeight()/2, paint);
+            }
+            paint.setColor(trackColorProgress);
             float division = (ball.xFin - ball.xIni) / (max - min);
             int value = this.value - min;
 
-            canvas.drawLine(getHeight() / 2, getHeight() / 2, value * division
-                    + getHeight() / 2, getHeight() / 2, paint);
-
+            if(enablePaddingLr) {
+                canvas.drawLine(getHeight() / 2, getHeight() / 2, value * division
+                        + getHeight() / 2, getHeight() / 2, paint);
+            } else {
+                canvas.drawLine(0, getHeight() / 2, value * division
+                        + ball.getWidth(), getHeight() / 2, paint);
+            }
         }
 
         if (press && !showNumberIndicator) {
-            paint.setColor(backgroundColor);
+            paint.setColor(ballColor);
             paint.setAntiAlias(true);
             canvas.drawCircle(ViewHelper.getX(ball) + ball.getWidth() / 2,
                     getHeight() / 2, getHeight() / 3, paint);
@@ -265,10 +296,25 @@ public class Slider extends CustomView {
             setBackgroundColor(getResources().getColor(bacgroundColor));
         } else {
             // Color by hexadecimal
-            int background = attrs.getAttributeIntValue(ANDROIDXML, "background", -1);
+            int background = attrs.getAttributeIntValue(MATERIALDESIGNXML, "sliderTrackColor", -1);
             if (background != -1)
                 setBackgroundColor(background);
         }
+        int t_tracknoprog = attrs.getAttributeIntValue(MATERIALDESIGNXML, "sliderTrackColorNoProgress", -1);
+        if(t_tracknoprog != -1) {
+            setBackgroundColorNoProg(t_tracknoprog);
+        }
+
+        int t_ballcolor = attrs.getAttributeIntValue(MATERIALDESIGNXML, "sliderBallColor", -1);
+        if(t_ballcolor != -1) {
+            setBallColor(t_ballcolor);
+        }
+        
+        int t_thickness = attrs.getAttributeIntValue(MATERIALDESIGNXML, "sliderTrackThicknessDp", 2);
+        setTrackThickness(t_thickness);
+
+        boolean t_padding = attrs.getAttributeBooleanValue(MATERIALDESIGNXML, "sliderEnablePaddingLR", true);
+        setEnablePaddingLr(t_padding);
 
         showNumberIndicator = attrs.getAttributeBooleanValue(MATERIALDESIGNXML,
                 "showNumberIndicator", false);
@@ -292,11 +338,27 @@ public class Slider extends CustomView {
     }
 
     private void placeBall() {
-        ViewHelper.setX(ball, getHeight() / 2 - ball.getWidth() / 2);
-        ball.xIni = ViewHelper.getX(ball);
-        ball.xFin = getWidth() - getHeight() / 2 - ball.getWidth() / 2;
-        ball.xCen = getWidth() / 2 - ball.getWidth() / 2;
-        placedBall = true;
+        if(enablePaddingLr) {
+            ViewHelper.setX(ball, getHeight() / 2 - ball.getWidth() / 2);
+            ball.xIni = ViewHelper.getX(ball);
+            ball.xFin = getWidth() - getHeight() / 2 - ball.getWidth() / 2;
+            ball.xCen = getWidth() / 2 - ball.getWidth() / 2;
+            placedBall = true;
+        } else {
+            ViewHelper.setX(ball, ball.getWidth());
+            ball.xIni = 0;//ViewHelper.getX(ball);
+            ball.xFin = getWidth() - ball.getWidth();// - getHeight() / 2 - ball.getWidth() / 2;
+            ball.xCen = getWidth() / 2 - ball.getWidth() / 2;
+            placedBall = true;
+        }
+    }
+
+    public void setTrackThickness(int trackThickness) {
+        this.trackThickness = trackThickness;
+    }
+
+    public void setEnablePaddingLr(boolean enablePaddingLr) {
+        this.enablePaddingLr = enablePaddingLr;
     }
 
     // Event when slider change value
@@ -319,7 +381,7 @@ public class Slider extends CustomView {
                 LayerDrawable layer = (LayerDrawable) getBackground();
                 GradientDrawable shape = (GradientDrawable) layer
                         .findDrawableByLayerId(R.id.shape_bacground);
-                shape.setColor(backgroundColor);
+                shape.setColor(ballColor);
             } else {
                 setBackgroundResource(R.drawable.background_switch_ball_uncheck);
             }
@@ -363,7 +425,7 @@ public class Slider extends CustomView {
 
             Paint paint = new Paint();
             paint.setAntiAlias(true);
-            paint.setColor(backgroundColor);
+            paint.setColor(ballColor);
             if (animate) {
                 if (y == 0)
                     y = finalY + finalSize * 2;
