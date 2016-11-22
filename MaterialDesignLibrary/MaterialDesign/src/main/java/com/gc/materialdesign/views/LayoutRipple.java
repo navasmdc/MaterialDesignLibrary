@@ -48,12 +48,12 @@ public class LayoutRipple extends CustomView {
 		// Set Ripple Color
 		// Color by resource
 		int rippleColor = attrs.getAttributeResourceValue(MATERIALDESIGNXML,
-				"rippleColor", -1);
+				"mdlRippleColor", -1);
 		if (rippleColor != -1) {
 			setRippleColor(getResources().getColor(rippleColor));
 		} else {
 			// Color by hexadecimal
-			int background = attrs.getAttributeIntValue(MATERIALDESIGNXML, "rippleColor", -1);
+			int background = attrs.getAttributeIntValue(MATERIALDESIGNXML, "mdlRippleColor", -1);
 			if (background != -1)
 				setRippleColor(background);
 			else
