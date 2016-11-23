@@ -29,6 +29,7 @@ public class Dialog extends android.app.Dialog{
 	ButtonFlat buttonCancel;
 	
 	String buttonCancelText;
+	String buttonAcceptText;
 	
 	View.OnClickListener onAcceptButtonClickListener;
 	View.OnClickListener onCancelButtonClickListener;
@@ -46,12 +47,20 @@ public class Dialog extends android.app.Dialog{
 		this.buttonCancelText = buttonCancelText;
 	}
 	
+	public void addAcceptButton(String buttonAcceptText){
+		this.buttonAcceptText = buttonAcceptText;
+	}
+
 	public void addCancelButton(String buttonCancelText, View.OnClickListener onCancelButtonClickListener){
 		this.buttonCancelText = buttonCancelText;
 		this.onCancelButtonClickListener = onCancelButtonClickListener;
 	}
 	
-	
+	public void addCancelButton(String buttonCancelText, View.OnClickListener onCancelButtonClickListener){
+	        this.buttonCancelText = buttonCancelText;
+		this.onCancelButtonClickListener = onCancelButtonClickListen;
+	}
+
 	@Override
 	  protected void onCreate(Bundle savedInstanceState) {
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -81,15 +90,20 @@ public class Dialog extends android.app.Dialog{
 	    setMessage(message);
 	    
 	    this.buttonAccept = (ButtonFlat) findViewById(R.id.button_accept);
+	    if(buttonAcceptText!=null){
+		buttonAccept.setText(buttonAcceptText);
+	    }else{
+		buttonAccept.setText(context.getResources().getString(com.bugfrog.dialer.R.string.common_accept));
+	    }
 	    buttonAccept.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				dismiss();
-				if(onAcceptButtonClickListener != null)
-			    	onAcceptButtonClickListener.onClick(v);
-			}
-		});
-	    
+	    @Override
+		public void onClick(View v) {
+			 dismiss();
+			 if(onAcceptButtonClickListener != null)
+			 onAcceptButtonClickListener.onClick(v);
+		}
+	    });
+
 	    if(buttonCancelText != null){
 		    this.buttonCancel = (ButtonFlat) findViewById(R.id.button_cancel);
 		    this.buttonCancel.setVisibility(View.VISIBLE);
