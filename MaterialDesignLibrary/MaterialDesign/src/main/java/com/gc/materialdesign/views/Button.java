@@ -35,6 +35,7 @@ public abstract class Button extends CustomView {
 	public Button(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		setDefaultProperties();
+		textButton = new TextView(getContext());
 		clickAfterRipple = attrs.getAttributeBooleanValue(MATERIALDESIGNXML,
 				"animate", true);
 		setAttributes(attrs);
