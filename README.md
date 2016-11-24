@@ -9,7 +9,7 @@
 
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-Material%20Design%20Android%20Library-brightgreen.svg?style=flat)](https://android-arsenal.com/details/1/1156)
 
-* [How to use](#howtouse)
+* [How to use](#how-to-use)
 * [Components](#components)
     * [Buttons](#buttons)
         * [Flat Button](#flat-button)
