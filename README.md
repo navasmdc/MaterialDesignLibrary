@@ -58,7 +58,8 @@ Some components have custom attributes, if you want use them, you must add this 
 </RelativeLayout>
 ```
 
->If you are going to use a ScrollView, it is recommended that you use the CustomScrollView provided in this library to avoid problems with the custom components.
+>**Recommended:** 
+> Use the CustomScrollView provided in this library, rather than the default ScrollView to avoid problems with the custom components.
 >To use this component:
 >```xml
 ><com.gc.materialdesign.views.ScrollView 
@@ -102,7 +103,8 @@ Some components have custom attributes, if you want use them, you must add this 
 
 ![float button](images/float_button.png)
 
->It is recommended to put this component in the right-bottom of the screen. To use this component write this code in your xml file.
+>**Recommended:** 
+> Put this component in the right-bottom of the screen. To use this component write this code in your xml file.
 >If you don`t want to start this component with animation set the animate attribute to false.
 >Put your icon in the icon attribute to set the drawable icon for this component.
 
@@ -219,7 +221,7 @@ Some components have custom attributes, if you want use them, you must add this 
                 android:background="#1E88E5" />
 ```
 
->You can custom max and min progress values with `materialdesign:max="50"` and `materialdesign:min="25"` attributes.
+>You can customize max and min progress values with `materialdesign:max="50"` and `materialdesign:min="25"` attributes.
 
 ######Slider
 ![Slider](images/slider.png)
