@@ -20,7 +20,7 @@
         * [CheckBox](#checkbox)
         * [Switch](#switch)
     * [Progress indicators](#progress-indicators)
-        * [Progress bar circular indeterminate](#progress-bar-circula-rindeterminate)
+        * [Progress bar circular indeterminate](#progress-bar-circular-indeterminate)
         * [Progress bar indeterminate](#progress-bar-indeterminate)
         * [Progress bar indeterminate determinate](#progress-bar-indeterminate-determinate)
         * [Progress bar determinate](#progress-bar-determinate)
@@ -30,12 +30,13 @@
     * [SnackBar](#snackbar)
     * [Dialog](#dialog)
     * [Color selector](#color-selector)
+* [License](#license)
 
 ## How to use
 
-If you want use this library, you only have to download MaterialDesign project, import it into your workspace and add the project as a library in your android project settings.
+If you want use this library, you only have to download MaterialDesign project, import it into your workspace and add the project as a library in your Android project settings.
 
-If you prefer it, you can use the gradle dependency, you have to add these lines in your build.gradle file:
+If you prefer it, you can use the gradle dependency, you have to add these lines in your `build.gradle` file:
 
 ```xml
 repositories {
@@ -70,11 +71,11 @@ Some components have custom attributes, if you want use them, you must add this 
 ></com.gc.materialdesign.views.ScrollView>
 >```
 
-##Components
+## Components
 
-####Buttons
+#### Buttons
 
-######Flat Button
+###### Flat Button
 
 ![flat button](images/flat_button.png)
 ```xml
@@ -86,7 +87,7 @@ Some components have custom attributes, if you want use them, you must add this 
                 android:text="Button" />
 ```
 
-######Rectangle Button
+###### Rectangle Button
 
 ![rectangle button](images/rectangle_button.png)
 ```xml
@@ -98,7 +99,7 @@ Some components have custom attributes, if you want use them, you must add this 
                 android:text="Button" />
 ```
 
-######Float Button
+###### Float Button
 
 ![float button](images/float_button.png)
 
@@ -126,7 +127,7 @@ Some components have custom attributes, if you want use them, you must add this 
 </RelativeLayout>
 ```
 
-######Float small button
+###### Float small button
 
 ![float small button](images/float_small_button.png)
 
@@ -139,9 +140,10 @@ Some components have custom attributes, if you want use them, you must add this 
                 materialdesign:iconDrawable="@drawable/ic_action_new" />
 ```
 
-####Switches
+#### Switches
 
-######CheckBox
+###### CheckBox
+
 ![checkbox](images/checkbox.png)
 
 ```xml
@@ -153,7 +155,8 @@ Some components have custom attributes, if you want use them, you must add this 
                 materialdesign:check="true" />
 ```
 
-######Switch
+###### Switch
+
 ![switch](images/switch.png)
 
 ```xml
@@ -165,9 +168,10 @@ Some components have custom attributes, if you want use them, you must add this 
                 materialdesign:check="true" />
 ```
 
-####Progress indicators
+#### Progress indicators
 
-######Progress bar circular indeterminate
+###### Progress bar circular indeterminate
+
 ![progress bar circular indeterminate](images/progress_bar_circular_indeterminate.png)
 
 ```xml
@@ -178,7 +182,8 @@ Some components have custom attributes, if you want use them, you must add this 
                 android:background="#1E88E5" />
 ```
 
-######Progress bar indeterminate
+###### Progress bar indeterminate
+
 ![progress bar indeterminate](images/progress_bar_indeterminate.png)
 
 ```xml
@@ -189,7 +194,7 @@ Some components have custom attributes, if you want use them, you must add this 
                 android:background="#1E88E5" />
 ```
 
-######Progress bar indeterminate determinate
+###### Progress bar indeterminate determinate
 ![Progress bar indeterminate determinate](images/progress_bar_indeterminate_determinate.png)
 
 
@@ -201,13 +206,13 @@ Some components have custom attributes, if you want use them, you must add this 
                 android:background="#1E88E5" />
 ```
 
->If you begin progrees, you only have to set progress it
->
->```java
->progressBarIndeterminateDeterminate.setProgress(progress);
->```
+> If you begin progrees, you only have to set progress it.
 
-######Progress bar determinate
+```java
+  progressBarIndeterminateDeterminate.setProgress(progress);
+```
+
+###### Progress bar determinate
 ![Progress bar determinate](images/progress_bar_determinate.png)
 
 
@@ -221,7 +226,7 @@ Some components have custom attributes, if you want use them, you must add this 
 
 >You can custom max and min progress values with `materialdesign:max="50"` and `materialdesign:min="25"` attributes.
 
-######Slider
+###### Slider
 ![Slider](images/slider.png)
 
 
@@ -236,7 +241,7 @@ Some components have custom attributes, if you want use them, you must add this 
                  />
 ```
 
-######Slider with number indicator
+###### Slider with number indicator
 ![Slider with number indicator](images/slider_with_number_indicator.png)
 
 
@@ -251,9 +256,9 @@ Some components have custom attributes, if you want use them, you must add this 
                 materialdesign:showNumberIndicator="true"/>
 ```
 
-##Widgets
+## Widgets
 
-####SnackBar
+#### SnackBar
 
 ![Snackbar](images/snackbar.png)
 
@@ -265,7 +270,7 @@ snackbar.show();
 
 > If you don't want to show the button, put `null` in `buttonText` attribute
 
-####Dialog
+#### Dialog
 
 ![Dialog](images/dialog.png)
 
@@ -275,18 +280,19 @@ dialog.show();
 ```
 
 >You can set the accept and cancel button on the event listener or change it's text
->```java
-> // Set accept click listenner
->dialog.setOnAcceptButtonClickListener(View.OnClickListener onAcceptButtonClickListener);
-> // Set cancel click listenner
->dialog.setOnCancelButtonClickListener(View.OnClickListener onCancelButtonClickListener);
-> // Acces to accept button
->ButtonFlat acceptButton = dialog.getButtonAccept();
-> // Acces to cancel button
->ButtonFlat cancelButton = dialog.getButtonCancel();
->```
 
-####Color selector
+```java
+    // Set accept click listenner
+    dialog.setOnAcceptButtonClickListener(View.OnClickListener onAcceptButtonClickListener);
+    // Set cancel click listenner
+    dialog.setOnCancelButtonClickListener(View.OnClickListener onCancelButtonClickListener);
+    // Acces to accept button
+    ButtonFlat acceptButton = dialog.getButtonAccept();
+    // Acces to cancel button
+    ButtonFlat cancelButton = dialog.getButtonCancel();
+```
+
+#### Color selector
 
 ![Color selector](images/color_selector.png)
 
@@ -295,6 +301,23 @@ ColorSelector colorSelector = new ColorSelector(Context context,int intialColor,
 colorSelector.show();
 ```
 
+# License
+
+```
+   Copyright 2017 navasmdc
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+```
 
 
 
