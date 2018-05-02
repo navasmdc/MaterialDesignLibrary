@@ -9,7 +9,7 @@
 
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-Material%20Design%20Android%20Library-brightgreen.svg?style=flat)](https://android-arsenal.com/details/1/1156)
 
-* [How to use](#howtouse)
+* [How to use](#how-to-use)
 * [Components](#components)
     * [Buttons](#buttons)
         * [Flat Button](#flat-button)
@@ -70,11 +70,11 @@ Some components have custom attributes, if you want use them, you must add this 
 ></com.gc.materialdesign.views.ScrollView>
 >```
 
-##Components
+## Components
 
-####Buttons
+#### Buttons
 
-######Flat Button
+###### Flat Button
 
 ![flat button](images/flat_button.png)
 ```xml
@@ -86,7 +86,7 @@ Some components have custom attributes, if you want use them, you must add this 
                 android:text="Button" />
 ```
 
-######Rectangle Button
+###### Rectangle Button
 
 ![rectangle button](images/rectangle_button.png)
 ```xml
@@ -98,7 +98,7 @@ Some components have custom attributes, if you want use them, you must add this 
                 android:text="Button" />
 ```
 
-######Float Button
+###### Float Button
 
 ![float button](images/float_button.png)
 
@@ -126,7 +126,7 @@ Some components have custom attributes, if you want use them, you must add this 
 </RelativeLayout>
 ```
 
-######Float small button
+###### Float small button
 
 ![float small button](images/float_small_button.png)
 
@@ -139,9 +139,9 @@ Some components have custom attributes, if you want use them, you must add this 
                 materialdesign:iconDrawable="@drawable/ic_action_new" />
 ```
 
-####Switches
+#### Switches
 
-######CheckBox
+###### CheckBox
 ![checkbox](images/checkbox.png)
 
 ```xml
@@ -153,7 +153,7 @@ Some components have custom attributes, if you want use them, you must add this 
                 materialdesign:check="true" />
 ```
 
-######Switch
+###### Switch
 ![switch](images/switch.png)
 
 ```xml
@@ -165,9 +165,9 @@ Some components have custom attributes, if you want use them, you must add this 
                 materialdesign:check="true" />
 ```
 
-####Progress indicators
+#### Progress indicators
 
-######Progress bar circular indeterminate
+###### Progress bar circular indeterminate
 ![progress bar circular indeterminate](images/progress_bar_circular_indeterminate.png)
 
 ```xml
@@ -178,7 +178,7 @@ Some components have custom attributes, if you want use them, you must add this 
                 android:background="#1E88E5" />
 ```
 
-######Progress bar indeterminate
+###### Progress bar indeterminate
 ![progress bar indeterminate](images/progress_bar_indeterminate.png)
 
 ```xml
@@ -189,7 +189,7 @@ Some components have custom attributes, if you want use them, you must add this 
                 android:background="#1E88E5" />
 ```
 
-######Progress bar indeterminate determinate
+###### Progress bar indeterminate determinate
 ![Progress bar indeterminate determinate](images/progress_bar_indeterminate_determinate.png)
 
 
@@ -207,7 +207,7 @@ Some components have custom attributes, if you want use them, you must add this 
 >progressBarIndeterminateDeterminate.setProgress(progress);
 >```
 
-######Progress bar determinate
+###### Progress bar determinate
 ![Progress bar determinate](images/progress_bar_determinate.png)
 
 
@@ -221,7 +221,7 @@ Some components have custom attributes, if you want use them, you must add this 
 
 >You can custom max and min progress values with `materialdesign:max="50"` and `materialdesign:min="25"` attributes.
 
-######Slider
+###### Slider
 ![Slider](images/slider.png)
 
 
@@ -236,7 +236,7 @@ Some components have custom attributes, if you want use them, you must add this 
                  />
 ```
 
-######Slider with number indicator
+###### Slider with number indicator
 ![Slider with number indicator](images/slider_with_number_indicator.png)
 
 
@@ -253,7 +253,7 @@ Some components have custom attributes, if you want use them, you must add this 
 
 ##Widgets
 
-####SnackBar
+#### SnackBar
 
 ![Snackbar](images/snackbar.png)
 
@@ -265,7 +265,7 @@ snackbar.show();
 
 > If you don't want to show the button, put `null` in `buttonText` attribute
 
-####Dialog
+#### Dialog
 
 ![Dialog](images/dialog.png)
 
@@ -286,7 +286,7 @@ dialog.show();
 >ButtonFlat cancelButton = dialog.getButtonCancel();
 >```
 
-####Color selector
+#### Color selector
 
 ![Color selector](images/color_selector.png)
 
