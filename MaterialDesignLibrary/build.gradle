@@ -5,7 +5,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:1.+'
+        classpath 'com.android.tools.build:gradle:2.2.2'
 // COMMENT TO DEVELOPER MODE / UNCOMMENT TO UPLOAD TO BINTARRAY
 //        classpath 'org.codehaus.groovy:groovy-backports-compat23:2.3.5'
 //        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.0'

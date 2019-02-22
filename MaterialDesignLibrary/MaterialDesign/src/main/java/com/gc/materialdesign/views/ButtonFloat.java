@@ -1,12 +1,14 @@
 package com.gc.materialdesign.views;
 
 import com.gc.materialdesign.R;
+import com.gc.materialdesign.utils.AttributesUtils;
 import com.gc.materialdesign.utils.Utils;
 import com.nineoldandroids.animation.ObjectAnimator;
 import com.nineoldandroids.view.ViewHelper;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -72,38 +74,16 @@ public class ButtonFloat extends Button{
 	
 	
 	// Set atributtes of XML to View
-	protected void setAttributes(AttributeSet attrs){
+	protected void setAttributes(AttributeSet attrs, TypedArray typedArray){
 		//Set background Color
 		// Color by resource
-		int bacgroundColor = attrs.getAttributeResourceValue(ANDROIDXML,"background",-1);
-		if(bacgroundColor != -1){
-			setBackgroundColor(getResources().getColor(bacgroundColor));
-		}else{
-			// Color by hexadecimal
-			background = attrs.getAttributeIntValue(ANDROIDXML, "background", -1);
-			if (background != -1)
-				setBackgroundColor(background);
-		}
-		
-		// Set Ripple Color
-		// Color by resource
-		int rippleColor = attrs.getAttributeResourceValue(MATERIALDESIGNXML,
-				"rippleColor", -1);
-		if (rippleColor != -1) {
-			setRippleColor(getResources().getColor(rippleColor));
-		} else {
-			// Color by hexadecimal
-			int background = attrs.getAttributeIntValue(MATERIALDESIGNXML, "rippleColor", -1);
-			if (background != -1)
-				setRippleColor(background);
-			else
-				setRippleColor(makePressColor());
-		}
+		int bacgroundColor = AttributesUtils.getBackgroundColor(getResources(), attrs, typedArray);
+		if(bacgroundColor != -1) setBackgroundColor(bacgroundColor);
 		// Icon of button
-		int iconResource = attrs.getAttributeResourceValue(MATERIALDESIGNXML,"iconDrawable",-1);
+		int iconResource = AttributesUtils.getIconDrawable(getResources(),attrs,typedArray);
 		if(iconResource != -1)
 			drawableIcon = getResources().getDrawable(iconResource);
-		final boolean animate = attrs.getAttributeBooleanValue(MATERIALDESIGNXML,"animate", false);
+		final boolean animate = AttributesUtils.getAnimated(getResources(),attrs,typedArray, false);
 			post(new Runnable() {
 				
 				@Override

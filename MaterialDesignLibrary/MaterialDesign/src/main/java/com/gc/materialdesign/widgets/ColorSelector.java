@@ -32,6 +32,7 @@ public class ColorSelector extends android.app.Dialog implements OnValueChangedL
 
 	public ColorSelector(Context context,Integer color, OnColorSelectedListener onColorSelectedListener) {
 		super(context, android.R.style.Theme_Translucent);
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		this.context = context;
 		this.onColorSelectedListener = onColorSelectedListener;
 		if(color != null)

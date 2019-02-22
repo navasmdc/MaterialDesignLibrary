@@ -36,6 +36,7 @@ public class Dialog extends android.app.Dialog{
 	
 	public Dialog(Context context,String title, String message) {
 		super(context, android.R.style.Theme_Translucent);
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		this.context = context;// init Context
 		this.message = message;
 		this.title = title;

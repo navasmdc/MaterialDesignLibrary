@@ -43,6 +43,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
+
                 android:textColor="#ffffff"
                 android:text="Button" />
         </RelativeLayout>
@@ -68,14 +69,14 @@
 
         <RelativeLayout
             android:layout_width="fill_parent"
-            android:layout_height="72dp" >
+            android:layout_height="wrap_content" >
 
             <com.gc.materialdesign.views.ButtonRectangle
                 android:id="@+id/button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:background="#1E88E5"
+                style="@style/PruebaStyle"
                 android:text="Button" />
         </RelativeLayout>
         <!-- SMALL FLOAT BUTTON -->
@@ -108,7 +109,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:background="#1E88E5"
-                materialdesign:iconDrawable="@drawable/ic_action_new" />
+                materialdesign:MLiconDrawable="@drawable/ic_action_new" />
         </RelativeLayout>
         
         <!-- FLOAT BUTTON -->
@@ -141,7 +142,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:background="#1E88E5"
-                materialdesign:iconDrawable="@drawable/ic_next" />
+                materialdesign:MLiconDrawable="@drawable/ic_next" />
         </RelativeLayout>
         
         <!-- FLOAT BUTTON -->
@@ -173,7 +174,7 @@
                 android:layout_alignParentBottom="true"
                 android:layout_marginRight="24dp"
                 android:background="#1E88E5"
-                materialdesign:animate="true"
-                materialdesign:iconDrawable="@drawable/ic_action_new" />
+                materialdesign:MLanimated="true"
+                materialdesign:MLiconDrawable="@drawable/ic_action_new" />
 
 </RelativeLayout>

@@ -39,7 +39,7 @@
             android:layout_marginLeft="32dp"
             android:layout_marginTop="108dp"
             android:background="#1E88E5"
-            materialdesign:iconDrawable="@drawable/icn_select_color" />
+            materialdesign:MLiconDrawable="@drawable/icn_select_color" />
     </RelativeLayout>
 
     <RelativeLayout

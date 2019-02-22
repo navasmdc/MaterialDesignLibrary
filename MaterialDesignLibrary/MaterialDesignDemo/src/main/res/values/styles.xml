@@ -17,4 +17,8 @@
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
     </style>
 
+    <style name="PruebaStyle">
+        <item name="android:background">#FF0000</item>
+    </style>
+
 </resources>
