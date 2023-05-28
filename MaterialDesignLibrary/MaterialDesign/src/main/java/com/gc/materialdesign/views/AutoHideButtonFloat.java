@@ -5,7 +5,6 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.ListView;
-
 import com.gc.materialdesign.views.ButtonFloat;
 import com.nineoldandroids.view.ViewPropertyAnimator;
 
@@ -14,10 +13,15 @@ import com.nineoldandroids.view.ViewPropertyAnimator;
  * This widget uses NineOldAndroid to animate the view so you're gonna need to include it in your project
  */
 public class AutoHideButtonFloat extends ButtonFloat implements AbsListView.OnScrollListener {
+
     ListView listView;
+
     private boolean floatHiding = false, floatShowing = false;
+
     private int mLastFirstVisibleItem;
+
     private View view = this;
+
     private AbsListView.OnScrollListener onScrollListener;
 
     public AutoHideButtonFloat(Context context, AttributeSet attrs) {
@@ -35,7 +39,7 @@ public class AutoHideButtonFloat extends ButtonFloat implements AbsListView.OnSc
 
     @Override
     public void onScrollStateChanged(AbsListView absListView, int scrollState) {
-        switch (scrollState) {
+        switch(scrollState) {
             case AbsListView.SCROLL_AXIS_NONE:
                 floatHiding = false;
                 floatShowing = false;
@@ -48,9 +52,9 @@ public class AutoHideButtonFloat extends ButtonFloat implements AbsListView.OnSc
 
     @Override
     public void onScroll(AbsListView absListView, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-
         if (mLastFirstVisibleItem < firstVisibleItem) {
-            if (floatShowing) floatShowing = false;
+            if (floatShowing)
+                floatShowing = false;
             if (!floatHiding) {
                 ViewPropertyAnimator.animate(view).translationY(500).setDuration(300);
                 floatHiding = true;
